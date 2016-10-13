@@ -38,6 +38,16 @@ public abstract class GeneticAlgorithm {
 	 *  else, the algorithm minimize the fitness value */
 	protected int optimization;
 	
+	/**
+	 * The probability of mutation
+	 */
+	protected double mutationRate;
+	
+	/**
+	 * The probability of crossover
+	 */
+	protected double crossoverRate;
+	
 	/** size of population */
 	protected int popSize;
 	
