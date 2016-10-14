@@ -10,6 +10,7 @@
 package commonOperators;
 
 import algorithm.Chromosome;
+import algorithm.StdRandom;
 import algorithm.TwoParentsCrossover;
 /**
  * Single point crossover
@@ -18,6 +19,13 @@ import algorithm.TwoParentsCrossover;
  * @since GA framework 1.0
  */
 public class SinglePointCrossover implements TwoParentsCrossover {
+	
+	private Chromosome chromosome;
+	public SinglePointCrossover(Chromosome chromosome){
+		this.chromosome = chromosome;
+	}
+	
+	
     /**
      * update the Global best according to all the personal bests
      * 
@@ -26,13 +34,20 @@ public class SinglePointCrossover implements TwoParentsCrossover {
      * @param crossoverRate the probability of crossover.
      * @return An array of chromosome children
      */
+
 	@Override
 	public Chromosome[] update(
-						Chromosome father, 
-						Chromosome mother, 
-						double crossoverRate
-						) {
-		return null;
+					Chromosome father, 
+					Chromosome mother, 
+					double crossoverRate
+					) {
+		
+		
+		int cutPoint = StdRandom.uniform(father.size());
+		Chromosome children1 = chromosome(
+									father.cut(cutPoint, 0), 
+									mother.cut(cutPoint, 1)
+									);
 	}
 
 	

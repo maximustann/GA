@@ -10,15 +10,26 @@
 
 package commonOperators;
 import algorithm.Chromosome;
+import algorithm.Gene;
 /**
  * 
  * 
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
-public class RealValueChromosome implements Chromosome{
+public class RealValueChromosome extends Chromosome{
 	/** We just want to inherent the type. Don't even need to encapsulate. 
 	 * @param individual 
-	 * */
+	 */
 	public double [] individual;
+	
+	@Override
+	public int size() {
+		return individual.length;
+	}
+
+	@Override
+	public Gene cut() {
+		return null;
+	}
 }

@@ -26,12 +26,24 @@ public abstract class GeneticAlgorithm {
 
 	/** An Evaluation object for Evaluation of fitness */
 	protected Evaluate evaluate;
+	
+	/** A selection method */
+	protected Selection selection;
+	
+	/** A Crossover method */
+	protected Crossover crossover;
 
+	/** A Mutation method */
+	protected Mutation mutation;
+	
 	/** An DataCollector object for collect result */
 	protected DataCollector collector;
 
 	/** an array of population variables, the size of array is the population size */	
 	 protected Chromosome [] popVar;
+	 
+	 /** An array of fitness values */
+	 protected double[] popFit;
 
 	// Problem related parameter settings
 	/** if optimization == 1, the algorithm maximize the fitness value 

@@ -10,7 +10,23 @@
  */
 
 package algorithm;
-
-public interface Chromosome {
-
+/**
+ * An abstract class of chromosome
+ * 
+ * @author Boxiong Tan (Maximus Tann) 
+ * @since GA framework 1.0
+ */
+public abstract class Chromosome {
+	
+	public Chromosome() {
+		
+	}
+	public Chromosome(Gene firstPart, Gene secondPart){
+		
+	}
+	/** get size of chromosome */
+	public abstract int size();
+	
+	/** cut method */
+	public abstract Gene cut(int cutPoint, int cutIndicator);
 }
