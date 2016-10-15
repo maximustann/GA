@@ -45,7 +45,7 @@ public abstract class GeneticAlgorithm {
 	 protected Chromosome [] popVar;
 	 
 	 /** An list of fitness values */
-	 protected ArrayList<Double[]> popFit;
+	 protected ArrayList<double[]> popFit;
 	 
 	 /** A sort method */
 	 protected sortPop sorting;

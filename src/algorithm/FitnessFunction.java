@@ -10,7 +10,9 @@
  */
 package algorithm;
 
+import java.util.ArrayList;
+
 public interface FitnessFunction {
-	public double[] normalizedFit(Chromosome [] popVar);
-	public double[] unNormalizedFit(Chromosome [] popVar);
+	public ArrayList<double[]> normalizedFit(Chromosome [] popVar);
+	public ArrayList<double[]> unNormalizedFit(Chromosome [] popVar);
 }

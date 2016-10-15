@@ -10,6 +10,8 @@
 
 package algorithm;
 
+import java.util.ArrayList;
+
 /**
  *  For writing any Fitness Functions this class should be extend.
  */
@@ -35,8 +37,8 @@ public abstract class FitnessFunc implements FitnessFunction{
      * @return array of normalized fitness values
      */
 	@Override
-	public double[] normalizedFit(Chromosome [] popVar) {
-		double [] fitness = unNormalizedFit(popVar);
+	public ArrayList<double[]> normalizedFit(Chromosome [] popVar) {
+		ArrayList<double[]> fitness = unNormalizedFit(popVar);
 		normalize.doNorm(fitness);
 		return fitness;
 	}
@@ -49,6 +51,6 @@ public abstract class FitnessFunc implements FitnessFunction{
      * @return array of unnormalized fitness values, which is often used 
      * 			by normalizedFit()
      */
-	public abstract double[] unNormalizedFit(Chromosome [] popVar);
+	public abstract ArrayList<double[]> unNormalizedFit(Chromosome [] popVar);
 
 }

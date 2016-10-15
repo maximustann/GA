@@ -30,11 +30,11 @@ public class sortPop {
 	 * @param popVar population
 	 * @param popFit fitness
 	 */
-	public void sort(Chromosome[] popVar, ArrayList<Double[]> popFit){
+	public void sort(Chromosome[] popVar, ArrayList<double[]> popFit){
 		Chromosome[] newPop = new Chromosome[popVar.length];
-		Collections.sort(popFit, new Comparator<Double[]>() {
+		Collections.sort(popFit, new Comparator<double[]>() {
 			@Override
-			public int compare(Double[] fitness1, Double[] fitness2) {
+			public int compare(double[] fitness1, double[] fitness2) {
 				if(fitness1[0] < fitness2[0]) return -1;
 				else if(fitness1[0] == fitness2[1]) return 0;
 				else return 1;
@@ -42,8 +42,8 @@ public class sortPop {
 		});
 
 		for(int i = 0; i < popVar.length; i++){
-			newPop[i] = popVar[popFit.get(i)[1].intValue()];
-			popFit.get(i)[1] = new Double(i);
+			newPop[i] = popVar[(int) popFit.get(i)[1]];
+			popFit.get(i)[1] = i;
 		}
 		popVar = newPop;
 	}

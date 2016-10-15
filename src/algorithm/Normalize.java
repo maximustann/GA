@@ -8,6 +8,9 @@
  * Normalize.java - An interface of normalization
  */
 package algorithm;
+
+import java.util.ArrayList;
+
 /**
  * Normalization function
  * 
@@ -23,5 +26,5 @@ public interface Normalize {
      * @param fitness the array of fitness values
      * @return an array of normalized fitness values
      */
-	public double[] doNorm(double[] fitness);
+	public ArrayList<double[]> doNorm(ArrayList<double[]> fitness);
 }
