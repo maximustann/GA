@@ -17,16 +17,17 @@ package algorithm;
  * @since GA framework 1.0
  */
 public abstract class Chromosome {
-	
 	public Chromosome() {
 		
 	}
-	public Chromosome(Gene firstPart, Gene secondPart){
+	public Chromosome(Gene firstPart, Gene secondPart)
+	{
 		
 	}
 	/** get size of chromosome */
 	public abstract int size();
 	
 	/** cut method */
-	public abstract Gene cut(int cutPoint, int cutIndicator);
+	public abstract Gene cut(int cutPoint, int geneIndicator);
+	
 }

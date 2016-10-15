@@ -42,7 +42,7 @@ public class IntValueChromosome extends Chromosome{
 		}	
 	}
 	
-	/** get the size of  */
+	/** get the size of chromosome */
 	public int size() {
 		return individual.length;
 	}
@@ -67,5 +67,6 @@ public class IntValueChromosome extends Chromosome{
 		}
 		return part;
 	}
+
 	
 }

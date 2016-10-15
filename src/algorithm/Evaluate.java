@@ -9,6 +9,8 @@
  */
 package algorithm;
 
+import java.util.ArrayList;
+
 /**
  * Defines the common method of evaluation
  * 
@@ -20,5 +22,5 @@ public interface Evaluate {
 	 * @param popVar a population of variables with a type of Chromosome
 	 * @param fitness the fitness values of whole population
 	 */
-	public void evaluate(Chromosome [] popVar,double [] fitness);
+	public void evaluate(Chromosome [] popVar,ArrayList<Double[]> fitness);
 }

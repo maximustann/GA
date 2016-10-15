@@ -11,6 +11,8 @@
 
 package algorithm;
 
+import java.util.ArrayList;
+
 /**
  * The abstraction of GA
  * 
@@ -42,9 +44,12 @@ public abstract class GeneticAlgorithm {
 	/** an array of population variables, the size of array is the population size */	
 	 protected Chromosome [] popVar;
 	 
-	 /** An array of fitness values */
-	 protected double[] popFit;
-
+	 /** An list of fitness values */
+	 protected ArrayList<Double[]> popFit;
+	 
+	 /** A sort method */
+	 protected sortPop sorting;
+	 
 	// Problem related parameter settings
 	/** if optimization == 1, the algorithm maximize the fitness value 
 	 *  else, the algorithm minimize the fitness value */
@@ -65,6 +70,15 @@ public abstract class GeneticAlgorithm {
 	
 	/** size of maximum generation */
 	protected int maxGen;
+	
+	/** chromosome size */
+	protected int maxVar;
+	
+	/** the lower boundary of a variable of a chromosome */
+	protected double lbound;
+
+	/** the upper boundary of a variable of a chromosome */
+	protected double ubound;
 
     /**
      * Instead of using a constructor, we use a prepare() which do the 

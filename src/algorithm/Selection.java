@@ -9,6 +9,9 @@
  */
 
 package algorithm;
+
+import java.util.ArrayList;
+
 /**
  * An interface of selection operator
  * 
@@ -25,6 +28,6 @@ public interface Selection {
      */	
 	public Chromosome selected (
 			Chromosome [] popVar,
-			double[] fitness
+			ArrayList<Double[]> fitness
 			);
 }

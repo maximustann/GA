@@ -13,7 +13,6 @@ import algorithm.Chromosome;
 import algorithm.Gene;
 /**
  * 
- * 
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
@@ -24,12 +23,31 @@ public class RealValueChromosome extends Chromosome{
 	public double [] individual;
 	
 	@Override
+	/** get the size of chromosome */
 	public int size() {
 		return individual.length;
 	}
-
+	
+	
+	/**  cut method 
+	 *  @param cutPoint where to cut
+	 *  @param geneIndicator first half (0) or second half (1) ?
+	 *  @return return gene part
+	 */
 	@Override
-	public Gene cut() {
-		return null;
+	public Gene cut(int cutPoint, int geneIndicator) {
+		DoubleGene part;
+		if(geneIndicator == 0) {
+			part = new DoubleGene(cutPoint + 1); 
+			for(int i = 0; i < cutPoint + 1; i++){
+				part.gene[i] = individual[i];
+			}
+		} else {
+			part = new DoubleGene(size() - (cutPoint + 1));
+			for(int i = cutPoint + 1, j = 0; i < size(); i++, j++){
+				part.gene[j] = individual[i];
+			}
+		}
+		return part;
 	}
 }

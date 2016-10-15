@@ -24,7 +24,7 @@ public interface InitPop {
      * @param maxVar the number of variable of a particle
      * @param lbound the lower boundary of a variable of a chromosome
      * @param ubound the upper boundary of a variable of a chromosome
-     * @return 2D-array of population variables
+     * @return array of chromosomes
      */	
 	public Chromosome[] init(
 							int popSize, 
