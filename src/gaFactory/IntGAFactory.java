@@ -47,11 +47,11 @@ public class IntGAFactory implements GAFactory{
 	public Mutation getMutation() {
 		return  new IntReverseSequenceMutation();
 	}
-	
+
 
 	@Override
-	public Selection getSelection() {
-		return null;
+	public Selection getSelection(int tournamentSize, int optimization) {
+		return new TournamentSelection(tournamentSize, optimization);
 	}
 
 	@Override

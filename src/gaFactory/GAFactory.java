@@ -20,7 +20,7 @@ import dataCollector.DataCollector;
 public interface GAFactory {
 	public InitPop getInitPopMethod();
 	public Mutation getMutation();
-	public Selection getSelection();
+	public Selection getSelection(int tournamentSize, int optimization);
 	public Crossover getCrossover();
 	public DataCollector getDataCollector();
 }

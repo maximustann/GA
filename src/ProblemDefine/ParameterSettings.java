@@ -10,16 +10,16 @@
 package ProblemDefine;
 /**
  * Parameter settings
- * 
- * @author Boxiong Tan (Maximus Tann) 
+ *
+ * @author Boxiong Tan (Maximus Tann)
  * @since GA framework 1.0
  */
 public class ParameterSettings {
 	private double mutationRate, crossoverRate, lbound, ubound;
-	private int optimization, popSize, maxGen, maxVar;
+	private int optimization, tournamentSize, popSize, maxGen, maxVar;
     /**
      * Prepare a package of parameter settings
-     * 
+     *
      * @param crossoverRate crossover rate
      * @param mutationRate mutation rate
      * @param lbound the lower boundary of a variable of a particle
@@ -28,21 +28,23 @@ public class ParameterSettings {
      * @param popSize population size
      * @param maxGen maximum generation
      * @param maxVar the number of variable of a particle
-     */	
+     */
 	public ParameterSettings(
-						double mutationRate, 
-						double crossoverRate, 
-						double lbound, 
-						double ubound, 
-						int optimization, 
-						int popSize, 
-						int maxGen, 
+						double mutationRate,
+						double crossoverRate,
+						double lbound,
+						double ubound,
+						int tournamentSize,
+						int optimization,
+						int popSize,
+						int maxGen,
 						int maxVar
 						){
 		this.mutationRate = mutationRate;
 		this.crossoverRate = crossoverRate;
 		this.lbound = lbound;
 		this.ubound = ubound;
+		this.tournamentSize = tournamentSize;
 		this.optimization = optimization;
 		this.popSize = popSize;
 		this.maxGen = maxGen;
@@ -74,6 +76,10 @@ public class ParameterSettings {
 
 	public double getCrossoverRate() {
 		return crossoverRate;
+	}
+
+	public int getTournamentSize() {
+		return tournamentSize;
 	}
 
 }

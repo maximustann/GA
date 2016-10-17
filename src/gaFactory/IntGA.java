@@ -66,12 +66,13 @@ public class IntGA extends CommonGA{
 		lbound = pars.getLbound();
 		ubound = pars.getUbound();
 		optimization = pars.getOptimization();
+		tournamentSize = pars.getTournamentSize();
 		popFit = new ArrayList<double[]>();
 
 		initPop = factory.getInitPopMethod();
 		mutation = factory.getMutation();
 		crossover = factory.getCrossover();
-		selection = factory.getSelection();
+		selection = factory.getSelection(optimization, tournamentSize);
 		evaluate = proSet.getEvaluate();
 		collector = factory.getDataCollector();
 	}
