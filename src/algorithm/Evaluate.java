@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public interface Evaluate {
 	/**
 	 * @param popVar a population of variables with a type of Chromosome
-	 * @param fitness the fitness values of whole population
+	 * @param popFit the fitness values of whole population
 	 */
-	public void evaluate(Chromosome [] popVar,ArrayList<Double[]> fitness);
+	public void evaluate(Chromosome [] popVar,ArrayList<double[]> popFit);
 }

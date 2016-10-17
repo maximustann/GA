@@ -44,7 +44,7 @@ public abstract class GeneticAlgorithm {
 	/** an array of population variables, the size of array is the population size */	
 	 protected Chromosome [] popVar;
 	 
-	 /** An list of fitness values */
+	 /** An list of [fitness values,their rankings] */
 	 protected ArrayList<double[]> popFit;
 	 
 	 /** A sort method */

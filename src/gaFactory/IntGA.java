@@ -66,7 +66,7 @@ public class IntGA extends CommonGA{
 		lbound = pars.getLbound();
 		ubound = pars.getUbound();
 		optimization = pars.getOptimization();
-		popFit = new ArrayList<Double[]>();
+		popFit = new ArrayList<double[]>();
 
 		initPop = factory.getInitPopMethod();
 		mutation = factory.getMutation();

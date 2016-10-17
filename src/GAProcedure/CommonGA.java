@@ -27,9 +27,12 @@ public abstract class CommonGA extends GeneticAlgorithm{
  * 		For each generation
  * 		<li> 2. evaluate population </li> 
  * 		<li> 3. sort population </li> 
- * 		<li> 4. select parents </li> 
- * 		<li> 5. crossover </li> 
- * 		<li> 6. mutation </li> 
+ * 		<ul> while (not enough children)
+ * 			<li> 4. select parents </li> 
+ * 			<li> 5. crossover </li> 
+ * 			<li> 6. store children </li>
+ * 		<ul>
+ * 		<li> 7. mutation </li> 
  * 	<ul> 
  * <ul>
  * 
@@ -40,11 +43,22 @@ public abstract class CommonGA extends GeneticAlgorithm{
 		popVar = initPop.init(popSize, maxVar, lbound, ubound);
 
 		for(int i = 0; i < maxGen; i++){
+			int childrenCount = 0;
+			Chromosome[] newPop = new Chromosome[popSize];
 			evaluate.evaluate(popVar, popFit);
 			sorting.sort(popVar, popFit);
-			Chromosome father = selection.selected(popVar, popFit);
-			Chromosome mother = selection.selected(popVar, popFit);
-			((TwoParentsCrossover) crossover).update(father, mother, crossoverRate);
+
+			while(childrenCount < popSize) {
+				Chromosome father = popVar[selection.selected(popVar, popFit)];
+				Chromosome mother = popVar[selection.selected(popVar, popFit)];
+				Chromosome[] children = ((TwoParentsCrossover) crossover)
+										.update(father, mother, crossoverRate);
+				for(int j = 0; j < children.length; j++) {
+					newPop[childrenCount] = children[j];
+					childrenCount++;
+				}
+			}
+			popVar = newPop;
 			mutation.update(popVar, mutationRate);
 //			collector.collect(gBestFit);
 		}
