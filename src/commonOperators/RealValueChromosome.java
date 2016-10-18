@@ -12,24 +12,27 @@ package commonOperators;
 import algorithm.Chromosome;
 import algorithm.Gene;
 /**
- * 
- * @author Boxiong Tan (Maximus Tann) 
+ *
+ * @author Boxiong Tan (Maximus Tann)
  * @since GA framework 1.0
  */
 public class RealValueChromosome extends Chromosome{
-	/** We just want to inherent the type. Don't even need to encapsulate. 
-	 * @param individual 
+	/** We just want to inherent the type. Don't even need to encapsulate.
+	 * @param individual
 	 */
 	public double [] individual;
-	
+
+	public RealValueChromosome(int size){
+		individual = new double[size];
+	}
 	@Override
 	/** get the size of chromosome */
 	public int size() {
 		return individual.length;
 	}
-	
-	
-	/**  cut method 
+
+
+	/**  cut method
 	 *  @param cutPoint where to cut
 	 *  @param geneIndicator first half (0) or second half (1) ?
 	 *  @return return gene part
@@ -38,7 +41,7 @@ public class RealValueChromosome extends Chromosome{
 	public Gene cut(int cutPoint, int geneIndicator) {
 		DoubleGene part;
 		if(geneIndicator == 0) {
-			part = new DoubleGene(cutPoint + 1); 
+			part = new DoubleGene(cutPoint + 1);
 			for(int i = 0; i < cutPoint + 1; i++){
 				part.gene[i] = individual[i];
 			}
