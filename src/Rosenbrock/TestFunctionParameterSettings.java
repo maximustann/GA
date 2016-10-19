@@ -1,7 +1,7 @@
 package Rosenbrock;
 
 import ProblemDefine.ProblemParameterSettings;
-import algorithms.Evaluate;
+import algorithm.Evaluate;
 
 public class TestFunctionParameterSettings extends ProblemParameterSettings{
 

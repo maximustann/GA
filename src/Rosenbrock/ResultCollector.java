@@ -2,50 +2,48 @@ package Rosenbrock;
 
 import java.util.ArrayList;
 
+import algorithm.Chromosome;
 import dataCollector.DataCollector;
 
 public class ResultCollector implements DataCollector {
-	private ArrayList<Double> resultData;
-	private ArrayList<double[][]> particleData;
+	private ArrayList<double[]> resultData;
+	private ArrayList<Chromosome[]> data;
 
 	public ResultCollector(){
-		resultData = new ArrayList<Double>();
-		particleData = new ArrayList<double[][]>();
+		resultData = new ArrayList<double[]>();
+		data = new ArrayList<Chromosome[]>();
 	}
 	@Override
 	public void collect(Object data) {
-		resultData.add((Double) data);
+		resultData.add((double[]) data);
 	}
 
-	public ArrayList<Double> getResult(){
+	public ArrayList<double[]> getResult(){
 		return resultData;
 	}
 	
-	public ArrayList<double[][]> getParticle(){
-		return particleData;
-	}
 
 	public void printResult(){
 		for(int i = 0; i < resultData.size(); i++){
-			System.out.println(resultData.get(i));
+			System.out.println("fitness: " + resultData.get(i)[0]);
 		}
 		System.out.println();
 	}
 	
-	public void printParticle(){
-		for(int i = 0; i < particleData.size(); i++){
-			for(int j = 0; j < particleData.get(0).length; j++){
-				for(int k = 0; k < particleData.get(0)[0].length; k++){
-					System.out.print(particleData.get(i)[j][k] + " ");
-				}
-				System.out.println();
+	public void printPop(){
+		for(int i = 0; i < data.size(); i++) {
+			for(int j = 0; j < data.get(0).length; j++) {
+				data.get(i)[j].print();
 			}
+			System.out.println();
 		}
-		System.out.println();
 	}
+	
+	
+	
 	@Override
-	public void collectParticle(double[][] particle) {
-		particleData.add(particle);
+	public void collectChromosome(Chromosome[] popVar) {
+		data.add(popVar);
 	}
 	
 	

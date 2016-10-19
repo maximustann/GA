@@ -1,10 +1,1 @@
-/FileHandlers/
-/algorithm/
-/dataCollector/
-/commonOperatorAndChromosome/
-/commonOperators/
-/ProblemDefine/
-/psoProcedure/
-/GAProcedure/
-/gaFactory/
-/.DS_Store
+/Rosenbrock/

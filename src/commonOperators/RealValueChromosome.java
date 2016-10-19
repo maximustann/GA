@@ -53,4 +53,13 @@ public class RealValueChromosome extends Chromosome{
 		}
 		return part;
 	}
+	
+	/**
+	 * Print in one line
+	 */
+	public void print() {
+		for(int i = 0; i < size(); i++){
+			System.out.print(individual[i] + " ");
+		}
+	}
 }

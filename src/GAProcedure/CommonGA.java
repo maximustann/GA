@@ -25,7 +25,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
  * 	<li> 1. initialize population </li>
  * 	<ul>
  * 		For each generation
- * 		<li> 2. evaluate population </li> 
+ * 		<li> 2. evaluate population, collect the best fitness value</li> 
  * 		<li> 3. sort population </li> 
  * 		<ul> while (not enough children)
  * 			<li> 4. select parents </li> 
@@ -46,6 +46,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 			int childrenCount = 0;
 			Chromosome[] newPop = new Chromosome[popSize];
 			evaluate.evaluate(popVar, popFit);
+			collector.collect(popFit.get(0));
 			sorting.sort(popVar, popFit);
 
 			while(childrenCount < popSize) {

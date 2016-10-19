@@ -30,4 +30,6 @@ public abstract class Chromosome {
 	/** cut method */
 	public abstract Gene cut(int cutPoint, int geneIndicator);
 	
+	/** print method */
+	public abstract void print();
 }
