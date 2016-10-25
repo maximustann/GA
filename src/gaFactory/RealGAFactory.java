@@ -13,6 +13,7 @@ import algorithm.Crossover;
 import algorithm.InitPop;
 import algorithm.Mutation;
 import algorithm.Selection;
+import algorithm.Sort;
 import commonOperators.*;
 import dataCollector.DataCollector;
 /**
@@ -23,16 +24,25 @@ import dataCollector.DataCollector;
  */
 public class RealGAFactory implements GAFactory{
 	private DataCollector collector;
-	private double lbound, ubound;
+	private double lbound, ubound, perturbation;
 
 	/**
 	 * Constructor
 	 * @param collector is the data collector
+	 * @param lbound lower bound of variable 
+	 * @param ubound upper bound of variable
+	 * @param perturbation the parameter used in polynomial mutation
 	 */
-	public RealGAFactory(DataCollector collector, double lbound, double ubound){
+	public RealGAFactory(
+				DataCollector collector, 
+				double lbound, 
+				double ubound, 
+				double perturbation
+				){
 		this.collector = collector;
 		this.lbound = lbound;
 		this.ubound = ubound;
+		this.perturbation = perturbation;
 	}
 
 	@Override
@@ -47,7 +57,7 @@ public class RealGAFactory implements GAFactory{
 
 	@Override
 	public Mutation getMutation() {
-		return  new PolyMutation(lbound, ubound);
+		return  new PolyMutation(lbound, ubound, perturbation);
 	}
 
 	@Override
@@ -58,5 +68,9 @@ public class RealGAFactory implements GAFactory{
 	@Override
 	public Crossover getCrossover() {
 		return new SimulatedBinaryCrossover();
+	}
+	
+	public Sort getSort(){
+		return new sortPop();
 	}
 }

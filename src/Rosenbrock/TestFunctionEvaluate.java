@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import algorithm.Chromosome;
 import algorithm.Evaluate;
+import algorithm.FitnessFunc;
 import algorithm.FitnessFunction;
 
 public class TestFunctionEvaluate implements Evaluate{
@@ -21,7 +22,11 @@ public class TestFunctionEvaluate implements Evaluate{
 
 	@Override
 	public void evaluate(Chromosome[] popVar, ArrayList<double[]> popFit) {
-		// TODO Auto-generated method stub
-		popFit = funcList.get(0).normalizedFit(popVar);
+		popFit.clear();
+		FitnessFunction fitnessFunction = funcList.get(0);
+		ArrayList<double[]> tempFit = fitnessFunction.normalizedFit(popVar);
+		for(int i = 0; i < tempFit.size(); i++) {
+			popFit.add(tempFit.get(i));
+		}
 	}
 }

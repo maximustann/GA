@@ -62,4 +62,8 @@ public class RealValueChromosome extends Chromosome{
 			System.out.print(individual[i] + " ");
 		}
 	}
+	
+	private double round(double value) {
+		return Math.floor(value);
+	}
 }

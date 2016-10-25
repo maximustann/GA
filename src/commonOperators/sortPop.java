@@ -7,17 +7,20 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * sortPop.java - A sort method for population
  */
-package algorithm;
+package commonOperators;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import algorithm.Chromosome;
+import algorithm.Sort;
 /**
  * population sorting
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
-public class sortPop {
+public class sortPop implements Sort{
 	/**
 	 * Sort
 	 * Steps
@@ -35,9 +38,7 @@ public class sortPop {
 		Collections.sort(popFit, new Comparator<double[]>() {
 			@Override
 			public int compare(double[] fitness1, double[] fitness2) {
-				if(fitness1[0] < fitness2[0]) return -1;
-				else if(fitness1[0] == fitness2[1]) return 0;
-				else return 1;
+				return (int) (fitness1[0] - fitness2[0]);
 			}
 		});
 

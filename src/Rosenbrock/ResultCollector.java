@@ -34,6 +34,7 @@ public class ResultCollector implements DataCollector {
 		for(int i = 0; i < data.size(); i++) {
 			for(int j = 0; j < data.get(0).length; j++) {
 				data.get(i)[j].print();
+				System.out.println();
 			}
 			System.out.println();
 		}

@@ -12,7 +12,6 @@ public class TestFunctionFitness implements FitnessFunction{
 			double fit = 0.0;
 			for(int j = 0; j < popVar[0].size() - 1; j++){
 				fit += 
-						
 						100 * (
 							   Math.pow(
 									      (

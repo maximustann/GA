@@ -13,6 +13,7 @@ import algorithm.Crossover;
 import algorithm.InitPop;
 import algorithm.Mutation;
 import algorithm.Selection;
+import algorithm.Sort;
 import commonOperators.*;
 import dataCollector.DataCollector;
 /**
@@ -58,7 +59,10 @@ public class IntGAFactory implements GAFactory{
 	public Crossover getCrossover() {
 		return new SinglePointCrossover();
 	}
-
+	
+	public Sort getSort(){
+		return new sortPop();
+	}
 
 
 }

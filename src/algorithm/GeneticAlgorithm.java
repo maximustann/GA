@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * @since GA framework 1.0
  */
 import algorithm.StdRandom;
+import commonOperators.sortPop;
 import dataCollector.DataCollector;
 
 public abstract class GeneticAlgorithm {
@@ -48,7 +49,7 @@ public abstract class GeneticAlgorithm {
 	 protected ArrayList<double[]> popFit;
 
 	 /** A sort method */
-	 protected sortPop sorting;
+	 protected Sort sort;
 
 	// Problem related parameter settings
 	/** if optimization == 1, the algorithm maximize the fitness value

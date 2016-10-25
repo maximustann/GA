@@ -64,6 +64,9 @@ public class SimulatedBinaryCrossover implements TwoParentsCrossover {
 				if(process2 < 0) process2 = - process2;
 				child1.individual[i] = 0.5 * (process1 - beta * process2);
 				child2.individual[i] = 0.5 * (process1 + beta * process2);
+			} else {
+				child1.individual[i] = ((RealValueChromosome) father).individual[i];
+				child2.individual[i] = ((RealValueChromosome) mother).individual[i];
 			}
 		}
 		children[0] = child1;

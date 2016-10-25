@@ -38,6 +38,7 @@ public class InitRealChromosomes implements InitPop{
 
 		// initialize population
 		for(int i = 0; i < popSize; i++){
+			popVar[i] = new RealValueChromosome(maxVar);
 			for(int j = 0; j < maxVar; j++){
 				popVar[i].individual[j] = StdRandom.uniform(lbound, ubound);
 			}
