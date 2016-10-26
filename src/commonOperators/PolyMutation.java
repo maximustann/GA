@@ -41,7 +41,7 @@ public class PolyMutation implements Mutation {
 	 * 		<li> 1. randomly generate a number: u</li>
 	 * </ul>
 	 * @param popVar population
-	 * @param mutationRate It is not actually a "rate". It is a value which is suggested choose from [20, 100]
+	 * @param mutationRate mutation rate
 	 */
 	public void update(Chromosome[] popVar, double mutationRate) {
 		int popSize = popVar.length;

@@ -72,6 +72,7 @@ public class IntGA extends CommonGA{
 		initPop = factory.getInitPopMethod();
 		mutation = factory.getMutation();
 		crossover = factory.getCrossover();
+		elitism = factory.getElitism();
 		selection = factory.getSelection(tournamentSize, optimization);
 		evaluate = proSet.getEvaluate();
 		collector = factory.getDataCollector();

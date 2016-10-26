@@ -24,4 +24,5 @@ public interface GAFactory {
 	public Crossover getCrossover();
 	public Sort getSort();
 	public DataCollector getDataCollector();
+	public Elitism getElitism();
 }

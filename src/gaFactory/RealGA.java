@@ -72,6 +72,7 @@ public class RealGA extends CommonGA{
 		mutation = factory.getMutation();
 		crossover = factory.getCrossover();
 		selection = factory.getSelection(tournamentSize, optimization);
+		elitism = factory.getElitism();
 		evaluate = proSet.getEvaluate();
 		collector = factory.getDataCollector();
 		sort = factory.getSort();

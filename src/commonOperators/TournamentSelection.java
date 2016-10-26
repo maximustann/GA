@@ -51,11 +51,14 @@ public class TournamentSelection implements Selection{
 			chosen.add(fitness.get(r));
 		}
 
+
 		greatestFit[0] = chosen.get(0)[0];
 		greatestFit[1] = chosen.get(0)[1];
 		for(int i = 1; i < tournamentSize; i++){
-			if((greatestFit[0] > chosen.get(i)[0] && optimization == 0) ||
-				greatestFit[0] < chosen.get(i)[0] && optimization == 1) {
+			if(
+				(greatestFit[0] > chosen.get(i)[0] && optimization == 0) ||
+				(greatestFit[0] < chosen.get(i)[0] && optimization == 1)
+				) {
 				greatestFit[0] = chosen.get(i)[0];
 				greatestFit[1] = chosen.get(i)[1];
 			}

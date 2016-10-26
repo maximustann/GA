@@ -43,17 +43,22 @@ public abstract class CommonGA extends GeneticAlgorithm{
 		popVar = initPop.init(popSize, maxVar, lbound, ubound);
 
 		for(int i = 0; i < maxGen; i++){
-			int childrenCount = 0;
+			int childrenCount = elitism.getSize();
 			Chromosome[] newPop = new Chromosome[popSize];
 			evaluate.evaluate(popVar, popFit);
+
 			sort.sort(popVar, popFit);
+			elitism.carryover(popVar, newPop);
 			collector.collect(popFit.get(0));
 			collector.collectChromosome(popVar);
 			
+			// ============Debug==============
+//			System.out.println("After sorting");
 //			for(int j = 0; j < popSize; j++){
 //				System.out.println(popFit.get(j)[0] + " : " + popFit.get(j)[1]);
 //			}
 //			System.out.println();
+			// ============Debug==============
 
 			while(childrenCount < popSize) {
 				Chromosome father = popVar[selection.selected(popVar, popFit)];
@@ -68,7 +73,6 @@ public abstract class CommonGA extends GeneticAlgorithm{
 
 			mutation.update(newPop, mutationRate);
 			popVar = newPop;
-//			collector.collect(gBestFit);
 		}
 	}
 

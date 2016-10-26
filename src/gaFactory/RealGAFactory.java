@@ -10,6 +10,7 @@
 package gaFactory;
 
 import algorithm.Crossover;
+import algorithm.Elitism;
 import algorithm.InitPop;
 import algorithm.Mutation;
 import algorithm.Selection;
@@ -25,6 +26,7 @@ import dataCollector.DataCollector;
 public class RealGAFactory implements GAFactory{
 	private DataCollector collector;
 	private double lbound, ubound, perturbation;
+	private int elitSize;
 
 	/**
 	 * Constructor
@@ -37,12 +39,14 @@ public class RealGAFactory implements GAFactory{
 				DataCollector collector, 
 				double lbound, 
 				double ubound, 
-				double perturbation
+				double perturbation,
+				int elitSize
 				){
 		this.collector = collector;
 		this.lbound = lbound;
 		this.ubound = ubound;
 		this.perturbation = perturbation;
+		this.elitSize = elitSize;
 	}
 
 	@Override
@@ -72,5 +76,10 @@ public class RealGAFactory implements GAFactory{
 	
 	public Sort getSort(){
 		return new sortPop();
+	}
+
+	@Override
+	public Elitism getElitism() {
+		return new CommonElitism(elitSize);
 	}
 }

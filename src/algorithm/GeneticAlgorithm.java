@@ -38,6 +38,9 @@ public abstract class GeneticAlgorithm {
 
 	/** A Mutation method */
 	protected Mutation mutation;
+	
+	/** An Elitism Method */
+	protected Elitism elitism;
 
 	/** An DataCollector object for collect result */
 	protected DataCollector collector;
