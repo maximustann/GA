@@ -66,16 +66,24 @@ public class RealGA extends CommonGA{
 		ubound = pars.getUbound();
 		optimization = pars.getOptimization();
 		tournamentSize = pars.getTournamentSize();
+		elitSize = pars.getElitSize();
 		popFit = new ArrayList<double[]>();
 
 		initPop = factory.getInitPopMethod();
 		mutation = factory.getMutation();
 		crossover = factory.getCrossover();
 		selection = factory.getSelection(tournamentSize, optimization);
-		elitism = factory.getElitism();
+		elitism = factory.getElitism(elitSize, optimization);
 		evaluate = proSet.getEvaluate();
 		collector = factory.getDataCollector();
 		sort = factory.getSort();
 	}
 
+	public void runNtimes(int seedStart, int nTimes) {
+		for(int i = 0; i < nTimes; i++){
+			run(seedStart);
+			seedStart++;
+		}
+	}
+	
 }

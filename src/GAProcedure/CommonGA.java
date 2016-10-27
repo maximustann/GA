@@ -9,6 +9,8 @@
  */
 
 package GAProcedure;
+import java.util.ArrayList;
+
 import algorithm.Chromosome;
 import algorithm.GeneticAlgorithm;
 import algorithm.TwoParentsCrossover;
@@ -54,24 +56,30 @@ public abstract class CommonGA extends GeneticAlgorithm{
 			
 			// ============Debug==============
 //			System.out.println("After sorting");
-//			for(int j = 0; j < popSize; j++){
+//			for(int j = 0; j < elitSize; j++){
 //				System.out.println(popFit.get(j)[0] + " : " + popFit.get(j)[1]);
+//				popVar[j].print();
+//				System.out.println();
 //			}
-//			System.out.println();
 			// ============Debug==============
 
-			while(childrenCount < popSize) {
+			while(true) {
+				int exitFlag = 0;
 				Chromosome father = popVar[selection.selected(popVar, popFit)];
 				Chromosome mother = popVar[selection.selected(popVar, popFit)];
 				Chromosome[] children = ((TwoParentsCrossover) crossover)
 										.update(father, mother, crossoverRate);
 				for(int j = 0; j < children.length; j++) {
+					mutation.update(children[j], mutationRate);
 					newPop[childrenCount] = children[j];
 					childrenCount++;
+					if(childrenCount == popSize) {
+						exitFlag = 1;
+						break;
+					}
 				}
+				if(exitFlag == 1) break;
 			}				
-
-			mutation.update(newPop, mutationRate);
 			popVar = newPop;
 		}
 	}

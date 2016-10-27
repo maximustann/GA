@@ -16,7 +16,7 @@ package ProblemDefine;
  */
 public class ParameterSettings {
 	private double mutationRate, crossoverRate, lbound, ubound;
-	private int optimization, tournamentSize, popSize, maxGen, maxVar;
+	private int optimization, tournamentSize, elitSize, popSize, maxGen, maxVar;
     /**
      * Prepare a package of parameter settings
      *
@@ -24,6 +24,8 @@ public class ParameterSettings {
      * @param mutationRate mutation rate
      * @param lbound the lower boundary of a variable of a particle
      * @param ubound the upper boundary of a variable of a particle
+     * @param tournamentSize size of tournament selection
+     * @param elitSize size of elitism
      * @param optimization minimize (0) or maximize (1)
      * @param popSize population size
      * @param maxGen maximum generation
@@ -35,6 +37,7 @@ public class ParameterSettings {
 						double lbound,
 						double ubound,
 						int tournamentSize,
+						int elitSize,
 						int optimization,
 						int popSize,
 						int maxGen,
@@ -45,6 +48,7 @@ public class ParameterSettings {
 		this.lbound = lbound;
 		this.ubound = ubound;
 		this.tournamentSize = tournamentSize;
+		this.elitSize = elitSize;
 		this.optimization = optimization;
 		this.popSize = popSize;
 		this.maxGen = maxGen;
@@ -82,4 +86,7 @@ public class ParameterSettings {
 		return tournamentSize;
 	}
 
+	public int getElitSize() {
+		return elitSize;
+	}
 }

@@ -35,17 +35,31 @@ public class sortPop implements Sort{
 	 */
 	public void sort(Chromosome[] popVar, ArrayList<double[]> popFit){
 		Chromosome[] newPop = new Chromosome[popVar.length];
+		try {
 		Collections.sort(popFit, new Comparator<double[]>() {
+			
 			@Override
 			public int compare(double[] fitness1, double[] fitness2) {
-				return (int) (fitness1[0] - fitness2[0]);
+				int condition = 0;
+				if(fitness1[0] - fitness2[0] > 0.0) condition = 1;
+				else if(fitness1[0] - fitness2[0] < 0.0) condition = -1;
+				else condition = 0;
+				return condition;
 			}
+	
 		});
+		}catch(IllegalArgumentException e){
+			System.out.println("Sorting problem occurs!");
+		}
 
+
+		
 		for(int i = 0; i < popVar.length; i++){
 			newPop[i] = popVar[(int) popFit.get(i)[1]];
 			popFit.get(i)[1] = i;
 		}
-		popVar = newPop;
+		for(int i = 0; i < popVar.length; i++){
+			popVar[i] = newPop[i];
+		}
 	}
 }

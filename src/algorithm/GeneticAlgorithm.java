@@ -64,6 +64,11 @@ public abstract class GeneticAlgorithm {
 	 */
 	protected double mutationRate;
 
+	/**
+	 * the size of elitism
+	 */
+	protected int elitSize;
+
 	/** size of tournament */
 	protected int tournamentSize;
 	/**
@@ -106,5 +111,13 @@ public abstract class GeneticAlgorithm {
      * @param seed the random seed
      */
 	public abstract void run(int seed);
+	
+	/**
+	 * Repeat experiments for N times
+	 * 
+	 * @param seedStart the random seeds start from this point, increase 1 by each time
+	 * @param nTimes run experiments for nTimes
+	 */
+	public abstract void runNtimes(int seedStart, int nTimes);
 
 }

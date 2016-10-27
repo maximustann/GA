@@ -43,11 +43,8 @@ public class PolyMutation implements Mutation {
 	 * @param popVar population
 	 * @param mutationRate mutation rate
 	 */
-	public void update(Chromosome[] popVar, double mutationRate) {
-		int popSize = popVar.length;
-		for(int i = 0; i < popSize; i++){
-			polynomialMutation((RealValueChromosome) popVar[i], mutationRate);
-		}
+	public void update(Chromosome individual, double mutationRate) {
+		polynomialMutation((RealValueChromosome) individual, mutationRate);
 	}
 
 	/**

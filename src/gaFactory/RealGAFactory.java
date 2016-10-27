@@ -26,7 +26,6 @@ import dataCollector.DataCollector;
 public class RealGAFactory implements GAFactory{
 	private DataCollector collector;
 	private double lbound, ubound, perturbation;
-	private int elitSize;
 
 	/**
 	 * Constructor
@@ -39,14 +38,12 @@ public class RealGAFactory implements GAFactory{
 				DataCollector collector, 
 				double lbound, 
 				double ubound, 
-				double perturbation,
-				int elitSize
+				double perturbation
 				){
 		this.collector = collector;
 		this.lbound = lbound;
 		this.ubound = ubound;
 		this.perturbation = perturbation;
-		this.elitSize = elitSize;
 	}
 
 	@Override
@@ -79,7 +76,7 @@ public class RealGAFactory implements GAFactory{
 	}
 
 	@Override
-	public Elitism getElitism() {
-		return new CommonElitism(elitSize);
+	public Elitism getElitism(int elitSize, int optimization) {
+		return new CommonElitism(elitSize, optimization);
 	}
 }

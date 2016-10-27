@@ -23,7 +23,7 @@ public interface Mutation {
      * @param mutationRate the probability of mutation
      */	
 	public void update(
-			Chromosome [] popVar,
+			Chromosome individual,
 			double mutationRate 
 			);
 	

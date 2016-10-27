@@ -67,16 +67,26 @@ public class IntGA extends CommonGA{
 		ubound = pars.getUbound();
 		optimization = pars.getOptimization();
 		tournamentSize = pars.getTournamentSize();
+		elitSize = pars.getElitSize();
 		popFit = new ArrayList<double[]>();
 
 		initPop = factory.getInitPopMethod();
 		mutation = factory.getMutation();
 		crossover = factory.getCrossover();
-		elitism = factory.getElitism();
+		elitism = factory.getElitism(elitSize, optimization);
 		selection = factory.getSelection(tournamentSize, optimization);
 		evaluate = proSet.getEvaluate();
 		collector = factory.getDataCollector();
 		sort = factory.getSort();
+	}
+
+	@Override
+	public void runNtimes(int seedStart, int nTimes) {
+		for(int i = 0; i < nTimes; i++){
+			run(seedStart);
+			seedStart++;
+		}
+		
 	}
 
 }

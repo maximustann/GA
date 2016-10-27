@@ -25,15 +25,13 @@ import dataCollector.DataCollector;
  */
 public class IntGAFactory implements GAFactory{
 	private DataCollector collector;
-	private int elitSize;
 
 	/**
 	 * Constructor
 	 * @param collector is the data collector
 	 */
-	public IntGAFactory(DataCollector collector, int elitSize){
+	public IntGAFactory(DataCollector collector){
 		this.collector = collector;
-		this.elitSize = elitSize;
 	}
 
 	@Override
@@ -67,8 +65,8 @@ public class IntGAFactory implements GAFactory{
 		return new sortPop();
 	}
 	
-	public Elitism getElitism(){
-		return new CommonElitism(elitSize);
+	public Elitism getElitism(int elitSize, int optimization){
+		return new CommonElitism(elitSize, optimization);
 	}
 
 

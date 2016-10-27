@@ -19,13 +19,26 @@ import algorithm.Elitism;
  */
 public class CommonElitism implements Elitism{
 	private int elitSize;
+	private int optimization;
 	
-	public CommonElitism(int elitSize){
+	public CommonElitism(int elitSize, int optimization){
 		this.elitSize = elitSize;
+		this.optimization = optimization;
 	}
+	
+	/**
+	 * copy first elitSize
+	 */
 	public void carryover(Chromosome[] popVar, Chromosome[] newPop){
-		for(int i = 0; i < elitSize; i++){
-			newPop[i] = popVar[i];
+		int popSize = popVar.length;
+		if(optimization == 0){
+			for(int i = 0; i < elitSize; i++){
+				newPop[i] = popVar[i];
+			}
+		} else {
+			for(int i = 0; i < elitSize; i++){
+				newPop[i] = popVar[popSize - 1 - i];
+			}
 		}
 	}
 	public int getSize(){

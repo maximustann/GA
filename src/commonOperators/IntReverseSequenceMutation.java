@@ -27,13 +27,10 @@ public class IntReverseSequenceMutation implements Mutation {
 	 * 	1.Check if a random number in [0, 1] less than mutationRate, if yes, mutate
 	 * 	2. Do reverse sequence mutation
 	 */
-	public void update(Chromosome[] popVar, double mutationRate) {
-		int popSize = popVar.length;
+	public void update(Chromosome individual, double mutationRate) {
 
-		for(int i = 0; i < popSize; i++){
-			if(StdRandom.uniform() <= mutationRate) {
-				reverseSequence((IntValueChromosome) popVar[i]);
-			}
+		if(StdRandom.uniform() <= mutationRate) {
+			reverseSequence((IntValueChromosome) individual);
 		}
 	}
 
