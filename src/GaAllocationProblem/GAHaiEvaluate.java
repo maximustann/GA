@@ -11,8 +11,9 @@ package GaAllocationProblem;
 
 import java.util.ArrayList;
 
-import algorithms.Evaluate;
-import algorithms.FitnessFunction;
+import algorithm.Chromosome;
+import algorithm.Evaluate;
+import algorithm.FitnessFunction;
 /**
  *
  * @author Boxiong Tan (Maximus Tann)
@@ -45,17 +46,21 @@ public class GAHaiEvaluate implements Evaluate{
 	 *  <li> 2. add up n (two, in this case) fitness values multiply by their weights</li>
 	 * </ul>
 	 */
-	public void evaluate(double[][] popVar, double[] fitness){
-		ArrayList<double []> fitList = new ArrayList<double []>();
+	public void evaluate(Chromosome[] popVar, ArrayList<double[]> fitness){
+		fitness.clear();
+		ArrayList<ArrayList<double[]>> fitList = new ArrayList<ArrayList<double[]>>();
 		for(int i = 0; i < funcList.size(); i++){
 			fitList.add(funcList.get(i).normalizedFit(popVar));
 		}
 
-		for(int i = 0; i < fitness.length; i++){
-			fitness[i] = 0.0;
+		for(int i = 0; i < popVar.length; i++){
+			double[] fit = new double[2];
+			fit[0] = 0.0;
+			fit[1] = i;
 			for(int j = 0; j < funcList.size(); j++){
-				fitness[i] += weights[j] * fitList.get(j)[i];
+				fit[0] += weights[j] * fitList.get(j).get(i)[0];
 			}
+			fitness.add(fit);
 		}
 	}
 }

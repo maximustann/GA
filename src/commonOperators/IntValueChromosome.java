@@ -9,19 +9,26 @@
  */
 
 package commonOperators;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import algorithm.Chromosome;
+import algorithm.Gene;
 /**
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
 public class IntValueChromosome extends Chromosome{
 	/** We just want to inherent the type. Don't even need to encapsulate. 
-	 * @param individual 
 	 */
 	public int [] individual;
-
+	public int [][] matrixIndividual;
+	
+	/**
+	 * Constructor
+	 * @param size
+	 */
+	public IntValueChromosome(int size){
+		individual = new int[size];
+	}
 	/**
 	 * Constructor
 	 * We need two genes to construct a chromosome.
@@ -34,13 +41,13 @@ public class IntValueChromosome extends Chromosome{
 	 * @param secondPart
 	 *
 	 */
-	public IntValueChromosome(IntGene firstPart, IntGene secondPart){
+	public IntValueChromosome(Gene firstPart, Gene secondPart){
 		individual = new int[firstPart.size() + secondPart.size()];
 		for(int i = 0; i < firstPart.size(); i++) {
-			individual[i] = firstPart.gene[i];
+			individual[i] = ((IntGene) firstPart).gene[i];
 		}
 		for(int i = firstPart.size(), j = 0; j < secondPart.size(); j++, i++) {
-			individual[i] = secondPart.gene[j];
+			individual[i] = ((IntGene)secondPart).gene[j];
 		}	
 	}
 	
@@ -77,6 +84,20 @@ public class IntValueChromosome extends Chromosome{
 	public void print() {
 		for(int i = 0; i < size(); i++){
 			System.out.print(individual[i] + " ");
+		}
+	}
+	
+	/**
+	 * Transit to matrix representation
+	 */
+	public void toMatrix(int row){
+		int chromoSize = size();
+		int col = chromoSize / row;
+		matrixIndividual = new int[row][col];
+		for(int i = 0; i < row; i++){
+			for(int j = 0; j < col; j++){
+				matrixIndividual[i][j] = individual[i * row + col];
+			}
 		}
 	}
 

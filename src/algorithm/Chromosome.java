@@ -32,4 +32,5 @@ public abstract class Chromosome {
 	
 	/** print method */
 	public abstract void print();
+
 }

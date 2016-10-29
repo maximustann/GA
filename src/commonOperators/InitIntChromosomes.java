@@ -44,4 +44,5 @@ public class InitIntChromosomes implements InitPop{
 		}
 		return popVar;
 	}
+	
 }

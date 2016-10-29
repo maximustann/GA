@@ -8,6 +8,12 @@
  * Constraint.java - constraint functions for Hai's paper
  */
 package GaAllocationProblem;
+
+import java.util.ArrayList;
+
+import algorithm.Chromosome;
+import commonOperators.IntValueChromosome;
+
 /**
 *
 * @author Boxiong Tan (Maximus Tann)
@@ -28,21 +34,15 @@ public class Constraint {
 	 * @param fitness fitness values
 	 * @return fitness fitness values after punishment
 	 */
-	public double[] punish(double[][] popVar, double[] fitness){
-		int noLocation = popVar[0].length / noService;
-		double[][] particle = new double[noService][noLocation];
-
+	public ArrayList<double[]> punish(Chromosome[] popVar, ArrayList<double[]> fitness){
 		// transform vector into matrix
 		for(int count = 0; count < popVar.length; count++){
-			for(int i = 0; i < noService; i++){
-				for(int j = 0; j < noLocation; j++){
-					particle[i][j] = popVar[count][i * noService + j];
-				}
-			}
+			((IntValueChromosome) popVar[count]).toMatrix(noService);
 
 			// check if the service number constraint
-			if(!checkService(particle)){
-				fitness[count] = 1.0;
+			if(!checkService(((IntValueChromosome) popVar[count]).matrixIndividual)){
+				fitness.get(count)[0] = 1.0;
+				fitness.get(count)[1] = count;
 			}
 		}
 		return fitness;
@@ -53,9 +53,9 @@ public class Constraint {
 	 * @param particle an instance
 	 * @return boolean If the instance violates the constraint return false
 	 */
-	private boolean checkService(double[][] particle){
-		for(int i = 0; i < particle.length; i++){
-			if(rowSum(particle[i]) < 0.0001) return false;
+	private boolean checkService(int[][] matrixIndividual){
+		for(int i = 0; i < matrixIndividual.length; i++){
+			if(rowSum(matrixIndividual[i]) < 1) return false;
 		}
 		return true;
 	}
@@ -65,8 +65,8 @@ public class Constraint {
 	 * @param row a deployment plan for a specific web service
 	 * @return sum the count of the number of web services
 	 */
-	private double rowSum(double[] row){
-		double sum = 0;
+	private int rowSum(int[] row){
+		int sum = 0;
 		for(int i = 0; i < row.length; i++) sum += row[i];
 		return sum;
 	}

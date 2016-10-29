@@ -8,7 +8,10 @@
  * BPSOHaiTimeFitness.java - a response time fitness function for Hai's paper
  */
 package GaAllocationProblem;
-import algorithms.*;
+import java.util.ArrayList;
+
+import algorithm.*;
+import commonOperators.IntValueChromosome;
 /**
 *
 * @author Boxiong Tan (Maximus Tann)
@@ -51,13 +54,16 @@ public class GAHaiTimeFitness extends FitnessFunc {
 	/**
 	 * evaluate each population
 	 */
-	public double[] unNormalizedFit(double[][] popVar) {
+	public ArrayList<double[]> unNormalizedFit(Chromosome[] popVar) {
 		int popSize = popVar.length;
-		noLocation = popVar[0].length / noService;
-		double[] fitness = new double[popSize];
+		noLocation = popVar[0].size() / noService;
+		ArrayList<double[]> fitness = new ArrayList<double[]>();
 
 		for(int i = 0; i < popSize; i++){
-			fitness[i] = fitnessIndividual(popVar[i], noService, noLocation);
+			double[] fit = new double[2];
+			fit[0] = fitnessIndividual((IntValueChromosome) popVar[i], noService, noLocation);
+			fit[1] = i;
+			fitness.add(fit);
 		}
 		return fitness;
 	}
@@ -70,8 +76,8 @@ public class GAHaiTimeFitness extends FitnessFunc {
 	 *  <li>3. push fitness values	  </li>
 	 * </ul>
 	 */
-	public double[] normalizedFit(double[][] popVar){
-		double[] fitness = unNormalizedFit(popVar);
+	public ArrayList<double[]> normalizedFit(Chromosome[] popVar){
+		ArrayList<double[]> fitness = unNormalizedFit(popVar);
 		normalize.doNorm(fitness);
 		fitness = con.punish(popVar, fitness);
 		return fitness;
@@ -96,7 +102,7 @@ public class GAHaiTimeFitness extends FitnessFunc {
 	 * @param noLocation		the number of locations
 	 * @return fitness		the fitness value of this particle
 	 */
-	private double fitnessIndividual(double[] particle, int noService, int noLocation){
+	private double fitnessIndividual(IntValueChromosome individual, int noService, int noLocation){
 		double fitness = 0.0;
 		double[][] particleMatrix = new double[noService][noLocation];
 		double[][] latencyMatrix = new double[noUser][noLocation];
@@ -106,11 +112,7 @@ public class GAHaiTimeFitness extends FitnessFunc {
 
 
 		// turn a particle vector into a particle matrix
-		for(int i = 0; i < noService; i++){
-			for(int j = 0; j < noLocation; j++){
-				particleMatrix[i][j] = particle[i * noService + j];
-			}
-		}
+		individual.toMatrix(noService);
 
 		// turn latency vector into a matrix
 		for(int i = 0; i < noUser; i++){
@@ -124,7 +126,7 @@ public class GAHaiTimeFitness extends FitnessFunc {
 		for(int count = 0; count < noService; count++){
 			for(int i = 0; i < noUser; i++){
 				for(int j = 0; j < noLocation; j++) {
-					temp[i][j] = particleMatrix[count][j] * latencyMatrix[i][j];
+					temp[i][j] = individual.matrixIndividual[count][j] * latencyMatrix[i][j];
 					responseMatrix[i][count] = min(temp[i]);
 				}
 			}
@@ -163,7 +165,5 @@ public class GAHaiTimeFitness extends FitnessFunc {
 		}
 		return minimum;
 	}
-
-
 
 }

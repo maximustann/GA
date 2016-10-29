@@ -9,7 +9,9 @@
  */
 package GaAllocationProblem;
 
-import algorithms.Normalize;
+import java.util.ArrayList;
+
+import algorithm.Normalize;
 /**
 *
 * @author Boxiong Tan (Maximus Tann)
@@ -30,12 +32,12 @@ public class LinearScaling implements Normalize{
 
 	/**
 	 * normalize all fitness values
-	 * @param fitness unnormalized fitness values
+	 * @param fitness unnormalized fitness values, the inner array contains two item,
+	 * fitness value and the ranking of current chromosome. 
 	 */
-	public double[] doNorm(double[] fitness){
-
-		for(int i = 0; i < fitness.length; i++){
-			fitness[i] = (fitness[i] - min) / (max - min);
+	public ArrayList<double[]> doNorm(ArrayList<double[]> fitness){
+		for(int i = 0; i < fitness.size(); i++){
+			fitness.get(i)[0] = (fitness.get(i)[0] - min) / (max - min);
 		}
 		return fitness;
 	}

@@ -22,9 +22,9 @@ import GAProcedure.CommonGA;;
  * @since PSO framework 1.0
  */
 public class IntGA extends CommonGA{
-	GAFactory factory;
-	ParameterSettings pars;
-	ProblemParameterSettings proSet;
+	private GAFactory factory;
+	private ParameterSettings pars;
+	private ProblemParameterSettings proSet;
 
 
 	/**

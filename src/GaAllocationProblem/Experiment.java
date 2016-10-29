@@ -2,31 +2,29 @@ package GaAllocationProblem;
 import java.util.ArrayList;
 
 import ProblemDefine.*;
-import algorithms.*;
+import algorithm.*;
 import dataCollector.DataCollector;
-import psoFactory.*;
-
+import gaFactory.*;
 public class Experiment {
 	public static void main(String[] arg) {
 		ArrayList<FitnessFunction> funcList = new ArrayList<FitnessFunction>();
 		double[] weights = new double[2];
-		//double w = 0.689;
-		double w = 1;
-		double c1 = 1.427;
-		double c2 = 1.427;
 		double lbound = 0;
 		double ubound = 1;
-		double clampFactor = 8;
+		double crossoverRate = 0.7;
+		double mutationRate = 0.1;
 		int optimization = 0; //minimize
-		int popSize = 100;
-		int maxGen = 50;
+		int tournamentSize = 10;
+		int eliteSize = 10;
+		int popSize = 50;
+		int maxGen = 100;
 		weights[0] = weights[1] = 0.5;
 
 		double[] costMatrix;
 		double[] freqMatrix;
 		double[] latencyMatrix;
 
-		int testCase = 2;
+		int testCase = 1;
 		int noService;
 		int noLocation;
 		double Cmax, Cmin, Tmax, Tmin;
@@ -48,8 +46,6 @@ public class Experiment {
 												);
 		costMatrix = readFiles.getCostMatrix();
 		latencyMatrix = readFiles.getLatencyMatrix();
-
-
 		freqMatrix = readFiles.getFreqMatrix();
 		noService = readFiles.getNoService();
 		noLocation = readFiles.getNoLocation();
@@ -64,7 +60,8 @@ public class Experiment {
 		Normalize costLinear = new LinearScaling(Cmax, Cmin);
 		Normalize timeLinear = new LinearScaling(Tmax, Tmin);
 		FitnessFunction cost = new GAHaiCostFitness(costLinear, costCon, costMatrix);
-		FitnessFunction time = new GAHaiTimeFitness(timeLinear, timeCon, latencyMatrix, freqMatrix, noService, noLocation);
+		FitnessFunction time = new GAHaiTimeFitness(timeLinear, timeCon, latencyMatrix, 
+													freqMatrix, noService, noLocation);
 		funcList.add(cost);
 		funcList.add(time);
 		Evaluate evaluate = new GAHaiEvaluate(funcList, weights);
@@ -72,10 +69,11 @@ public class Experiment {
 
 
 		ProblemParameterSettings proSet = new AllocationParameterSettings(evaluate, costMatrix, freqMatrix, latencyMatrix);
-		ParameterSettings pars = new ParameterSettings(w, c1, c2, lbound, ubound, clampFactor,optimization, popSize,
-														maxGen, noService * noLocation);
-		PSO myAlg = new BPSO(pars, proSet, new OriginalBPSOFactory(collector));
-		myAlg.run(11111);
+		ParameterSettings pars = new ParameterSettings(
+									mutationRate, crossoverRate, lbound, ubound, tournamentSize,
+									eliteSize, optimization, popSize, maxGen, noService * noLocation);
+		GeneticAlgorithm myAlg = new BinaryGA(pars, proSet, new BinaryGAFactory(collector));
+		myAlg.run(1);
 		((ResultCollector) collector).printResult();
 		System.out.println("Done!");
 	}

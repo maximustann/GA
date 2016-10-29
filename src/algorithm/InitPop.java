@@ -28,7 +28,7 @@ public interface InitPop {
      */	
 	public Chromosome[] init(
 							int popSize, 
-							int maxvar, 
+							int maxVar, 
 							double lbound, 
 							double ubound
 							);

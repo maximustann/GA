@@ -19,20 +19,20 @@ import dataCollector.DataCollector;
  * @since PSO framework 1.0
  */
 public class ResultCollector implements DataCollector {
-	private ArrayList<Double> resultData;
+	private ArrayList<double[]> resultData;
 
 	public ResultCollector(){
-		resultData = new ArrayList<Double>();
+		resultData = new ArrayList<double[]>();
 	}
 	
 	/**
-	 * add Double fitness value
+	 * add fitness value
 	 */
 	public void collect(Object data) {
-		resultData.add((Double) data);
+		resultData.add((double[]) data);
 	}
 
-	public ArrayList<Double> getResult(){
+	public ArrayList<double[]> getResult(){
 		return resultData;
 	}
 
@@ -41,7 +41,7 @@ public class ResultCollector implements DataCollector {
 	 */
 	public void printResult(){
 		for(int i = 0; i < resultData.size(); i++){
-			System.out.println(resultData.get(i));
+			System.out.println(resultData.get(i)[0]);
 		}
 		System.out.println();
 	}

@@ -9,15 +9,15 @@
  */
 package GaAllocationProblem;
 import java.util.ArrayList;
-
+import algorithm.*;
+import commonOperators.IntValueChromosome;
 /**
  * AllocationParameterSettings for Hai's Paper
  *
  * @author Boxiong Tan (Maximus Tann)
  * @author Hai Huang
- * @since PSO framework 1.0
+ * @since GA framework 1.0
  */
-import algorithm.*;
 public class GAHaiCostFitness extends FitnessFunc{
 	private double[] costMatrix;
 	Constraint con;
@@ -39,12 +39,15 @@ public class GAHaiCostFitness extends FitnessFunc{
 	 */
 	public ArrayList<double[]> unNormalizedFit(Chromosome[] popVar){
 		int popSize = popVar.length;
-		int maxVar = popVar[0].length;
-		double [] fitness = new double[popSize];
+		int maxVar = popVar[0].size();
+		ArrayList<double[]> fitness = new ArrayList<double[]>();
 		for(int i= 0; i < popSize; i++){
+			double[] fit = new double[2];
+			fit[1] = i;
 			for(int j = 0; j < maxVar; j++){
-				fitness[i] += costMatrix[j] * popVar[i][j];
+				 fit[0] += costMatrix[j] * ((IntValueChromosome) popVar[i]).individual[j];
 			}
+			fitness.add(fit);
 		}
 		return fitness;
 	}
@@ -59,7 +62,7 @@ public class GAHaiCostFitness extends FitnessFunc{
 	 * </ul>
 	 */
 	public ArrayList<double[]> normalizedFit(Chromosome[] popVar){
-		double[] fitness = unNormalizedFit(popVar);
+		ArrayList<double[]> fitness = unNormalizedFit(popVar);
 		normalize.doNorm(fitness);
 		fitness = con.punish(popVar, fitness);
 		return fitness;
