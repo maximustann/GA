@@ -80,13 +80,4 @@ public class IntGA extends CommonGA{
 		sort = factory.getSort();
 	}
 
-	@Override
-	public void runNtimes(int seedStart, int nTimes) {
-		for(int i = 0; i < nTimes; i++){
-			run(seedStart);
-			seedStart++;
-		}
-		
-	}
-
 }

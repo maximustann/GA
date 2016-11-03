@@ -51,5 +51,14 @@ public class ResultCollector implements DataCollector {
 		// TODO Auto-generated method stub
 		
 	}
+	public void mean(int runs){
+		int size = resultData.size();
+		int gen = size / runs;
+		double best = 0;
+		for(int i = 1; i <= runs; i++) {
+			best += resultData.get(i * gen - 1)[0];
+		}
+		System.out.println(best / runs);
+	}
 
 }

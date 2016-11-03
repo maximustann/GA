@@ -78,12 +78,4 @@ public class RealGA extends CommonGA{
 		collector = factory.getDataCollector();
 		sort = factory.getSort();
 	}
-
-	public void runNtimes(int seedStart, int nTimes) {
-		for(int i = 0; i < nTimes; i++){
-			run(seedStart);
-			seedStart++;
-		}
-	}
-	
 }

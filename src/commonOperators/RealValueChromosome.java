@@ -66,4 +66,13 @@ public class RealValueChromosome extends Chromosome{
 	private double round(double value) {
 		return Math.floor(value);
 	}
+	
+	public RealValueChromosome getCopy() {
+		RealValueChromosome copy = new RealValueChromosome(size());
+		for(int i = 0; i < size(); i++){
+			copy.individual[i] = individual[i];
+		}
+		return copy;
+	}
+	
 }

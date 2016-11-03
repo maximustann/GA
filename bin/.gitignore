@@ -1,8 +1,7 @@
-/Rosenbrock/
-/commonOperators/
+/debugTools/
 /GAProcedure/
+/commonOperators/
 /algorithm/
-/gaFactory/
-/ProblemDefine/
-/BPSOAllocationProblem/
 /GaAllocationProblem/
+/gaFactory/
+/Rosenbrock/

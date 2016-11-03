@@ -10,14 +10,14 @@ public class Experiment {
 		ArrayList<FitnessFunction> funcList = new ArrayList<FitnessFunction>();
 		double[] weights = new double[2];
 		double lbound = 0;
-		double ubound = 1;
+		double ubound = 2;
 		double crossoverRate = 0.7;
 		double mutationRate = 0.1;
 		int optimization = 0; //minimize
 		int tournamentSize = 10;
 		int eliteSize = 10;
 		int popSize = 50;
-		int maxGen = 100;
+		int maxGen = 150;
 		weights[0] = weights[1] = 0.5;
 
 		double[] costMatrix;
@@ -67,14 +67,15 @@ public class Experiment {
 		Evaluate evaluate = new GAHaiEvaluate(funcList, weights);
 		DataCollector collector = new ResultCollector();
 
-
 		ProblemParameterSettings proSet = new AllocationParameterSettings(evaluate, costMatrix, freqMatrix, latencyMatrix);
 		ParameterSettings pars = new ParameterSettings(
 									mutationRate, crossoverRate, lbound, ubound, tournamentSize,
 									eliteSize, optimization, popSize, maxGen, noService * noLocation);
 		GeneticAlgorithm myAlg = new BinaryGA(pars, proSet, new BinaryGAFactory(collector));
-		myAlg.run(1);
+//		myAlg.run(1);
+		myAlg.runNtimes(2333, 30);
 		((ResultCollector) collector).printResult();
+		((ResultCollector) collector).mean(30);
 		System.out.println("Done!");
 	}
 }

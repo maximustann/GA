@@ -9,11 +9,11 @@
  */
 
 package GAProcedure;
-import java.util.ArrayList;
 
 import algorithm.Chromosome;
 import algorithm.GeneticAlgorithm;
 import algorithm.TwoParentsCrossover;
+import debugTools.IntValueCompare;
 
 /**
  * The abstraction of common GA procedure
@@ -21,6 +21,7 @@ import algorithm.TwoParentsCrossover;
  * @since GA framework 1.0
  */
 public abstract class CommonGA extends GeneticAlgorithm{
+	IntValueCompare debug = new IntValueCompare();
 /**
  * Steps:
  * <ul>
@@ -61,6 +62,9 @@ public abstract class CommonGA extends GeneticAlgorithm{
 //				popVar[j].print();
 //				System.out.println();
 //			}
+//			int flag = 1;
+//			while(flag == 1){}
+			
 			// ============Debug==============
 
 			while(true) {
@@ -71,7 +75,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 										.update(father, mother, crossoverRate);
 				for(int j = 0; j < children.length; j++) {
 					mutation.update(children[j], mutationRate);
-					newPop[childrenCount] = children[j];
+					newPop[childrenCount] = children[j].getCopy();
 					childrenCount++;
 					if(childrenCount == popSize) {
 						exitFlag = 1;
@@ -86,4 +90,11 @@ public abstract class CommonGA extends GeneticAlgorithm{
 
 	@Override
 	protected abstract void prepare();
+	
+	public void runNtimes(int seedStart, int nTimes) {
+		for(int i = 0; i < nTimes; i++){
+			run(seedStart);
+			seedStart++;
+		}
+	}
 }

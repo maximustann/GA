@@ -45,10 +45,4 @@ public class BinaryGA extends CommonGA {
 		sort = factory.getSort();	
 	}
 
-	@Override
-	public void runNtimes(int seedStart, int nTimes) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

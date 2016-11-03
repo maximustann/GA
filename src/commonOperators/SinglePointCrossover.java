@@ -46,8 +46,8 @@ public class SinglePointCrossover implements TwoParentsCrossover {
 		Chromosome[] children = new Chromosome[2];
 		/* If random number greater than crossover rate. Do not crossover. */
 		if(StdRandom.uniform() > crossoverRate) {
-			children[0] = father;
-			children[1] = mother;
+			children[0] = father.getCopy();
+			children[1] = mother.getCopy();
 			return children;
 		}
 		

@@ -9,6 +9,7 @@
  */
 package commonOperators;
 
+
 import algorithm.Chromosome;
 import algorithm.Elitism;
 /**
@@ -33,13 +34,15 @@ public class CommonElitism implements Elitism{
 		int popSize = popVar.length;
 		if(optimization == 0){
 			for(int i = 0; i < elitSize; i++){
-				newPop[i] = popVar[i];
+				newPop[i] = popVar[i].getCopy();
 			}
+			
 		} else {
 			for(int i = 0; i < elitSize; i++){
-				newPop[i] = popVar[popSize - 1 - i];
+				newPop[i] = popVar[popSize - 1 - i].getCopy();
 			}
 		}
+
 	}
 	public int getSize(){
 		return elitSize;

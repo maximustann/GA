@@ -10,6 +10,7 @@
 
 package commonOperators;
 
+
 import algorithm.Chromosome;
 import algorithm.Gene;
 /**
@@ -99,6 +100,14 @@ public class IntValueChromosome extends Chromosome{
 				matrixIndividual[i][j] = individual[i * row + col];
 			}
 		}
+	}
+	@Override
+	public IntValueChromosome getCopy() {
+		IntValueChromosome copy = new IntValueChromosome(size());
+		for(int i = 0; i < size(); i++){
+			copy.individual[i] = individual[i];
+		}
+		return copy;
 	}
 
 	
