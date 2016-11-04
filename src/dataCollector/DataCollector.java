@@ -55,4 +55,8 @@ public abstract class DataCollector {
 		}
 		System.out.println("time is : " + Math.floor(sum / size * 100) / 100.0);
 	}
+
+	public ArrayList<Double> getTime(){
+		return timeData;
+	}
 }
