@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import algorithm.Chromosome;
 import dataCollector.DataCollector;
 
-public class ResultCollector implements DataCollector {
+public class ResultCollector extends DataCollector {
 	private ArrayList<double[]> resultData;
 	private ArrayList<Chromosome[]> data;
 
 	public ResultCollector(){
+		super();
 		resultData = new ArrayList<double[]>();
 		data = new ArrayList<Chromosome[]>();
 	}
@@ -40,9 +41,6 @@ public class ResultCollector implements DataCollector {
 		}
 	}
 	
-	
-	
-	@Override
 	public void collectChromosome(Chromosome[] popVar) {
 		data.add(popVar);
 	}

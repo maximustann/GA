@@ -89,6 +89,20 @@ public class IntValueChromosome extends Chromosome{
 	}
 	
 	/**
+	 * Print matrix form
+	 */
+	public void printMatrix(){
+		int rowNum = matrixIndividual.length;
+		int colNum = matrixIndividual[0].length;
+		for(int i = 0; i < rowNum; i++){
+			for(int j = 0; j < colNum; j++){
+				System.out.print(matrixIndividual[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+	/**
 	 * Transit to matrix representation
 	 */
 	public void toMatrix(int row){
@@ -97,7 +111,7 @@ public class IntValueChromosome extends Chromosome{
 		matrixIndividual = new int[row][col];
 		for(int i = 0; i < row; i++){
 			for(int j = 0; j < col; j++){
-				matrixIndividual[i][j] = individual[i * row + col];
+				matrixIndividual[i][j] = individual[i * col + j];
 			}
 		}
 	}

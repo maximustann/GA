@@ -42,6 +42,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
  * @param seed Random seed
  */
 	public void run(int seed){
+		collector.collectTime(0);
 		initializeRand(seed);
 		popVar = initPop.init(popSize, maxVar, lbound, ubound);
 
@@ -53,19 +54,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 			sort.sort(popVar, popFit);
 			elitism.carryover(popVar, newPop);
 			collector.collect(popFit.get(0));
-			collector.collectChromosome(popVar);
 			
-			// ============Debug==============
-//			System.out.println("After sorting");
-//			for(int j = 0; j < elitSize; j++){
-//				System.out.println(popFit.get(j)[0] + " : " + popFit.get(j)[1]);
-//				popVar[j].print();
-//				System.out.println();
-//			}
-//			int flag = 1;
-//			while(flag == 1){}
-			
-			// ============Debug==============
 
 			while(true) {
 				int exitFlag = 0;
@@ -86,6 +75,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 			}				
 			popVar = newPop;
 		}
+		collector.collectTime(1);
 	}
 
 	@Override

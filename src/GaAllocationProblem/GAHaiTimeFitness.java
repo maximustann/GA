@@ -117,7 +117,7 @@ public class GAHaiTimeFitness extends FitnessFunc {
 		// turn latency vector into a matrix
 		for(int i = 0; i < noUser; i++){
 			for(int j = 0; j < noLocation; j++){
-				latencyMatrix[i][j] = latency[i * noUser + j];
+				latencyMatrix[i][j] = latency[i * noLocation + j];
 			}
 		}
 

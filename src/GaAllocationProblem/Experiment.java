@@ -11,20 +11,20 @@ public class Experiment {
 		double[] weights = new double[2];
 		double lbound = 0;
 		double ubound = 2;
-		double crossoverRate = 0.7;
-		double mutationRate = 0.1;
+		double crossoverRate = 0.6;
+		double mutationRate = 0.2;
 		int optimization = 0; //minimize
 		int tournamentSize = 10;
-		int eliteSize = 10;
-		int popSize = 50;
-		int maxGen = 150;
+		int eliteSize = 20;
+		int popSize = 100;
+		int maxGen = 250;
 		weights[0] = weights[1] = 0.5;
 
 		double[] costMatrix;
 		double[] freqMatrix;
 		double[] latencyMatrix;
 
-		int testCase = 1;
+		int testCase = 2;
 		int noService;
 		int noLocation;
 		double Cmax, Cmin, Tmax, Tmin;
@@ -73,9 +73,10 @@ public class Experiment {
 									eliteSize, optimization, popSize, maxGen, noService * noLocation);
 		GeneticAlgorithm myAlg = new BinaryGA(pars, proSet, new BinaryGAFactory(collector));
 //		myAlg.run(1);
-		myAlg.runNtimes(2333, 30);
+		myAlg.runNtimes(2333, 3);
 		((ResultCollector) collector).printResult();
-		((ResultCollector) collector).mean(30);
+		((ResultCollector) collector).mean(3);
+		((ResultCollector) collector).printMeanTime();;
 		System.out.println("Done!");
 	}
 }

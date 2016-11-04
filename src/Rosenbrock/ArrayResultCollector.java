@@ -6,10 +6,11 @@ import java.util.Arrays;
 import algorithm.Chromosome;
 import dataCollector.DataCollector;
 
-public class ArrayResultCollector implements DataCollector {
+public class ArrayResultCollector extends DataCollector {
 	private ArrayList<double[]> resultData;
 
 	public ArrayResultCollector(){
+		super();
 		resultData = new ArrayList<double[]>();
 	}
 	@Override
@@ -31,11 +32,6 @@ public class ArrayResultCollector implements DataCollector {
 			}
 			System.out.println();
 		}
-	}
-	@Override
-	public void collectChromosome(Chromosome[] individual) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -18,10 +18,11 @@ import dataCollector.DataCollector;
  * @author Boxiong Tan (Maximus Tann)
  * @since PSO framework 1.0
  */
-public class ResultCollector implements DataCollector {
+public class ResultCollector extends DataCollector {
 	private ArrayList<double[]> resultData;
 
 	public ResultCollector(){
+		super();
 		resultData = new ArrayList<double[]>();
 	}
 	
@@ -46,11 +47,7 @@ public class ResultCollector implements DataCollector {
 		System.out.println();
 	}
 	
-	@Override
-	public void collectChromosome(Chromosome[] individual) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	public void mean(int runs){
 		int size = resultData.size();
 		int gen = size / runs;
@@ -60,5 +57,7 @@ public class ResultCollector implements DataCollector {
 		}
 		System.out.println(best / runs);
 	}
+	
+
 
 }
