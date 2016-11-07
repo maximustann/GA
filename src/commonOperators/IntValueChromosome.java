@@ -125,6 +125,18 @@ public class IntValueChromosome extends Chromosome{
 		}
 		return copy;
 	}
-
 	
+	private boolean equals(IntValueChromosome chromo){
+		int chromoSize = size();
+		for(int i = 0; i < chromoSize; i++){
+			if(individual[i] != chromo.individual[i]){
+				return false;
+			}
+		}
+		return true;
+	}
+	@Override
+	public boolean equals(Chromosome chromos) {
+		return equals((IntValueChromosome) chromos);
+	}
 }

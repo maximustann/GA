@@ -63,12 +63,29 @@ public class RealValueChromosome extends Chromosome{
 		}
 	}
 	
+	/**
+	 * return an exact copy
+	 */
 	public RealValueChromosome getCopy() {
 		RealValueChromosome copy = new RealValueChromosome(size());
 		for(int i = 0; i < size(); i++){
 			copy.individual[i] = individual[i];
 		}
 		return copy;
+	}
+	
+	private boolean equals(RealValueChromosome chromo){
+		int chromoSize = size();
+		for(int i = 0; i < chromoSize; i++){
+			if(individual[i] != chromo.individual[i]){
+				return false;
+			}
+		}
+		return true;
+	}
+	@Override
+	public boolean equals(Chromosome chromos) {
+		return equals((RealValueChromosome) chromos);
 	}
 	
 }

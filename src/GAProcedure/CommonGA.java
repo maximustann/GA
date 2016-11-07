@@ -13,7 +13,6 @@ package GAProcedure;
 import algorithm.Chromosome;
 import algorithm.GeneticAlgorithm;
 import algorithm.TwoParentsCrossover;
-import debugTools.IntValueCompare;
 
 /**
  * The abstraction of common GA procedure
@@ -21,7 +20,6 @@ import debugTools.IntValueCompare;
  * @since GA framework 1.0
  */
 public abstract class CommonGA extends GeneticAlgorithm{
-	IntValueCompare debug = new IntValueCompare();
 /**
  * Steps:
  * <ul>
