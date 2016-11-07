@@ -11,7 +11,12 @@
 package algorithm;
 
 import java.util.ArrayList;
-
+/**
+ * An interface of fitnessFunction, please implement this interface
+ * when you define your fitness functions.
+ * @author Boxiong Tan (Maximus Tann) 
+ * @since GA framework 1.0
+ */
 public interface FitnessFunction {
 	public ArrayList<double[]> normalizedFit(Chromosome [] popVar);
 	public ArrayList<double[]> unNormalizedFit(Chromosome [] popVar);

@@ -8,7 +8,11 @@
  * Elitism.java - an interface of elitism operator, please implement this interface.
  */
 package algorithm;
-
+/**
+ * An abstraction of elitism.
+ * @author Boxiong Tan (Maximus Tann) 
+ * @since GA framework 1.0
+ */
 public abstract class Elitism {
 	/** Carry over elitSize of chromosomes to next generation */
 	protected int elitSize = -1;

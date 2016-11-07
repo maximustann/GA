@@ -35,11 +35,11 @@ public abstract class CommonGA extends GeneticAlgorithm{
  * 			<li> 4. select parents </li> 
  * 			<li> 5. crossover </li> 
  * 			<li> 6. store children </li>
- * 		<ul>
+ * 		</ul>
  * 		<li> 7. mutation </li> 
- * 	<ul> 
+ * 	</ul> 
  * 	<li> end timer </li>
- * <ul>
+ * </ul>
  * 
  * @param seed Random seed
  */
