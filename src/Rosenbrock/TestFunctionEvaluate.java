@@ -24,7 +24,13 @@ public class TestFunctionEvaluate implements Evaluate{
 	public void evaluate(Chromosome[] popVar, ArrayList<double[]> popFit) {
 		popFit.clear();
 		FitnessFunction fitnessFunction = funcList.get(0);
-		ArrayList<double[]> tempFit = fitnessFunction.normalizedFit(popVar);
+		ArrayList<double[]> tempFit = null;
+		try {
+			tempFit = fitnessFunction.normalizedFit(popVar);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for(int i = 0; i < tempFit.size(); i++) {
 			popFit.add(tempFit.get(i));
 		}

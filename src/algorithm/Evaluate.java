@@ -21,6 +21,7 @@ public interface Evaluate {
 	/**
 	 * @param popVar a population of variables with a type of Chromosome
 	 * @param popFit the fitness values of whole population
+	 * @throws Exception 
 	 */
 	public void evaluate(Chromosome [] popVar,ArrayList<double[]> popFit);
 }

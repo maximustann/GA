@@ -49,7 +49,12 @@ public abstract class CommonGA extends GeneticAlgorithm{
 		for(int i = 0; i < maxGen; i++){
 			int childrenCount = elitism.getSize();
 			Chromosome[] newPop = new Chromosome[popSize];
-			evaluate.evaluate(popVar, popFit);
+			try {
+				evaluate.evaluate(popVar, popFit);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			sort.sort(popVar, popFit);
 			elitism.carryover(popVar, newPop);

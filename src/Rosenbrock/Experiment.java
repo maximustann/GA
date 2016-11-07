@@ -47,8 +47,11 @@ public class Experiment {
 //		PSO myAlg = new BPSO(pars, proSet, new OriginalBPSOFactory(collector));
 
 
-		myAlg.run(233333); // parameter is a random seed
+//		myAlg.run(233333); // parameter is a random seed
+		myAlg.runNtimes(23333, 30);
 		((ResultCollector) collector).printResult();
+		((ResultCollector) collector).printMeanTime();;
+
 //		((ResultCollector) collector).printPop();
 		System.out.println("Done!");
 	}
