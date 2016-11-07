@@ -2,7 +2,7 @@ package Rosenbrock;
 import java.util.ArrayList;
 import ProblemDefine.*;
 import algorithm.Evaluate;
-import algorithm.FitnessFunction;
+import algorithm.FitnessFunc;
 import algorithm.GeneticAlgorithm;
 import dataCollector.DataCollector;
 import gaFactory.RealGA;
@@ -10,7 +10,7 @@ import gaFactory.RealGAFactory;
 
 public class Experiment {
 	public static void main(String[] arg) {
-		ArrayList<FitnessFunction> funcList = new ArrayList<FitnessFunction>();
+		ArrayList<FitnessFunc> funcList = new ArrayList<FitnessFunc>();
 		double perturbation = 20;
 		double mutationRate = 0.1;
 		double crossoverRate = 0.7;
@@ -21,10 +21,10 @@ public class Experiment {
 		int optimization = 0; //minimize
 		int popSize = 50;
 		int maxGen = 100;
-		int d = 3000; // number of dimensions
+		int d = 20; // number of dimensions
 
 		// Initialization !!!!
-		FitnessFunction fitnessFunction = new TestFunctionFitness();
+		FitnessFunc fitnessFunction = new TestFunctionFitness(RosenbrockUnNormalizedFit.class);
 		funcList.add(fitnessFunction);
 
 		// evaluation

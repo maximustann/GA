@@ -10,22 +10,23 @@
 
 package algorithm;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 
 /**
  *  For writing any Fitness Functions this class should be extend.
  */
-public abstract class FitnessFunc implements FitnessFunction{
+public abstract class FitnessFunc{
 	
-	/** A normalization method */
-	public Normalize normalize;
-	
-    /**
-     * Creates a new FitnessFunc object.
-     * @param normalize
-     */
-	public FitnessFunc(Normalize normalize){
-		this.normalize = normalize;
+	@SuppressWarnings("rawtypes")
+	private Class childType;
+	public FitnessFunc(Class unNorFit){
+		childType = unNorFit;
 	}
 	
     /**
@@ -36,21 +37,54 @@ public abstract class FitnessFunc implements FitnessFunction{
      * @param popVar population variables
      * @return array of normalized fitness values
      */
-	@Override
-	public ArrayList<double[]> normalizedFit(Chromosome [] popVar) {
-		ArrayList<double[]> fitness = unNormalizedFit(popVar);
-		normalize.doNorm(fitness);
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public ArrayList<double[]> execute(Chromosome [] popVar) {
+		int popSize = popVar.length;
+		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+		@SuppressWarnings("rawtypes")
+		ArrayList tasks = new ArrayList();
+		for(int i = 0; i < popSize; i++){
+//			tasks.add(new childType(popVar[i]));
+			try {
+				tasks.add(childType.getConstructor(Chromosome.class)
+						 .newInstance(popVar[i])
+						 );
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			}
+		}
+		@SuppressWarnings("rawtypes")
+		ArrayList<Future> results = null;
+		try {
+			results = (ArrayList<Future>) exec.invokeAll(tasks);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		exec.shutdown();
+		
+		
+		
+		ArrayList<double[]> fitness = new ArrayList<double[]>();
+		for(int i = 0; i < popSize; i++){
+			try {
+				fitness.add((double[]) results.get(i).get());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+					e.printStackTrace();
+			}
+			fitness.get(i)[1] = i;
+		}
 		return fitness;
 	}
-
-    /**
-     * Generate an array of unnormalized fitness values
-     * Apply fitness function on popVar
-     *
-     * @param popVar population variables
-     * @return array of unnormalized fitness values, which is often used 
-     * 			by normalizedFit()
-     */
-	public abstract ArrayList<double[]> unNormalizedFit(Chromosome [] popVar);
-
 }

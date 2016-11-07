@@ -5,28 +5,27 @@ import java.util.ArrayList;
 import algorithm.Chromosome;
 import algorithm.Evaluate;
 import algorithm.FitnessFunc;
-import algorithm.FitnessFunction;
 
 public class TestFunctionEvaluate implements Evaluate{
-	private ArrayList<FitnessFunction> funcList;
+	private ArrayList<FitnessFunc> funcList;
 
 	// constructor, initialize fitness function list
-	public TestFunctionEvaluate(ArrayList<FitnessFunction> funcList){
+	public TestFunctionEvaluate(ArrayList<FitnessFunc> funcList){
 		this.funcList = funcList;
 	}
 
 	// You can change the fitness function list
-	public void setFuncList(ArrayList<FitnessFunction> funcList){
+	public void setFuncList(ArrayList<FitnessFunc> funcList){
 		this.funcList = funcList;
 	}
 
 	@Override
 	public void evaluate(Chromosome[] popVar, ArrayList<double[]> popFit) {
 		popFit.clear();
-		FitnessFunction fitnessFunction = funcList.get(0);
+		FitnessFunc fitnessFunction = funcList.get(0);
 		ArrayList<double[]> tempFit = null;
 		try {
-			tempFit = fitnessFunction.normalizedFit(popVar);
+			tempFit = fitnessFunction.execute(popVar);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

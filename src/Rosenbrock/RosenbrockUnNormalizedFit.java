@@ -1,13 +1,12 @@
 package Rosenbrock;
 
-import java.util.concurrent.Callable;
-
 import algorithm.Chromosome;
+import algorithm.UnNormalizedFit;
 import commonOperators.RealValueChromosome;
 
-public class unNormalizedFit implements Callable{
+public class RosenbrockUnNormalizedFit extends UnNormalizedFit{
 	Chromosome individual;
-	public unNormalizedFit(Chromosome individual){
+	public RosenbrockUnNormalizedFit(Chromosome individual){
 		this.individual = individual;
 	}
 	@Override
