@@ -12,12 +12,12 @@ public class TestFunctionFitness implements FitnessFunction{
 
 //	public ArrayList<double[]> unNormalizedFit(Chromosome[] popVar){
 //		ArrayList<double[]> fitness = new ArrayList<double[]>();
-//		
+//
 //		for(int i = 0; i < popVar.length; i++){
 //			double fit = 0.0;
 //			for(int j = 0; j < popVar[0].size() - 1; j++){
 //				double firstTerm, secondTerm;
-//				firstTerm = ((RealValueChromosome) popVar[i]).individual[j + 1] - 
+//				firstTerm = ((RealValueChromosome) popVar[i]).individual[j + 1] -
 //						Math.pow(((RealValueChromosome) popVar[i]).individual[j], 2);
 //				secondTerm = Math.pow(((RealValueChromosome) popVar[i]).individual[j] - 1, 2);
 //				fit += 100 * (firstTerm * firstTerm) + secondTerm;
@@ -30,7 +30,8 @@ public class TestFunctionFitness implements FitnessFunction{
 
 	public ArrayList<double[]> normalizedFit(Chromosome[] popVar){
 		int popSize = popVar.length;
-		ExecutorService exec = Executors.newFixedThreadPool(2);
+		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+//		ExecutorService exec = Executors.newFixedThreadPool(1);
 		ArrayList tasks = new ArrayList();
 		for(int i = 0; i < popSize; i++){
 			tasks.add(new unNormalizedFit(popVar[i]));

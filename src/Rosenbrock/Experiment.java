@@ -20,8 +20,8 @@ public class Experiment {
 		int elitSize = 10;
 		int optimization = 0; //minimize
 		int popSize = 50;
-		int maxGen = 1000;
-		int d = 20; // number of dimensions
+		int maxGen = 100;
+		int d = 3000; // number of dimensions
 
 		// Initialization !!!!
 		FitnessFunction fitnessFunction = new TestFunctionFitness();
@@ -33,13 +33,13 @@ public class Experiment {
 
 		ProblemParameterSettings proSet = new TestFunctionParameterSettings(evaluate);
 		ParameterSettings pars = new ParameterSettings(
-									mutationRate, crossoverRate, lbound, 
-									ubound, tournamentSize, elitSize, optimization, 
+									mutationRate, crossoverRate, lbound,
+									ubound, tournamentSize, elitSize, optimization,
 									popSize, maxGen, d);
 		DataCollector collector = new ResultCollector();
 
 		GeneticAlgorithm myAlg = new RealGA(pars, proSet, new RealGAFactory(
-																collector, lbound, 
+																collector, lbound,
 																ubound, perturbation));
 
 
