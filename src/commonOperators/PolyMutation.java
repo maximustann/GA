@@ -36,10 +36,6 @@ public class PolyMutation implements Mutation {
 	}
 	/**
 	 * please check the link above for the detailed description.
-	 * polynomial mutation steps:
-	 * <ul>
-	 * 		<li> 1. randomly generate a number: u</li>
-	 * </ul>
 	 * @param popVar population
 	 * @param mutationRate mutation rate
 	 */

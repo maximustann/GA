@@ -1,3 +1,12 @@
+/*
+ * Boxiong Tan (Maximus Tann)
+ * Title:        GA algorithm framework
+ * Description:  GA algorithm framework for general optimization purpose
+ * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
+ *
+ * Copyright (c) 2016-2019, The Victoria University of Wellington
+ * BinaryGAFactory.java - A binary implementation of GA's factory
+ */
 package gaFactory;
 
 import algorithm.Crossover;
@@ -13,7 +22,12 @@ import commonOperators.SinglePointCrossover;
 import commonOperators.TournamentSelection;
 import commonOperators.sortPop;
 import dataCollector.DataCollector;
-
+/**
+ * BinaryGAFactory
+ *
+ * @author Boxiong Tan (Maximus Tann)
+ * @since PSO framework 1.0
+ */
 public class BinaryGAFactory implements GAFactory {
 	private DataCollector collector;
 	

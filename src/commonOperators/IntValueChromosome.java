@@ -59,7 +59,7 @@ public class IntValueChromosome extends Chromosome{
 	
 	/**  cut method 
 	 *  @param cutPoint where to cut
-	 *  @param geneIndicator first half (0) or second half (1) ?
+	 *  @param geneIndicator first half (0) or second half (1)
 	 *  @return return gene part
 	 */
 	public IntGene cut(int cutPoint, int geneIndicator){
@@ -115,7 +115,9 @@ public class IntValueChromosome extends Chromosome{
 			}
 		}
 	}
-	@Override
+	/**
+	 * Get an exact copy of current chromosome
+	 */
 	public IntValueChromosome getCopy() {
 		IntValueChromosome copy = new IntValueChromosome(size());
 		for(int i = 0; i < size(); i++){

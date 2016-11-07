@@ -20,7 +20,6 @@ import java.util.ArrayList;
  * @since GA framework 1.0
  */
 import algorithm.StdRandom;
-import commonOperators.sortPop;
 import dataCollector.DataCollector;
 
 public abstract class GeneticAlgorithm {

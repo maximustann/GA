@@ -40,21 +40,24 @@ public class RealGA extends CommonGA{
 	}
 
 	/**
-	 * All settings are prepared here
+	 * All settings are prepared here,
 	 * This is the list of all settings, please read carefully
-	 * maxGen: 		max number of generation
-	 * maxVar: 		max number of variables in a particle
-	 * popSize:		population Size
-	 * lbound		lower bound of a variable
-	 * ubound		upper bond of a variable
-	 * optimization maximize (1) or minimize (0)
-	 * popFit		population fitness
-	 * initPop		a population initialization method
-	 * mutation		a mutation method
-	 * crossover 	a crossover method
-	 * selection	a selection method
-	 * evaluate		evaluation method
-	 * collector	data collector
+	 * <ul>
+	 * <li> maxGen: 		max number of generation </li>
+	 * <li>maxVar: 		max number of variables in a particle</li>
+	 * <li>popSize:		population Size</li>
+	 * <li>lbound		lower bound of a variable</li>
+	 * <li>ubound		upper bond of a variable</li>
+	 * <li>optimization maximize (1) or minimize (0)</li>
+	 * <li>popFit		population fitness</li>
+	 * <li>initPop		a population initialization method</li>
+	 * <li>mutation		a mutation method</li>
+	 * <li>crossover 	a crossover method</li>
+	 * <li>selection		a selection method</li>
+	 * <li>evaluate		evaluation method</li>
+	 * <li>collector	data collector</li>
+	 * <li>sort   		a sorting method</li>
+	 * </ul>
 	 */
 	protected void prepare(){
 		maxGen = pars.getMaxGen();

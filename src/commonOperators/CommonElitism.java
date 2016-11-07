@@ -18,33 +18,32 @@ import algorithm.Elitism;
  * @author Boxiong Tan (Maximus Tann)
  * @since GA framework 1.0
  */
-public class CommonElitism implements Elitism{
-	private int elitSize;
-	private int optimization;
+public class CommonElitism extends Elitism{
 	
-	public CommonElitism(int elitSize, int optimization){
-		this.elitSize = elitSize;
-		this.optimization = optimization;
+	public CommonElitism(int elitSize, int optimization) {
+		super(elitSize, optimization);
 	}
 	
+	public CommonElitism(double elitPercent, int optimization) {
+		super(elitPercent, optimization);
+	}
 	/**
-	 * copy first elitSize
+	 * copy elitSize or elitPercent of chromosomes to next generation
 	 */
 	public void carryover(Chromosome[] popVar, Chromosome[] newPop){
 		int popSize = popVar.length;
+		if(elitPercent != -1){
+			elitSize = (int) (elitPercent * popSize);
+		}
 		if(optimization == 0){
 			for(int i = 0; i < elitSize; i++){
 				newPop[i] = popVar[i].getCopy();
 			}
-			
 		} else {
 			for(int i = 0; i < elitSize; i++){
 				newPop[i] = popVar[popSize - 1 - i].getCopy();
 			}
 		}
 
-	}
-	public int getSize(){
-		return elitSize;
 	}
 }

@@ -102,9 +102,10 @@ public class GAHaiTimeFitness extends FitnessFunc {
 	 * @param noLocation		the number of locations
 	 * @return fitness		the fitness value of this particle
 	 */
-	private double fitnessIndividual(IntValueChromosome individual, int noService, int noLocation){
+	private double fitnessIndividual(
+					IntValueChromosome individual, 
+					int noService, int noLocation){
 		double fitness = 0.0;
-		double[][] particleMatrix = new double[noService][noLocation];
 		double[][] latencyMatrix = new double[noUser][noLocation];
 		double[][] temp = new double[noUser][noLocation];
 		double[][] responseMatrix = new double[noUser][noService];
@@ -161,7 +162,9 @@ public class GAHaiTimeFitness extends FitnessFunc {
 	private double min(double[] temp){
 		double minimum = temp[0];
 		for(int i = 0; i < temp.length; i++){
-			if((minimum > temp[i] && temp[i] != 0) || (minimum == 0 && temp[i] != 0)) minimum = temp[i];
+			if((	 minimum > temp[i] && temp[i] != 0) || 
+				(minimum == 0 && temp[i] != 0)) 
+				 minimum = temp[i];
 		}
 		return minimum;
 	}

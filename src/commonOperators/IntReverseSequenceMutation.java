@@ -24,8 +24,10 @@ public class IntReverseSequenceMutation implements Mutation {
 	@Override
 	/**
 	 * Steps:
-	 * 	1.Check if a random number in [0, 1] less than mutationRate, if yes, mutate
-	 * 	2. Do reverse sequence mutation
+	 * <ul>
+	 * 	<li> 1.Check if a random number in [0, 1] less than mutationRate, if yes, mutate </li>
+	 * 	<li> 2. Do reverse sequence mutation </li>
+	 * </ul>
 	 */
 	public void update(Chromosome individual, double mutationRate) {
 

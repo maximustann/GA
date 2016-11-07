@@ -17,13 +17,6 @@ package algorithm;
  * @since GA framework 1.0
  */
 public abstract class Chromosome {
-	public Chromosome() {
-		
-	}
-	public Chromosome(Gene firstPart, Gene secondPart)
-	{
-		
-	}
 	/** get size of chromosome */
 	public abstract int size();
 	
@@ -33,5 +26,11 @@ public abstract class Chromosome {
 	/** print method */
 	public abstract void print();
 
+	/** get a extract copy of current chromosome, 
+	 * 
+	 * NOTICE!!! MUST PROVIDE A DEEP COPY otherwise the methods depend on this method 
+	 * will FAIL!!! Such as elitism, mutation. 
+	 * 
+	 */
 	public abstract Chromosome getCopy();
 }

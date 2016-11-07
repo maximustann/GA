@@ -54,8 +54,6 @@ public class sortPop implements Sort{
 		}catch(IllegalArgumentException e){
 			System.out.println("Sorting problem occurs!");
 		}
-
-
 		
 		for(int i = 0; i < popVar.length; i++){
 			newPop[i] = popVar[(int) popFit.get(i)[1]];

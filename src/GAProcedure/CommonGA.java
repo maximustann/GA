@@ -25,6 +25,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 /**
  * Steps:
  * <ul>
+ *  <li> start timer </li>
  * 	<li> 1. initialize population </li>
  * 	<ul>
  * 		For each generation
@@ -37,6 +38,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
  * 		<ul>
  * 		<li> 7. mutation </li> 
  * 	<ul> 
+ * 	<li> end timer </li>
  * <ul>
  * 
  * @param seed Random seed
@@ -81,6 +83,9 @@ public abstract class CommonGA extends GeneticAlgorithm{
 	@Override
 	protected abstract void prepare();
 	
+	/**
+	 * Repeat experiment N times
+	 */
 	public void runNtimes(int seedStart, int nTimes) {
 		for(int i = 0; i < nTimes; i++){
 			run(seedStart);
