@@ -13,18 +13,15 @@ import java.util.ArrayList;
 
 /**
  * data collector
+ * This default data collector only contains the time collector.
+ * All the actual data you would like to collect must be defined in your extension.
  * 
  * @author Boxiong Tan (Maximus Tann) 
  * @since PSO framework 1.0
  */
 public abstract class DataCollector {
-	protected ArrayList<Double> timeData;
+	protected ArrayList<Double> timeData = new ArrayList<Double>();
 	protected long start, end;
-	
-	public DataCollector(){
-		timeData 	= new ArrayList<Double>();
-	}
-	
 	
     /**
      * collect result

@@ -19,32 +19,53 @@ import java.util.concurrent.Future;
 
 
 /**
- *  For writing any Fitness Functions this class should be extend.
+ *  FitnessFunc is a wrapper of your unNormalized fitness function, it mainly utilizes
+ *  java multi-threading framework in order to speed up the evolutionary process
+ *  Essentially, it is still follow the factory pattern. It requires the class type of 
+ *  your unNormalizedFit in order to new evaluation instances so that they can be run in parallel.
  */
-public abstract class FitnessFunc{
+public class FitnessFunc{
 	
 	@SuppressWarnings("rawtypes")
 	private Class childType;
+	@SuppressWarnings("rawtypes")
+	/**
+	 * If your unNormalized fitness function does not implement the UnNormalizedFit interface,
+	 * an exception will be raised. 
+	 * @param unNorFit the class type of your unNormalized function
+	 */
 	public FitnessFunc(Class unNorFit){
+		if(!UnNormalizedFit.class.isAssignableFrom(unNorFit)){
+			throw new IllegalArgumentException("Class: " + unNorFit.getName() + " must "
+					+ "implement UnNormalizedFit interface");
+		}
 		childType = unNorFit;
 	}
 	
     /**
-     * Generate an array of normalized fitness values
-     * Two steps: 1. apply fitness function on popVar
-     * 			  2. apply normalization function on fitness values
-     *
+     * execute method is a function that calls you defined unNormalized fitness function and
+     * then return a fitness value list 
+     * Steps:
+     * <ul>
+     * 	<li>Initialize a thread pool with the number of cpus of this machine </li>
+     * 	<li>Use reflection to create popSize of the unNormalized fitness evaluation tasks.</li>
+     * 	<li>Add these tasks into the execution pool </li>
+     *  <li>execute all tasks and collect fitness values</li>
+     * </ul>
      * @param popVar population variables
-     * @return array of normalized fitness values
+     * @return an ArrayList<double[]> type of fitness values, where each list item is a double[2]
+     * 		double[0] is the fitness value,
+     * 		double[1] is the rank of this fitness value in the population, this rank is initialized
+     * 		with the current chromosome's position in the population. Because it will be used in the 
+     * 		sorting process.
      */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ArrayList<double[]> execute(Chromosome [] popVar) {
 		int popSize = popVar.length;
-		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-		@SuppressWarnings("rawtypes")
+		ExecutorService exec = Executors.newFixedThreadPool(
+								Runtime.getRuntime().availableProcessors());
 		ArrayList tasks = new ArrayList();
 		for(int i = 0; i < popSize; i++){
-//			tasks.add(new childType(popVar[i]));
 			try {
 				tasks.add(childType.getConstructor(Chromosome.class)
 						 .newInstance(popVar[i])
@@ -63,7 +84,6 @@ public abstract class FitnessFunc{
 				e.printStackTrace();
 			}
 		}
-		@SuppressWarnings("rawtypes")
 		ArrayList<Future> results = null;
 		try {
 			results = (ArrayList<Future>) exec.invokeAll(tasks);
@@ -71,8 +91,6 @@ public abstract class FitnessFunc{
 			e.printStackTrace();
 		}
 		exec.shutdown();
-		
-		
 		
 		ArrayList<double[]> fitness = new ArrayList<double[]>();
 		for(int i = 0; i < popSize; i++){
@@ -83,6 +101,7 @@ public abstract class FitnessFunc{
 			} catch (ExecutionException e) {
 					e.printStackTrace();
 			}
+			// initialize the ranking with the position of chromosomes
 			fitness.get(i)[1] = i;
 		}
 		return fitness;
