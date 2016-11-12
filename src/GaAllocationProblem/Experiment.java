@@ -8,7 +8,7 @@ import dataCollector.DataCollector;
 import gaFactory.*;
 public class Experiment {
 	public static void main(String[] arg) throws IOException {
-		ArrayList<FitnessFunction> funcList = new ArrayList<FitnessFunction>();
+		ArrayList<FitnessFunc> funcList = new ArrayList<FitnessFunc>();
 		double[] weights = new double[2];
 		double lbound = 0;
 		double ubound = 2;
@@ -25,7 +25,7 @@ public class Experiment {
 		double[] freqMatrix;
 		double[] latencyMatrix;
 
-		int testCase = 1;
+		int testCase = 2;
 		int noService;
 		int noLocation;
 		double Cmax, Cmin, Tmax, Tmin;
@@ -66,15 +66,20 @@ public class Experiment {
 		Constraint timeCon = new Constraint(noService);
 		Normalize costLinear = new LinearScaling(Cmax, Cmin);
 		Normalize timeLinear = new LinearScaling(Tmax, Tmin);
-		FitnessFunction cost = new GAHaiCostFitness(costLinear, costCon, costMatrix);
-		FitnessFunction time = new GAHaiTimeFitness(timeLinear, timeCon, latencyMatrix, 
-													freqMatrix, noService, noLocation);
-		funcList.add(cost);
-		funcList.add(time);
-		Evaluate evaluate = new GAHaiEvaluate(funcList, weights);
+		UnNormalizedFit cost = new GAHaiCostFitness(costMatrix);
+		UnNormalizedFit time = new GAHaiTimeFitness(latencyMatrix, freqMatrix, 
+													noService, noLocation);
+		FitnessFunc costFit = new FitnessFunc(cost.getClass());
+		FitnessFunc timeFit = new FitnessFunc(time.getClass());
+		Normalize[] normalizer = new Normalize[] {costLinear, timeLinear};
+		Constraint[] constraints = new Constraint[] {costCon, timeCon};
+		funcList.add(costFit);
+		funcList.add(timeFit);
+		Evaluate evaluate = new GAHaiEvaluate(funcList, normalizer, constraints, weights);
 		DataCollector collector = new ResultCollector();
 
-		ProblemParameterSettings proSet = new AllocationParameterSettings(evaluate, costMatrix, freqMatrix, latencyMatrix);
+		ProblemParameterSettings proSet = new AllocationParameterSettings(evaluate, costMatrix, 
+																	freqMatrix, latencyMatrix);
 		ParameterSettings pars = new ParameterSettings(
 									mutationRate, crossoverRate, lbound, ubound, tournamentSize,
 									eliteSize, optimization, popSize, maxGen, noService * noLocation);

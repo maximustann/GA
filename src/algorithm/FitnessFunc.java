@@ -93,16 +93,30 @@ public class FitnessFunc{
 		exec.shutdown();
 		
 		ArrayList<double[]> fitness = new ArrayList<double[]>();
-		for(int i = 0; i < popSize; i++){
+//		for(int i = 0; i < popSize; i++){
+//			try {
+//				System.out.println(results.get(i).get());
+//				double[] tempResults = (double[]) results.get(i).get();
+//				fitness.add(tempResults);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			} catch (ExecutionException e) {
+//					e.printStackTrace();
+//			}
+//			// initialize the ranking with the position of chromosomes
+//			fitness.get(i)[1] = i;
+//		}
+		int counter = 0;
+		for(Future f: results){
 			try {
-				fitness.add((double[]) results.get(i).get());
+				fitness.add((double[]) f.get());
+				fitness.get(counter)[1] = counter;
+				counter++;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (ExecutionException e) {
-					e.printStackTrace();
+				e.printStackTrace();
 			}
-			// initialize the ranking with the position of chromosomes
-			fitness.get(i)[1] = i;
 		}
 		return fitness;
 	}

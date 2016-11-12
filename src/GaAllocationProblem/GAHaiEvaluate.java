@@ -13,7 +13,8 @@ import java.util.ArrayList;
 
 import algorithm.Chromosome;
 import algorithm.Evaluate;
-import algorithm.FitnessFunction;
+import algorithm.FitnessFunc;
+import algorithm.Normalize;
 /**
  *
  * @author Boxiong Tan (Maximus Tann)
@@ -21,22 +22,33 @@ import algorithm.FitnessFunction;
  */
 public class GAHaiEvaluate implements Evaluate{
 	/** Evaluation function list */
-	private ArrayList<FitnessFunction> funcList;
+	private ArrayList<FitnessFunc> funcList;
 	
 	/** two values in the array */
 	private double[] weights;
+	
+	/** normalize function*/
+	private Normalize[] normalizer;
+	
+	private Constraint[] constraints;
 
 	/**
 	 * 
 	 * @param funcList Evaluation function list
 	 * @param weights weight is used to balance two objectives, cost and response time
 	 */
-	public GAHaiEvaluate(ArrayList<FitnessFunction> funcList, double[] weights){
+	public GAHaiEvaluate(
+						ArrayList<FitnessFunc> funcList, 
+						Normalize[] normalizer,
+						Constraint[] constraints,
+						double[] weights){
 		this.funcList = funcList;
 		this.weights = weights;
+		this.normalizer = normalizer;
+		this.constraints = constraints;
 	}
 
-	public void setFuncList(ArrayList<FitnessFunction> funcList){
+	public void setFuncList(ArrayList<FitnessFunc> funcList){
 		this.funcList = funcList;
 	}
 
@@ -49,8 +61,12 @@ public class GAHaiEvaluate implements Evaluate{
 	public void evaluate(Chromosome[] popVar, ArrayList<double[]> fitness){
 		fitness.clear();
 		ArrayList<ArrayList<double[]>> fitList = new ArrayList<ArrayList<double[]>>();
+		
 		for(int i = 0; i < funcList.size(); i++){
-			fitList.add(funcList.get(i).normalizedFit(popVar));
+			ArrayList<double[]> tempFit = funcList.get(i).execute(popVar);
+			tempFit = normalizer[i].doNorm(tempFit);
+			tempFit = constraints[i].punish(popVar, tempFit);
+			fitList.add(tempFit);
 		}
 
 		for(int i = 0; i < popVar.length; i++){

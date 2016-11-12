@@ -8,7 +8,6 @@
  * BPSOHaiCostFitness.java - cost fitness from Hai's Paper
  */
 package GaAllocationProblem;
-import java.util.ArrayList;
 import algorithm.*;
 import commonOperators.IntValueChromosome;
 /**
@@ -18,55 +17,34 @@ import commonOperators.IntValueChromosome;
  * @author Hai Huang
  * @since GA framework 1.0
  */
-public class GAHaiCostFitness extends FitnessFunc{
-	private double[] costMatrix;
-	Constraint con;
+public class GAHaiCostFitness extends UnNormalizedFit{
+	private static double[] costMatrix;
+
+	
+	public GAHaiCostFitness(Chromosome individual){
+		super(individual);
+	}
 
 	/**
 	 * 
-	 * @param normalize a user defined normalization method
 	 * @param con a user defined constraint, in this case user define a max cost constraint
 	 * @param costMatrix cost matrix, read from file, generate from normal distribution [20,100]
 	 */
-	public GAHaiCostFitness(Normalize normalize, Constraint con, double[] costMatrix){
-		super(normalize);
-		this.con = con;
-		this.costMatrix = costMatrix;
+	public GAHaiCostFitness(double[] costMatrix){
+		super(null);
+		GAHaiCostFitness.costMatrix = costMatrix;
 	}
+	
 
-	/**
-	 * Simply sum all the deployed services
-	 */
-	public ArrayList<double[]> unNormalizedFit(Chromosome[] popVar){
-		int popSize = popVar.length;
-		int maxVar = popVar[0].size();
-		ArrayList<double[]> fitness = new ArrayList<double[]>();
-		for(int i= 0; i < popSize; i++){
-			double[] fit = new double[2];
-			fit[1] = i;
-			for(int j = 0; j < maxVar; j++){
-				 fit[0] += costMatrix[j] * ((IntValueChromosome) popVar[i]).individual[j];
-			}
-			fitness.add(fit);
+	public Object call() throws Exception {
+		double[] fit = new double[2];
+		int maxVar = individual.size();
+		for(int j = 0; j < maxVar; j++){
+			 fit[0] += costMatrix[j] * ((IntValueChromosome) individual).individual[j];
 		}
-		return fitness;
+		fit[1] = 0;
+		return fit;
 	}
 
-	/**
-	 * 
-	 * Steps:
-	 * <ul>
-	 * 	<li>1. calculate fitness values</li>
-	 * 	<li>2. normalize fitness values</li>
-	 * 	<li>3. punish fitness values</li>
-	 * </ul>
-	 */
-	public ArrayList<double[]> normalizedFit(Chromosome[] popVar){
-		ArrayList<double[]> fitness = unNormalizedFit(popVar);
-		normalize.doNorm(fitness);
-		fitness = con.punish(popVar, fitness);
-		return fitness;
-
-	}
 
 }

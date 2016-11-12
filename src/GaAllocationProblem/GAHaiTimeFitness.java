@@ -8,7 +8,6 @@
  * BPSOHaiTimeFitness.java - a response time fitness function for Hai's paper
  */
 package GaAllocationProblem;
-import java.util.ArrayList;
 
 import algorithm.*;
 import commonOperators.IntValueChromosome;
@@ -18,13 +17,13 @@ import commonOperators.IntValueChromosome;
 * @author Hai Huang
 * @since PSO framework 1.0
 */
-public class GAHaiTimeFitness extends FitnessFunc {
-	private double[] latency;
-	private double[] frequency;
-	private int noService;
-	private int noLocation;
-	private int noUser;
-	private Constraint con;
+public class GAHaiTimeFitness extends UnNormalizedFit {
+	private static double[] latency;
+	private static double[] frequency;
+	private static int noService;
+	private static int noLocation;
+	private static int noUser;
+
 
 	/**
 	 * 
@@ -36,51 +35,32 @@ public class GAHaiTimeFitness extends FitnessFunc {
 	 * @param noLocation		number of locations
 	 */
 	public GAHaiTimeFitness(
-								Normalize normalize, 
-								Constraint con, 
 								double[] latency, 
 								double[] frequency,
 								int noService, 
 								int noLocation
 								){
-		super(normalize);
-		this.con = con;
-		this.latency = latency;
-		this.frequency = frequency;
-		this.noService = noService;
-		this.noUser = latency.length / noLocation;
+		super(null);
+		GAHaiTimeFitness.latency = latency;
+		GAHaiTimeFitness.frequency = frequency;
+		GAHaiTimeFitness.noService = noService;
+		GAHaiTimeFitness.noUser = latency.length / noLocation;
+	}
+	
+	public GAHaiTimeFitness(Chromosome individual){
+		super(individual);
+		GAHaiTimeFitness.noLocation = individual.size() / noService;
 	}
 
 	/**
 	 * evaluate each population
 	 */
-	public ArrayList<double[]> unNormalizedFit(Chromosome[] popVar) {
-		int popSize = popVar.length;
-		noLocation = popVar[0].size() / noService;
-		ArrayList<double[]> fitness = new ArrayList<double[]>();
-
-		for(int i = 0; i < popSize; i++){
-			double[] fit = new double[2];
-			fit[0] = fitnessIndividual((IntValueChromosome) popVar[i], noService, noLocation);
-			fit[1] = i;
-			fitness.add(fit);
-		}
-		return fitness;
-	}
-
-	/**
-	 * Three Steps:
-	 * <ul>
-	 * 	<li>1. calculate fitness values</li>
-	 *  <li>2. normalize fitness values</li>
-	 *  <li>3. push fitness values	  </li>
-	 * </ul>
-	 */
-	public ArrayList<double[]> normalizedFit(Chromosome[] popVar){
-		ArrayList<double[]> fitness = unNormalizedFit(popVar);
-		normalize.doNorm(fitness);
-		fitness = con.punish(popVar, fitness);
-		return fitness;
+	@Override
+	public Object call() throws Exception {
+		double[] fit = new double[2];
+		fit[0] = fitnessIndividual((IntValueChromosome) individual);
+		fit[1] = 0;
+		return fit;
 	}
 
 	/**
@@ -98,13 +78,10 @@ public class GAHaiTimeFitness extends FitnessFunc {
 	 *  		and its invocation frequency</li>
 	 * </ul>
 	 * @param particle 		an instance from the population
-	 * @param noService		the number of services
-	 * @param noLocation		the number of locations
 	 * @return fitness		the fitness value of this particle
 	 */
 	private double fitnessIndividual(
-					IntValueChromosome individual, 
-					int noService, int noLocation){
+					IntValueChromosome individual){
 		double fitness = 0.0;
 		double[][] latencyMatrix = new double[noUser][noLocation];
 		double[][] temp = new double[noUser][noLocation];
@@ -168,5 +145,7 @@ public class GAHaiTimeFitness extends FitnessFunc {
 		}
 		return minimum;
 	}
+
+
 
 }
