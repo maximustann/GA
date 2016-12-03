@@ -8,7 +8,7 @@
  * RealValueChromosome.java - A real value chromosome representation
  */
 
-package commonOperators;
+package commonRepresentation;
 import algorithm.Chromosome;
 import algorithm.Gene;
 /**

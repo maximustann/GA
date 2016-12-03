@@ -10,7 +10,7 @@
 package GaAllocationProblem;
 
 import algorithm.*;
-import commonOperators.IntValueChromosome;
+import commonRepresentation.IntValueChromosome;
 /**
 *
 * @author Boxiong Tan (Maximus Tann)

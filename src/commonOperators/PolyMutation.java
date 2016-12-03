@@ -12,6 +12,7 @@ package commonOperators;
 import algorithm.Chromosome;
 import algorithm.Mutation;
 import algorithm.StdRandom;
+import commonRepresentation.RealValueChromosome;
 
 /**
  * A real value mutation method

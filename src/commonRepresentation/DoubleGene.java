@@ -5,24 +5,24 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * IntGene.java - A int type gene implementation
+ * DoubleGene.java - A double type gene implementation
  */
-package commonOperators;
+package commonRepresentation;
 
 import algorithm.Gene;
 /**
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
-public class IntGene implements Gene {
+public class DoubleGene implements Gene {
 	/** actual content */
-	public int[] gene;
+	public double[] gene;
 
 	/** Constructor 
 	 * @param size the size of gene 
-	 */
-	public IntGene(int size){
-		gene = new int[size];
+	 */	
+	public DoubleGene(int size){
+		gene = new double[size];
 	}
 
 	@Override

@@ -9,7 +9,7 @@
  */
 package GaAllocationProblem;
 import algorithm.*;
-import commonOperators.IntValueChromosome;
+import commonRepresentation.IntValueChromosome;
 /**
  * AllocationParameterSettings for Hai's Paper
  *

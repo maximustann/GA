@@ -10,6 +10,7 @@
 package commonOperators;
 
 import algorithm.*;
+import commonRepresentation.IntValueChromosome;
 
 /**
  * Initialization of population for Int GA

@@ -10,6 +10,7 @@
 package commonOperators;
 
 import algorithm.*;
+import commonRepresentation.RealValueChromosome;
 
 /**
  * Initialization of population for Double GA

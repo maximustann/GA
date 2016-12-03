@@ -11,7 +11,7 @@ package Rosenbrock;
 
 import algorithm.Chromosome;
 import algorithm.UnNormalizedFit;
-import commonOperators.RealValueChromosome;
+import commonRepresentation.RealValueChromosome;
 /**
  * An example of unNormalizedFit
  * 

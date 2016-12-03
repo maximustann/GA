@@ -7,7 +7,9 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * InitBinaryChromosome.java - A binary type initialization implementation
  */
-package commonOperators;
+package commonRepresentation;
+
+import commonOperators.InitIntChromosomes;
 
 /**
  * Initialization of population for binary GA

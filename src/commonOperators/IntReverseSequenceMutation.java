@@ -12,6 +12,7 @@ package commonOperators;
 import algorithm.Chromosome;
 import algorithm.Mutation;
 import algorithm.StdRandom;
+import commonRepresentation.IntValueChromosome;
 /**
  * Please find detailed explanation in this paper:
  * Analyzing the Performance of Mutation Operators to Solve the Travelling Salesman Problem

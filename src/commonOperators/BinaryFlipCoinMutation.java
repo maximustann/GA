@@ -12,6 +12,7 @@ package commonOperators;
 import algorithm.Chromosome;
 import algorithm.Mutation;
 import algorithm.StdRandom;
+import commonRepresentation.IntValueChromosome;
 
 /**
  * Most commonly used mutation, flip coin mutation of an int value chromosome
