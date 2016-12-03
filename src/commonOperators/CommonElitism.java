@@ -37,11 +37,11 @@ public class CommonElitism extends Elitism{
 		}
 		if(optimization == 0){
 			for(int i = 0; i < elitSize; i++){
-				newPop[i] = popVar[i].getCopy();
+				newPop[i] = popVar[i].clone();
 			}
 		} else {
 			for(int i = 0; i < elitSize; i++){
-				newPop[i] = popVar[popSize - 1 - i].getCopy();
+				newPop[i] = popVar[popSize - 1 - i].clone();
 			}
 		}
 

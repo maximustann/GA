@@ -16,7 +16,7 @@ package algorithm;
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
-public abstract class Chromosome{
+public abstract class Chromosome implements Cloneable{
 	/** get size of chromosome */
 	public abstract int size();
 	
@@ -32,6 +32,6 @@ public abstract class Chromosome{
 	 * will FAIL!!! Such as elitism, mutation. 
 	 * 
 	 */
-	public abstract Chromosome getCopy();
+	public abstract Chromosome clone();
 	public abstract boolean equals(Chromosome chromos);
 }

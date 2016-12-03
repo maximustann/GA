@@ -118,7 +118,7 @@ public class IntValueChromosome extends Chromosome{
 	/**
 	 * Get an exact copy of current chromosome
 	 */
-	public IntValueChromosome getCopy() {
+	public IntValueChromosome clone() {
 		IntValueChromosome copy = new IntValueChromosome(size());
 		for(int i = 0; i < size(); i++){
 			copy.individual[i] = individual[i];

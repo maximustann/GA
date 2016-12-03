@@ -69,7 +69,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 										.update(father, mother, crossoverRate);
 				for(int j = 0; j < children.length; j++) {
 					mutation.update(children[j], mutationRate);
-					newPop[childrenCount] = children[j].getCopy();
+					newPop[childrenCount] = children[j].clone();
 					childrenCount++;
 					if(childrenCount == popSize) {
 						exitFlag = 1;

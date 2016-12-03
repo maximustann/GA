@@ -66,7 +66,7 @@ public class RealValueChromosome extends Chromosome{
 	/**
 	 * return an exact copy
 	 */
-	public RealValueChromosome getCopy() {
+	public RealValueChromosome clone() {
 		RealValueChromosome copy = new RealValueChromosome(size());
 		for(int i = 0; i < size(); i++){
 			copy.individual[i] = individual[i];
