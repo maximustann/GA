@@ -17,10 +17,10 @@ import algorithm.Selection;
 import algorithm.Sort;
 import commonOperators.BinaryFlipCoinMutation;
 import commonOperators.CommonElitism;
+import commonOperators.InitBinaryChromosome;
 import commonOperators.SinglePointCrossover;
 import commonOperators.TournamentSelection;
 import commonOperators.sortPop;
-import commonRepresentation.InitBinaryChromosome;
 import dataCollector.DataCollector;
 /**
  * BinaryGAFactory
