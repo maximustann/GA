@@ -63,6 +63,12 @@ public class ResultCollector extends DataCollector {
 		}
 	}
 	
+	public void printBestInRuns(int gen){
+		for(int i = gen - 1; i < resultData.size(); i += gen){
+			System.out.println("fitness: " + resultData.get(i)[0]);
+		}
+	}
+	
 	public void collectChromosome(Chromosome[] popVar) {
 		data.add(popVar);
 	}

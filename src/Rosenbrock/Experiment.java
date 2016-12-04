@@ -93,7 +93,7 @@ public class Experiment {
 		myAlg.runNtimes(23333, 30);
 		
 		/** print results */
-		((ResultCollector) collector).printResult();
+		((ResultCollector) collector).printBestInRuns(maxGen);
 		((ResultCollector) collector).printMeanTime();;
 
 //		((ResultCollector) collector).printPop();
