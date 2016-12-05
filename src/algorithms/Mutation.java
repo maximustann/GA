@@ -5,29 +5,26 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * Selection.java - an interface of selection operator. Please implement this interface.
+ * Mutation.java - an interface of mutation operator, please implement this interface.
  */
-
-package algorithm;
-
-import java.util.ArrayList;
+package algorithms;
 
 /**
- * An interface of selection operator
+ * An interface of mutation operator
  * 
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
-public interface Selection {
+public interface Mutation {
     /**
-     * selection process
+     * update the Global best according to all the personal bests
      * 
      * @param popVar whole population
-     * @param popFit the fitness of whole population
-     * @return return an index of the selected chromosome
+     * @param mutationRate the probability of mutation
      */	
-	public int selected (
-			Chromosome [] popVar,
-			ArrayList<double[]> popFit
+	public void update(
+			Chromosome individual,
+			double mutationRate 
 			);
+	
 }

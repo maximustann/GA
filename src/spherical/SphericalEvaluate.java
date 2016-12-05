@@ -7,19 +7,20 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * RosenbrockEvaluate.java evaluation function
  */
-package Rosenbrock;
+package spherical;
 
 import java.util.ArrayList;
 
+import algorithms.GeneticAlgorithm;
 import algorithms.Chromosome;
 import algorithms.Evaluate;
 import algorithms.FitnessFunc;
 
-public class RosenbrockEvaluate implements Evaluate{
+public class SphericalEvaluate implements Evaluate{
 	private ArrayList<FitnessFunc> funcList;
 
 	// constructor, initialize fitness function list
-	public RosenbrockEvaluate(ArrayList<FitnessFunc> funcList){
+	public SphericalEvaluate(ArrayList<FitnessFunc> funcList){
 		this.funcList = funcList;
 	}
 
@@ -49,7 +50,7 @@ public class RosenbrockEvaluate implements Evaluate{
 	public void evaluate(Chromosome[] popVar, ArrayList<double[]> popFit) {
 		// must clean the previous popFit first, otherwise the popFit list will be incremental.
 		popFit.clear();
-		
+
 		// get fitness function list, just in case you have multiple objective functions.
 		FitnessFunc fitnessFunction = funcList.get(0);
 		ArrayList<double[]> tempFit = null;

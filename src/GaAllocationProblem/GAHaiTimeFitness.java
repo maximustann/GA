@@ -9,7 +9,7 @@
  */
 package GaAllocationProblem;
 
-import algorithm.*;
+import algorithms.*;
 import commonRepresentation.IntValueChromosome;
 /**
 *

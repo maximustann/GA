@@ -5,17 +5,16 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * Gene.java - an interface of Gene
+ * Crossover.java - an interface of crossover operator, please implement this interface.
  */
-package algorithm;
+package algorithms;
 
 /**
- * An interface of Gene
+ * An interface of crossover operator
  * 
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
-public interface Gene {
-	/** get size */
-	public int size();
+public interface Crossover {
+
 }

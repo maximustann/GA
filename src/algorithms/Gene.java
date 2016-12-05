@@ -5,21 +5,17 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * Sort.java - an interface of sort method. Please implement this interface.
+ * Gene.java - an interface of Gene
  */
-package algorithm;
+package algorithms;
 
-import java.util.ArrayList;
 /**
- * An interface of sort
+ * An interface of Gene
  * 
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
-public interface Sort {
-	/**
-	 * @param popVar population
-	 * @param popFit fitness
-	 */
-	public void sort(Chromosome[] popVar, ArrayList<double[]> popFit);
+public interface Gene {
+	/** get size */
+	public int size();
 }

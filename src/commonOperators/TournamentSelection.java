@@ -11,9 +11,9 @@ package commonOperators;
 
 import java.util.ArrayList;
 
-import algorithm.Chromosome;
-import algorithm.Selection;
-import algorithm.StdRandom;
+import algorithms.Chromosome;
+import algorithms.Selection;
+import algorithms.StdRandom;
 /**
  * An implementation of tournament selection
  *

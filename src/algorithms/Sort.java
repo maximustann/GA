@@ -5,16 +5,21 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * Crossover.java - an interface of crossover operator, please implement this interface.
+ * Sort.java - an interface of sort method. Please implement this interface.
  */
-package algorithm;
+package algorithms;
 
+import java.util.ArrayList;
 /**
- * An interface of crossover operator
+ * An interface of sort
  * 
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
-public interface Crossover {
-
+public interface Sort {
+	/**
+	 * @param popVar population
+	 * @param popFit fitness
+	 */
+	public void sort(Chromosome[] popVar, ArrayList<double[]> popFit);
 }

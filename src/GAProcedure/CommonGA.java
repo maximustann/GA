@@ -10,9 +10,9 @@
 
 package GAProcedure;
 
-import algorithm.Chromosome;
-import algorithm.GeneticAlgorithm;
-import algorithm.TwoParentsCrossover;
+import algorithms.Chromosome;
+import algorithms.GeneticAlgorithm;
+import algorithms.TwoParentsCrossover;
 
 /**
  * The abstraction of common GA procedure

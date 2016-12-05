@@ -16,7 +16,7 @@ package GaAllocationProblem;
  * @since GA framework 1.0
  */
 import ProblemDefine.ProblemParameterSettings;
-import algorithm.Evaluate;
+import algorithms.Evaluate;
 
 public class AllocationParameterSettings extends ProblemParameterSettings{
 	private double[] costMatrix;

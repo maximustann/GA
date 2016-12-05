@@ -10,8 +10,8 @@
 package commonOperators;
 
 
-import algorithm.Chromosome;
-import algorithm.Elitism;
+import algorithms.Chromosome;
+import algorithms.Elitism;
 /**
  * An implementation of elitism
  *

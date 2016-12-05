@@ -9,7 +9,7 @@
  */
 package commonRepresentation;
 
-import algorithm.Gene;
+import algorithms.Gene;
 /**
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0

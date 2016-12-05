@@ -9,12 +9,12 @@
  */
 package gaFactory;
 
-import algorithm.Crossover;
-import algorithm.Elitism;
-import algorithm.InitPop;
-import algorithm.Mutation;
-import algorithm.Selection;
-import algorithm.Sort;
+import algorithms.Crossover;
+import algorithms.Elitism;
+import algorithms.InitPop;
+import algorithms.Mutation;
+import algorithms.Selection;
+import algorithms.Sort;
 import commonOperators.BinaryFlipCoinMutation;
 import commonOperators.CommonElitism;
 import commonOperators.InitBinaryChromosome;

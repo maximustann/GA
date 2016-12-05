@@ -8,7 +8,7 @@
  * BPSOHaiCostFitness.java - cost fitness from Hai's Paper
  */
 package GaAllocationProblem;
-import algorithm.*;
+import algorithms.*;
 import commonRepresentation.IntValueChromosome;
 /**
  * AllocationParameterSettings for Hai's Paper

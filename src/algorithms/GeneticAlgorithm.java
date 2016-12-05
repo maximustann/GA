@@ -9,17 +9,11 @@
  * 							implementation of the algorithm
  */
 
-package algorithm;
+package algorithms;
 
 import java.util.ArrayList;
 
-/**
- * The abstraction of GA
- *
- * @author Boxiong Tan (Maximus Tann)
- * @since GA framework 1.0
- */
-import algorithm.StdRandom;
+import algorithms.StdRandom;
 import dataCollector.DataCollector;
 
 public abstract class GeneticAlgorithm {

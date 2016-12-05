@@ -7,7 +7,7 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * TwoParentsCrossover.java - an interface of crossover operator, please implement this interface.
  */
-package algorithm;
+package algorithms;
 
 /**
  * An interface of crossover operator

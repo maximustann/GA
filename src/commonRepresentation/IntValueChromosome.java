@@ -11,8 +11,8 @@
 package commonRepresentation;
 
 
-import algorithm.Chromosome;
-import algorithm.Gene;
+import algorithms.Chromosome;
+import algorithms.Gene;
 /**
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0

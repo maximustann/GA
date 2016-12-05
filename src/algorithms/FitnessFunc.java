@@ -8,7 +8,7 @@
  * FitnessFunc.java - An abstract of common fitness function.
  */
 
-package algorithm;
+package algorithms;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

@@ -7,9 +7,10 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * RosenbrockUnNormalizedFit.java an implementation of unNormalizedFit
  */
-package Rosenbrock;
+package spherical;
 
 import algorithms.Chromosome;
+import algorithms.GeneticAlgorithm;
 import algorithms.UnNormalizedFit;
 import commonRepresentation.RealValueChromosome;
 /**
@@ -18,11 +19,11 @@ import commonRepresentation.RealValueChromosome;
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
-public class RosenbrockUnNormalizedFit extends UnNormalizedFit{
+public class SphericalUnNormalizedFit extends UnNormalizedFit{
 	/**
 	 * @param individual the chromosome that you want to evaluate.
 	 */
-	public RosenbrockUnNormalizedFit(Chromosome individual){
+	public SphericalUnNormalizedFit(Chromosome individual){
 		super(individual);
 	}
 	
@@ -37,11 +38,8 @@ public class RosenbrockUnNormalizedFit extends UnNormalizedFit{
 		
 		double fit = 0.0;
 		for(int j = 0; j < maxVar - 1; j++){
-			double firstTerm, secondTerm;
-			firstTerm = ((RealValueChromosome) individual).individual[j + 1] - 
-					Math.pow(((RealValueChromosome) individual).individual[j], 2);
-			secondTerm = Math.pow(((RealValueChromosome) individual).individual[j] - 1, 2);
-			fit += 100 * (firstTerm * firstTerm) + secondTerm;
+			fit += ((RealValueChromosome) individual).individual[j] * 
+				   ((RealValueChromosome) individual).individual[j];
 		}
 		// just initialize the ranking with 0, because this call() will be executed in thread, 
 		// therefore it is hard to initialize ranking here.

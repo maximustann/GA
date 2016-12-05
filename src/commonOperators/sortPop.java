@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import algorithm.Chromosome;
-import algorithm.Sort;
+import algorithms.Chromosome;
+import algorithms.Sort;
 /**
  * population sorting
  * @author Boxiong Tan (Maximus Tann) 

@@ -7,7 +7,7 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * Evaluate.java - Interface of a Evaluation method.
  */
-package algorithm;
+package algorithms;
 
 import java.util.ArrayList;
 

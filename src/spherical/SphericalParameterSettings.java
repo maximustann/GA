@@ -8,7 +8,7 @@
  * RosenbrockParameterSettings.java an implementation of ProblemParameterSettings, although it seems
  * unnecessary. But the ProblemParameterSettings abstraction could be extended in the future. 
  */
-package Rosenbrock;
+package spherical;
 
 import ProblemDefine.ProblemParameterSettings;
 import algorithms.Evaluate;
@@ -17,9 +17,9 @@ import algorithms.Evaluate;
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0
  */
-public class RosenbrockParameterSettings extends ProblemParameterSettings{
+public class SphericalParameterSettings extends ProblemParameterSettings{
 
-	public RosenbrockParameterSettings(Evaluate evaluate) {
+	public SphericalParameterSettings(Evaluate evaluate) {
 		super(evaluate);
 	}
 

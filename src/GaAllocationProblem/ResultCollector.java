@@ -11,7 +11,7 @@ package GaAllocationProblem;
 
 import java.util.ArrayList;
 
-import algorithm.Chromosome;
+import algorithms.Chromosome;
 import dataCollector.DataCollector;
 /**
  * 

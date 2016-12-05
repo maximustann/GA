@@ -7,7 +7,7 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * InitPop.java - An interface of initialization of population
  */
-package algorithm;
+package algorithms;
 
 /**
  * Initialization of population

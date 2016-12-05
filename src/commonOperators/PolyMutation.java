@@ -9,9 +9,9 @@
  */
 package commonOperators;
 
-import algorithm.Chromosome;
-import algorithm.Mutation;
-import algorithm.StdRandom;
+import algorithms.Chromosome;
+import algorithms.Mutation;
+import algorithms.StdRandom;
 import commonRepresentation.RealValueChromosome;
 
 /**

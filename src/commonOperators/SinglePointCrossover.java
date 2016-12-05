@@ -11,10 +11,10 @@ package commonOperators;
 
 import java.lang.reflect.InvocationTargetException;
 
-import algorithm.Chromosome;
-import algorithm.Gene;
-import algorithm.StdRandom;
-import algorithm.TwoParentsCrossover;
+import algorithms.Chromosome;
+import algorithms.Gene;
+import algorithms.StdRandom;
+import algorithms.TwoParentsCrossover;
 /**
  * Single point crossover
  * NOTICES: 

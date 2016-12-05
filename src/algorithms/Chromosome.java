@@ -9,7 +9,7 @@
  * by implement this interface.
  */
 
-package algorithm;
+package algorithms;
 /**
  * An abstract class of chromosome
  * 

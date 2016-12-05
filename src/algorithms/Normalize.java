@@ -7,7 +7,7 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * Normalize.java - An interface of normalization
  */
-package algorithm;
+package algorithms;
 
 import java.util.ArrayList;
 

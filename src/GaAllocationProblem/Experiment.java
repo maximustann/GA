@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import ProblemDefine.*;
-import algorithm.*;
+import algorithms.*;
 import dataCollector.DataCollector;
 import gaFactory.*;
 public class Experiment {

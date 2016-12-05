@@ -7,7 +7,7 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * UnNormalizedFit.java - An interface of unnormalized fitness function
  */
-package algorithm;
+package algorithms;
 
 import java.util.concurrent.Callable;
 

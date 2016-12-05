@@ -8,7 +8,7 @@
  * Experiment.java 	The main function.
  * 
  */
-package Rosenbrock;
+package spherical;
 import java.util.ArrayList;
 import ProblemDefine.*;
 import algorithms.Evaluate;
@@ -43,8 +43,8 @@ public class Experiment {
 		double crossoverRate = 0.7;
 		
 		/** lower and upper bound of X */
-		double lbound = -30; // ranging in [-30, 30]
-		double ubound = 30;
+		double lbound = -100; // ranging in [-30, 30]
+		double ubound = 100;
 		
 		/** tournament selection size */
 		int tournamentSize = 10;
@@ -63,28 +63,28 @@ public class Experiment {
 		int d = 20; // number of dimensions
 
 		/** Initialize fitness function */
-		FitnessFunc fitnessFunction = new FitnessFunc(RosenbrockUnNormalizedFit.class);
+		FitnessFunc fitnessFunction = new FitnessFunc(SphericalUnNormalizedFit.class);
 		funcList.add(fitnessFunction);
 
 		/** register fitness function into your evaluation function */
-		Evaluate evaluate = new RosenbrockEvaluate(funcList);
+		Evaluate evaluate = new SphericalEvaluate(funcList);
 
 		/** register evaluation in problem parameter settings*/
-		ProblemParameterSettings proSet = new RosenbrockParameterSettings(evaluate);
+		ProblemParameterSettings proSet = new SphericalParameterSettings(evaluate);
 		
 		/** Initialize algorithm parameter settings */
 		ParameterSettings pars = new ParameterSettings(
-									mutationRate, crossoverRate, lbound,
-									ubound, tournamentSize, elitSize, optimization,
-									popSize, maxGen, d);
+								mutationRate, crossoverRate, lbound,
+								ubound, tournamentSize, elitSize, optimization,
+								popSize, maxGen, d);
 		
 		/** set up DataCollector */
 		DataCollector collector = new ResultCollector();
 
 		/** select a type of genetic algorithm, initialize it with a factory */
 		GeneticAlgorithm myAlg = new RealGA(pars, proSet, new RealGAFactory(
-																collector, lbound,
-																ubound, perturbation));
+				collector, lbound,
+				ubound, perturbation));
 
 
 

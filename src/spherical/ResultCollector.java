@@ -7,7 +7,7 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * ResultCollector.java 
  */
-package Rosenbrock;
+package spherical;
 
 import java.util.ArrayList;
 

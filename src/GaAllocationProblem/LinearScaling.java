@@ -11,7 +11,7 @@ package GaAllocationProblem;
 
 import java.util.ArrayList;
 
-import algorithm.Normalize;
+import algorithms.Normalize;
 /**
 *
 * @author Boxiong Tan (Maximus Tann)

@@ -11,10 +11,10 @@ package GaAllocationProblem;
 
 import java.util.ArrayList;
 
-import algorithm.Chromosome;
-import algorithm.Evaluate;
-import algorithm.FitnessFunc;
-import algorithm.Normalize;
+import algorithms.Chromosome;
+import algorithms.Evaluate;
+import algorithms.FitnessFunc;
+import algorithms.Normalize;
 /**
  *
  * @author Boxiong Tan (Maximus Tann)

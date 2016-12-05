@@ -7,7 +7,7 @@
  * Copyright (c) 2016-2019, The Victoria University of Wellington
  * Elitism.java - an interface of elitism operator, please implement this interface.
  */
-package algorithm;
+package algorithms;
 /**
  * An abstraction of elitism.
  * @author Boxiong Tan (Maximus Tann) 
