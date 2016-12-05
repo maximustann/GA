@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import GAProcedure.CommonGA;;
 /**
- * An int GA
+ * An Real GA
  *
  * @author Boxiong Tan (Maximus Tann)
  * @since PSO framework 1.0

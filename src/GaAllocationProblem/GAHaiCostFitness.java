@@ -5,7 +5,7 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * BPSOHaiCostFitness.java - cost fitness from Hai's Paper
+ * GAHaiCostFitness.java - cost fitness from Hai's Paper
  */
 package GaAllocationProblem;
 import algorithms.*;

@@ -23,7 +23,7 @@ public class InitRealChromosomes implements InitPop{
      * Generate an array of chromosomes,
      *
      * @param popSize population size
-     * @param maxVar the number of variable of a chromosome
+     * @param maxVar the number of variables of a chromosome
      * @param lbound the lower boundary of a variable of a chromosome
      * @param ubound the upper boundary of a variable of a chromosome
      * @return array of population variables

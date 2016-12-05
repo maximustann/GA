@@ -12,7 +12,7 @@ package algorithms;
 import java.util.concurrent.Callable;
 
 /**
- * UnNormalizedFit is a function that you implement your objective function
+ * UnNormalizedFit is the core calculation unit. You should implement it as your fitness function.
  * 
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0

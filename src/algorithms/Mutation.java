@@ -17,9 +17,8 @@ package algorithms;
  */
 public interface Mutation {
     /**
-     * update the Global best according to all the personal bests
      * 
-     * @param popVar whole population
+     * @param individual a piece of chromosome
      * @param mutationRate the probability of mutation
      */	
 	public void update(

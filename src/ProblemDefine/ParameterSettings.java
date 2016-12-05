@@ -20,8 +20,8 @@ public class ParameterSettings {
     /**
      * Prepare a package of parameter settings
      *
-     * @param crossoverRate crossover rate
      * @param mutationRate mutation rate
+     * @param crossoverRate crossover rate
      * @param lbound the lower boundary of a variable of a particle
      * @param ubound the upper boundary of a variable of a particle
      * @param tournamentSize size of tournament selection

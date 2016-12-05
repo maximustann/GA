@@ -11,7 +11,8 @@ package algorithms;
 
 import java.util.ArrayList;
 /**
- * An interface of sort
+ * An interface of sort.
+ * Sort is used in the GA's process
  * 
  * @author Boxiong Tan (Maximus Tann) 
  * @since GA framework 1.0

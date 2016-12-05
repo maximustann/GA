@@ -20,10 +20,20 @@ import algorithms.Elitism;
  */
 public class CommonElitism extends Elitism{
 	
+	/**
+	 * 
+	 * @param elitSize the size of chromosome that carries over to the next generation
+	 * @param optimization the optimization direction
+	 */
 	public CommonElitism(int elitSize, int optimization) {
 		super(elitSize, optimization);
 	}
 	
+	/**
+	 * 
+	 * @param elitPercent the percentage of chromosome that carries over to the next generation
+	 * @param optimization the optimization direction
+	 */
 	public CommonElitism(double elitPercent, int optimization) {
 		super(elitPercent, optimization);
 	}

@@ -66,8 +66,6 @@ public class BinaryGA extends CommonGA {
 		popSize = pars.getPopSize();
 		mutationRate = pars.getMutationRate();
 		crossoverRate = pars.getCrossoverRate();
-//		lbound = pars.getLbound();
-//		ubound = pars.getUbound();
 		optimization = pars.getOptimization();
 		tournamentSize = pars.getTournamentSize();
 		elitSize = pars.getElitSize();

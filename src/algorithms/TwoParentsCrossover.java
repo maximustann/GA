@@ -17,10 +17,9 @@ package algorithms;
  */
 public interface TwoParentsCrossover extends Crossover {
     /**
-     * update the Global best according to all the personal bests
      * 
-     * @param mother a chromosome
-     * @param father a chromosome
+     * @param mother a selected chromosome
+     * @param father a selected chromosome
      * @param crossoverRate the probability of crossover.
      * @return An array of chromosome children
      */	

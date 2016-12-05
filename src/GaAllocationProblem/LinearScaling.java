@@ -1,7 +1,7 @@
 /*
  * Boxiong Tan (Maximus Tann)
- * Title:        PSO algorithm framework
- * Description:  PSO algorithm framework for general optimization purpose
+ * Title:        GA framework
+ * Description:  GA framework for general optimization purpose
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
@@ -33,7 +33,7 @@ public class LinearScaling implements Normalize{
 	/**
 	 * normalize all fitness values
 	 * @param fitness unnormalized fitness values, the inner array contains two item,
-	 * fitness value and the ranking of current chromosome. 
+	 * fitness value and the ranking of the current chromosome. 
 	 */
 	public ArrayList<double[]> doNorm(ArrayList<double[]> fitness){
 		for(int i = 0; i < fitness.size(); i++){

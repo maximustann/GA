@@ -18,8 +18,6 @@ import algorithms.Gene;
  * @since GA framework 1.0
  */
 public class IntValueChromosome extends Chromosome{
-	/** We just want to inherent the type. Don't even need to encapsulate. 
-	 */
 	public int [] individual;
 	public int [][] matrixIndividual;
 	
@@ -34,9 +32,9 @@ public class IntValueChromosome extends Chromosome{
 	 * Constructor
 	 * We need two genes to construct a chromosome.
 	 * In this case, gene is tight coupling with chromosome. You will have to manually 
-	 * define chromosome and gene together. 
+	 * define a chromosome and a gene. 
 	 * 
-	 * This is just an example of how to define a chromosome class.
+	 * It constructs a new chromosome with two gene pieces.
 	 * 
 	 * @param firstPart
 	 * @param secondPart
@@ -86,6 +84,7 @@ public class IntValueChromosome extends Chromosome{
 		for(int i = 0; i < size(); i++){
 			System.out.print(individual[i] + " ");
 		}
+		System.out.println();
 	}
 	
 	/**
@@ -126,17 +125,18 @@ public class IntValueChromosome extends Chromosome{
 		return copy;
 	}
 	
-	private boolean equals(IntValueChromosome chromo){
+	/** compare with a target chromosome */
+	private boolean equals(IntValueChromosome target){
 		int chromoSize = size();
 		for(int i = 0; i < chromoSize; i++){
-			if(individual[i] != chromo.individual[i]){
+			if(individual[i] != target.individual[i]){
 				return false;
 			}
 		}
 		return true;
 	}
 	@Override
-	public boolean equals(Chromosome chromos) {
-		return equals((IntValueChromosome) chromos);
+	public boolean equals(Chromosome target) {
+		return equals((IntValueChromosome) target);
 	}
 }

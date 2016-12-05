@@ -43,7 +43,7 @@ public class Experiment {
 		double crossoverRate = 0.7;
 		
 		/** lower and upper bound of X */
-		double lbound = -100; // ranging in [-30, 30]
+		double lbound = -100; // ranging in [-100, 300]
 		double ubound = 100;
 		
 		/** tournament selection size */

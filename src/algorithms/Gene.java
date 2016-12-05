@@ -16,6 +16,6 @@ package algorithms;
  * @since GA framework 1.0
  */
 public interface Gene {
-	/** get size */
+	/** get size of the gene */
 	public int size();
 }

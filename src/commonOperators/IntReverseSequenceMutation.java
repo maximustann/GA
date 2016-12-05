@@ -15,7 +15,7 @@ import algorithms.StdRandom;
 import commonRepresentation.IntValueChromosome;
 /**
  * Please find detailed explanation in this paper:
- * Analyzing the Performance of Mutation Operators to Solve the Travelling Salesman Problem
+ * Analyzing the Performance of Mutation Operators to Solve the Traveling Salesman Problem
  *
  * @author Boxiong Tan (Maximus Tann)
  * @since GA framework 1.0
@@ -26,8 +26,8 @@ public class IntReverseSequenceMutation implements Mutation {
 	/**
 	 * Steps:
 	 * <ul>
-	 * 	<li> 1.Check if a random number in [0, 1] less than mutationRate, if yes, mutate </li>
-	 * 	<li> 2. Do reverse sequence mutation </li>
+	 * 	<li> 1.Check if a random number in [0, 1] less than mutationRate. </li>
+	 * 	<li> 2. If yes, do reverse sequence mutation. </li>
 	 * </ul>
 	 */
 	public void update(Chromosome individual, double mutationRate) {
@@ -40,7 +40,7 @@ public class IntReverseSequenceMutation implements Mutation {
 	/**
 	 * Steps:
 	 * <ul>
-	 * 	<li> 1. randomly selected two points, startPoint < endPoint </li>
+	 * 	<li> 1. randomly selected two points: startPoint and endPoint, startPoint < endPoint </li>
 	 * 	<li> 2. reverse the sequence between these two points.</li>
 	 * <ul>
 	 *

@@ -18,6 +18,7 @@ import commonRepresentation.IntValueChromosome;
 * @since PSO framework 1.0
 */
 public class GAHaiTimeFitness extends UnNormalizedFit {
+	/** These are data, therefore, they are defined as static values. */
 	private static double[] latency;
 	private static double[] frequency;
 	private static int noService;
@@ -27,8 +28,6 @@ public class GAHaiTimeFitness extends UnNormalizedFit {
 
 	/**
 	 * 
-	 * @param normalize 		a user defined normalization method
-	 * @param con 			a user defined constraint method
 	 * @param latency		latency matrix
 	 * @param frequency 		frequency matrix
 	 * @param noService		number of services

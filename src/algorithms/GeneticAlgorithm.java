@@ -17,25 +17,25 @@ import algorithms.StdRandom;
 import dataCollector.DataCollector;
 
 public abstract class GeneticAlgorithm {
-	/** An InitPop object for initialization of population */
+	/** An InitPop object for initializing a population */
 	protected InitPop initPop;
 
-	/** An Evaluation object for Evaluation of fitness */
+	/** An Evaluation object for Evaluating fitness */
 	protected Evaluate evaluate;
 
-	/** A selection method */
+	/** A selection operator */
 	protected Selection selection;
 
-	/** A Crossover method */
+	/** A Crossover operator */
 	protected Crossover crossover;
 
-	/** A Mutation method */
+	/** A Mutation operator */
 	protected Mutation mutation;
 	
-	/** An Elitism Method */
+	/** An Elitism operator */
 	protected Elitism elitism;
 
-	/** An DataCollector object for collect result */
+	/** An DataCollector object for collecting results */
 	protected DataCollector collector;
 
 	/** an array of population variables, the size of array is the population size */
@@ -48,8 +48,8 @@ public abstract class GeneticAlgorithm {
 	 protected Sort sort;
 
 	// Problem related parameter settings
-	/** if optimization == 1, the algorithm maximize the fitness value
-	 *  else, the algorithm minimize the fitness value */
+	/** if optimization == 1, the algorithm maximizes the fitness value
+	 *  else, the algorithm minimizes the fitness value */
 	protected int optimization;
 
 	/**
@@ -58,15 +58,15 @@ public abstract class GeneticAlgorithm {
 	protected double mutationRate;
 
 	/**
-	 * the size of elitism
+	 * the size of the chromosomes that carried over to the next generation
 	 */
 	protected int elitSize;
 
 	/** size of tournament */
 	protected int tournamentSize;
-	/**
-	 * The probability of crossover
-	 */
+	
+	
+	/** The probability of crossover */
 	protected double crossoverRate;
 
 	/** size of population */
@@ -85,7 +85,7 @@ public abstract class GeneticAlgorithm {
 	protected double ubound;
 
     /**
-     * Instead of using a constructor, we use a prepare() which do the
+     * Instead of using a constructor, we use a prepare() which does the
      * initialization of GA including assignment of values,
      * initialization of arrays.
      * This should be extended and accomplished in the subclass.
@@ -108,7 +108,7 @@ public abstract class GeneticAlgorithm {
 	/**
 	 * Repeat experiments for N times
 	 * 
-	 * @param seedStart the random seeds start from this point, increase 1 by each time
+	 * @param seedStart the random seeds start from this seedStart, increasing 1 by each time.
 	 * @param nTimes run experiments for nTimes
 	 */
 	public abstract void runNtimes(int seedStart, int nTimes);

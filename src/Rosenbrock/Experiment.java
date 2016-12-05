@@ -94,7 +94,7 @@ public class Experiment {
 		
 		/** print results */
 		((ResultCollector) collector).printBestInRuns(maxGen);
-		((ResultCollector) collector).printMeanTime();;
+		((ResultCollector) collector).printMeanTime();
 
 //		((ResultCollector) collector).printPop();
 		System.out.println("Done!");

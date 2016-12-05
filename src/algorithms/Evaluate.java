@@ -12,14 +12,14 @@ package algorithms;
 import java.util.ArrayList;
 
 /**
- * Defines the common method of evaluation
+ * Defines the interface of evaluation
  * 
  * @author Boxiong Tan (Maximus Tann) 
  * @since Genetic Algorithm framework 1.0
  */
 public interface Evaluate {
 	/**
-	 * @param popVar a population of variables with a type of Chromosome
+	 * @param popVar a population of variables with a subtype of Chromosome
 	 * @param popFit the fitness values of whole population
 	 * @throws Exception 
 	 */

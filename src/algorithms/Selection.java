@@ -22,9 +22,9 @@ public interface Selection {
     /**
      * selection process
      * 
-     * @param popVar whole population
-     * @param popFit the fitness of whole population
-     * @return return an index of the selected chromosome
+     * @param popVar the whole population.
+     * @param popFit the fitness of the whole population.
+     * @return return the index of the selected chromosome.
      */	
 	public int selected (
 			Chromosome [] popVar,

@@ -25,10 +25,10 @@ public class sortPop implements Sort{
 	 * Sort
 	 * Steps
 	 * <ul>
-	 * 	<li> 1. Sort fitness list according to fitness values of chromosomes </li>
+	 * 	<li> 1. Sort fitness list according to the fitness values of the population </li>
 	 *  <li> 2. Rearrange chromosomes according to their ranking </li>
-	 *  <li> 3. update the ranking in fitness pairs </li>
-	 *  <li> 4. change original population to new population </li>
+	 *  <li> 3. Update the ranking in fitness pairs </li>
+	 *  <li> 4. Replace the original population with the new population </li>
 	 * </ul>
 	 * @param popVar population
 	 * @param popFit fitness

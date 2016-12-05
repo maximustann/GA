@@ -33,9 +33,9 @@ public class TournamentSelection implements Selection{
 		this.optimization = optimization;
 	}
 	/**
-	 * Tournamment Selection Steps:
+	 * Tournament Selection Steps:
 	 * <ul>
-	 * 	<li> 1. randomly select tournamentSize of chromosomes </li>
+	 * 	<li> 1. Randomly select tournamentSize of chromosomes from the population </li>
 	 * 	<li> 2. Find the best one and return its index in the population</li>
 	 * </ul>
 	 * @param popVar population

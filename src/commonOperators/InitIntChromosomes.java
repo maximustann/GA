@@ -23,10 +23,10 @@ public class InitIntChromosomes implements InitPop{
      * Generate an array of chromosomes, 
      * 
      * @param popSize population size
-     * @param maxVar the number of variable of a chromosome
+     * @param maxVar the number of variables of a chromosome
      * @param lbound the lower boundary of a variable of a chromosome
      * @param ubound the upper boundary of a variable of a chromosome
-     * @return array of population variables
+     * @return an array of population variables
      */	
 	@Override
 	public IntValueChromosome[] init(

@@ -19,10 +19,11 @@ import java.util.concurrent.Future;
 
 
 /**
- *  FitnessFunc is a wrapper of your unNormalized fitness function, it mainly utilizes
- *  java multi-threading framework in order to speed up the evolutionary process
- *  Essentially, it is still follow the factory pattern. It requires the class type of 
- *  your unNormalizedFit in order to new evaluation instances so that they can be run in parallel.
+ *  FitnessFunc is a wrapper of your implementation of unNormalizedFit. 
+ *  It mainly uses java multithreading framework in order to speed up the evolutionary process.
+ *  Essentially, it still follows the factory pattern. It requires the class type of 
+ *  your implementation of the unNormalizedFit abstract class in order to 'new' evaluation instances 
+ *  so that they can be run in parallel.
  */
 public class FitnessFunc{
 	
@@ -30,9 +31,9 @@ public class FitnessFunc{
 	private Class childType;
 	@SuppressWarnings("rawtypes")
 	/**
-	 * If your unNormalized fitness function does not implement the UnNormalizedFit interface,
+	 * If your unNormalized fitness function does not implement the UnNormalizedFit abstract class,
 	 * an exception will be raised. 
-	 * @param unNorFit the class type of your unNormalized function
+	 * @param unNorFit the class type of your implementation of the unNormalizedFit abstract class.
 	 */
 	public FitnessFunc(Class unNorFit){
 		if(!UnNormalizedFit.class.isAssignableFrom(unNorFit)){
@@ -43,14 +44,14 @@ public class FitnessFunc{
 	}
 	
     /**
-     * execute method is a function that calls you defined unNormalized fitness function and
-     * then return a fitness value list 
+     * The execute method is a function that calls your implementation of UnNormalizedFit abstract class and
+     * then it returns a fitness value list.
      * Steps:
      * <ul>
      * 	<li>Initialize a thread pool with the number of cpus of this machine </li>
-     * 	<li>Use reflection to create popSize of the unNormalized fitness evaluation tasks.</li>
-     * 	<li>Add these tasks into the execution pool </li>
-     *  <li>execute all tasks and collect fitness values</li>
+     * 	<li>Use reflection to create popSize of your implementation of UnNormalizedFit abstract class.</li>
+     * 	<li>Add these tasks into the execution pool. </li>
+     *  <li>Execute all tasks and collect fitness values. </li>
      * </ul>
      * @param popVar population variables
      * @return an ArrayList<double[]> type of fitness values, where each list item is a double[2]
@@ -62,9 +63,15 @@ public class FitnessFunc{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ArrayList<double[]> execute(Chromosome [] popVar) {
 		int popSize = popVar.length;
+		
+		// create a threading pool
 		ExecutorService exec = Executors.newFixedThreadPool(
 								Runtime.getRuntime().availableProcessors());
+		
+		// an array of tasks
 		ArrayList tasks = new ArrayList();
+		
+		// create instance of your implementation and add them into the task list
 		for(int i = 0; i < popSize; i++){
 			try {
 				tasks.add(childType.getConstructor(Chromosome.class)
@@ -86,6 +93,7 @@ public class FitnessFunc{
 		}
 		ArrayList<Future> results = null;
 		try {
+			// execute tasks
 			results = (ArrayList<Future>) exec.invokeAll(tasks);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -93,22 +101,10 @@ public class FitnessFunc{
 		exec.shutdown();
 		
 		ArrayList<double[]> fitness = new ArrayList<double[]>();
-//		for(int i = 0; i < popSize; i++){
-//			try {
-//				System.out.println(results.get(i).get());
-//				double[] tempResults = (double[]) results.get(i).get();
-//				fitness.add(tempResults);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			} catch (ExecutionException e) {
-//					e.printStackTrace();
-//			}
-//			// initialize the ranking with the position of chromosomes
-//			fitness.get(i)[1] = i;
-//		}
 		int counter = 0;
 		for(Future f: results){
 			try {
+				// retrieve data
 				fitness.add((double[]) f.get());
 				fitness.get(counter)[1] = counter;
 				counter++;

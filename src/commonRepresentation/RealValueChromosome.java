@@ -17,9 +17,6 @@ import algorithms.Gene;
  * @since GA framework 1.0
  */
 public class RealValueChromosome extends Chromosome{
-	/** We just want to inherent the type. Don't even need to encapsulate.
-	 * @param individual
-	 */
 	public double [] individual;
 
 	public RealValueChromosome(int size){
@@ -34,7 +31,7 @@ public class RealValueChromosome extends Chromosome{
 
 	/**  cut method
 	 *  @param cutPoint where to cut
-	 *  @param geneIndicator first half (0) or second half (1) ?
+	 *  @param geneIndicator first half (0) or second half (1) 
 	 *  @return return gene part
 	 */
 	@Override
@@ -61,6 +58,7 @@ public class RealValueChromosome extends Chromosome{
 		for(int i = 0; i < size(); i++){
 			System.out.print(individual[i] + " ");
 		}
+		System.out.println();
 	}
 	
 	/**
@@ -73,19 +71,20 @@ public class RealValueChromosome extends Chromosome{
 		}
 		return copy;
 	}
-	
-	private boolean equals(RealValueChromosome chromo){
+
+	/** compare with a target chromosome */
+	private boolean equals(RealValueChromosome target){
 		int chromoSize = size();
 		for(int i = 0; i < chromoSize; i++){
-			if(individual[i] != chromo.individual[i]){
+			if(individual[i] != target.individual[i]){
 				return false;
 			}
 		}
 		return true;
 	}
 	@Override
-	public boolean equals(Chromosome chromos) {
-		return equals((RealValueChromosome) chromos);
+	public boolean equals(Chromosome target) {
+		return equals((RealValueChromosome) target);
 	}
 	
 }

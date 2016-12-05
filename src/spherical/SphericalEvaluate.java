@@ -5,13 +5,12 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * RosenbrockEvaluate.java evaluation function
+ * ShpericalEvaluate.java evaluation function
  */
 package spherical;
 
 import java.util.ArrayList;
 
-import algorithms.GeneticAlgorithm;
 import algorithms.Chromosome;
 import algorithms.Evaluate;
 import algorithms.FitnessFunc;
