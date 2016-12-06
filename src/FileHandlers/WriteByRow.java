@@ -30,7 +30,6 @@ public class WriteByRow implements WriteCsvFile {
 			file.createNewFile();
 		}
 		
-		@SuppressWarnings("resource")
 		FileWriter fw = new FileWriter(file.getAbsolutePath(), true);
 		@SuppressWarnings("resource")
 		PrintWriter writer = new PrintWriter(file);
