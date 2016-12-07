@@ -10,9 +10,9 @@
 
 package GAProcedure;
 
-import algorithm.Chromosome;
-import algorithm.GeneticAlgorithm;
-import algorithm.TwoParentsCrossover;
+import algorithms.Chromosome;
+import algorithms.GeneticAlgorithm;
+import algorithms.TwoParentsCrossover;
 
 /**
  * The abstraction of common GA procedure
@@ -41,6 +41,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
  * 
  * @param seed Random seed
  */
+	@Override
 	public void run(int seed){
 		collector.collectTime(0);
 		initializeRand(seed);
@@ -69,7 +70,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 										.update(father, mother, crossoverRate);
 				for(int j = 0; j < children.length; j++) {
 					mutation.update(children[j], mutationRate);
-					newPop[childrenCount] = children[j].getCopy();
+					newPop[childrenCount] = children[j].clone();
 					childrenCount++;
 					if(childrenCount == popSize) {
 						exitFlag = 1;
@@ -89,6 +90,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 	/**
 	 * Repeat experiment N times
 	 */
+	@Override
 	public void runNtimes(int seedStart, int nTimes) {
 		for(int i = 0; i < nTimes; i++){
 			run(seedStart);

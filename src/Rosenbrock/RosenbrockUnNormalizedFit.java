@@ -9,9 +9,9 @@
  */
 package Rosenbrock;
 
-import algorithm.Chromosome;
-import algorithm.UnNormalizedFit;
-import commonOperators.RealValueChromosome;
+import algorithms.Chromosome;
+import algorithms.UnNormalizedFit;
+import commonRepresentation.RealValueChromosome;
 /**
  * An example of unNormalizedFit
  * 
@@ -45,7 +45,6 @@ public class RosenbrockUnNormalizedFit extends UnNormalizedFit{
 		}
 		// just initialize the ranking with 0, because this call() will be executed in thread, 
 		// therefore it is hard to initialize ranking here.
-		
 		return new double[]{fit, 0};
 	}
 }

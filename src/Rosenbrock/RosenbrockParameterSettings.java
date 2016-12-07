@@ -11,7 +11,7 @@
 package Rosenbrock;
 
 import ProblemDefine.ProblemParameterSettings;
-import algorithm.Evaluate;
+import algorithms.Evaluate;
 /**
  * 
  * @author Boxiong Tan (Maximus Tann) 

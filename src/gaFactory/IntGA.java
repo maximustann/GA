@@ -60,6 +60,7 @@ public class IntGA extends CommonGA{
 	 * <li>sort   		a sorting method</li>
 	 * </ul>
 	 */
+	@Override
 	protected void prepare(){
 		maxGen = pars.getMaxGen();
 		maxVar = pars.getMaxVar();

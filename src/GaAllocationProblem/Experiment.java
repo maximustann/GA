@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import ProblemDefine.*;
-import algorithm.*;
+import algorithms.*;
 import dataCollector.DataCollector;
 import gaFactory.*;
 public class Experiment {
@@ -25,7 +25,7 @@ public class Experiment {
 		double[] freqMatrix;
 		double[] latencyMatrix;
 
-		int testCase = 2;
+		int testCase = 1;
 		int noService;
 		int noLocation;
 		double Cmax, Cmin, Tmax, Tmin;

@@ -11,7 +11,7 @@ package Rosenbrock;
 
 import java.util.ArrayList;
 
-import algorithm.Chromosome;
+import algorithms.Chromosome;
 import dataCollector.DataCollector;
 /**
  * A implementation of dataCollector 
@@ -60,6 +60,13 @@ public class ResultCollector extends DataCollector {
 				System.out.println();
 			}
 			System.out.println();
+		}
+	}
+	
+	/** print the last fitness value of each run */
+	public void printBestInRuns(int gen){
+		for(int i = gen - 1; i < resultData.size(); i += gen){
+			System.out.println("fitness: " + resultData.get(i)[0]);
 		}
 	}
 	

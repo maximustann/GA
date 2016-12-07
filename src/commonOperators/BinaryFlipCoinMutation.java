@@ -9,17 +9,22 @@
  */
 package commonOperators;
 
-import algorithm.Chromosome;
-import algorithm.Mutation;
-import algorithm.StdRandom;
+import algorithms.Chromosome;
+import algorithms.Mutation;
+import algorithms.StdRandom;
+import commonRepresentation.IntValueChromosome;
 
 /**
- * Most commonly used mutation, flip coin mutation of an int value chromosome
+ * The most commonly used mutation. It flips a binary value chromosome.
  * @author Boxiong Tan (Maximus Tann)
  * @since GA framework 1.0
  */
 public class BinaryFlipCoinMutation implements Mutation{
 
+	/**
+	 * If a variable of a chromosome equals 0, then, with a mutationRate of probability, flip
+	 * this variable to 1. visa versa.
+	 */
 	@Override
 	public void update(Chromosome individual, double mutationRate) {
 		int chromoSize = individual.size();

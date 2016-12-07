@@ -9,6 +9,8 @@
  */
 package commonOperators;
 
+import commonRepresentation.IntValueChromosome;
+
 /**
  * Initialization of population for binary GA
  * 
@@ -22,18 +24,19 @@ public class InitBinaryChromosome extends InitIntChromosomes {
 	 * int value init method
 	 * @param popSize 		population size
 	 * @param maxVar 		size of a chromosome
-	 * @param none_lbound 	not used parameter, only follow the interface
-	 * @param none_ubound	not used parameter, only follow the interface
+	 * @param lbound 		override by 0
+	 * @param ubound			override by 1
 	 * @return
 	 */
+	@Override
 	public IntValueChromosome[] init(
 								int popSize, 
 								int maxVar, 
-								double none_lbound, 
-								double none_ubound
+								double lbound, 
+								double ubound
 								){
-		double lbound = 0;
-		double ubound = 2;
+		lbound = 0;
+		ubound = 2;
 		return super.init(popSize, maxVar, lbound, ubound);
 	}
 }

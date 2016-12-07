@@ -11,9 +11,9 @@ package commonOperators;
 
 import java.util.ArrayList;
 
-import algorithm.Chromosome;
-import algorithm.Selection;
-import algorithm.StdRandom;
+import algorithms.Chromosome;
+import algorithms.Selection;
+import algorithms.StdRandom;
 /**
  * An implementation of tournament selection
  *
@@ -33,9 +33,9 @@ public class TournamentSelection implements Selection{
 		this.optimization = optimization;
 	}
 	/**
-	 * Tournamment Selection Steps:
+	 * Tournament Selection Steps:
 	 * <ul>
-	 * 	<li> 1. randomly select tournamentSize of chromosomes </li>
+	 * 	<li> 1. Randomly select tournamentSize of chromosomes from the population </li>
 	 * 	<li> 2. Find the best one and return its index in the population</li>
 	 * </ul>
 	 * @param popVar population

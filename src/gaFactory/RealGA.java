@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import GAProcedure.CommonGA;;
 /**
- * An int GA
+ * An Real GA
  *
  * @author Boxiong Tan (Maximus Tann)
  * @since PSO framework 1.0
@@ -59,6 +59,7 @@ public class RealGA extends CommonGA{
 	 * <li>sort   		a sorting method</li>
 	 * </ul>
 	 */
+	@Override
 	protected void prepare(){
 		maxGen = pars.getMaxGen();
 		maxVar = pars.getMaxVar();

@@ -11,9 +11,9 @@
 package Rosenbrock;
 import java.util.ArrayList;
 import ProblemDefine.*;
-import algorithm.Evaluate;
-import algorithm.FitnessFunc;
-import algorithm.GeneticAlgorithm;
+import algorithms.Evaluate;
+import algorithms.FitnessFunc;
+import algorithms.GeneticAlgorithm;
 import dataCollector.DataCollector;
 import gaFactory.RealGA;
 import gaFactory.RealGAFactory;
@@ -21,7 +21,7 @@ import gaFactory.RealGAFactory;
  * An example of the main function
  * 
  * @author Boxiong Tan (Maximus Tann) 
- * @since GA framework 1.0
+ * @since PSO framework 1.0
  */
 public class Experiment {
 	/**
@@ -93,8 +93,8 @@ public class Experiment {
 		myAlg.runNtimes(23333, 30);
 		
 		/** print results */
-		((ResultCollector) collector).printResult();
-		((ResultCollector) collector).printMeanTime();;
+		((ResultCollector) collector).printBestInRuns(maxGen);
+		((ResultCollector) collector).printMeanTime();
 
 //		((ResultCollector) collector).printPop();
 		System.out.println("Done!");

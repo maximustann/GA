@@ -10,8 +10,8 @@
 package commonOperators;
 
 
-import algorithm.Chromosome;
-import algorithm.Elitism;
+import algorithms.Chromosome;
+import algorithms.Elitism;
 /**
  * An implementation of elitism
  *
@@ -20,16 +20,27 @@ import algorithm.Elitism;
  */
 public class CommonElitism extends Elitism{
 	
+	/**
+	 * 
+	 * @param elitSize the size of chromosome that carries over to the next generation
+	 * @param optimization the optimization direction
+	 */
 	public CommonElitism(int elitSize, int optimization) {
 		super(elitSize, optimization);
 	}
 	
+	/**
+	 * 
+	 * @param elitPercent the percentage of chromosome that carries over to the next generation
+	 * @param optimization the optimization direction
+	 */
 	public CommonElitism(double elitPercent, int optimization) {
 		super(elitPercent, optimization);
 	}
 	/**
 	 * copy elitSize or elitPercent of chromosomes to next generation
 	 */
+	@Override
 	public void carryover(Chromosome[] popVar, Chromosome[] newPop){
 		int popSize = popVar.length;
 		if(elitPercent != -1){
@@ -37,11 +48,11 @@ public class CommonElitism extends Elitism{
 		}
 		if(optimization == 0){
 			for(int i = 0; i < elitSize; i++){
-				newPop[i] = popVar[i].getCopy();
+				newPop[i] = popVar[i].clone();
 			}
 		} else {
 			for(int i = 0; i < elitSize; i++){
-				newPop[i] = popVar[popSize - 1 - i].getCopy();
+				newPop[i] = popVar[popSize - 1 - i].clone();
 			}
 		}
 

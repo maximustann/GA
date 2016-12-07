@@ -1,7 +1,7 @@
 /*
  * Boxiong Tan (Maximus Tann)
- * Title:        PSO algorithm framework
- * Description:  PSO algorithm framework for general optimization purpose
+ * Title:        GA framework
+ * Description:  GA framework for general optimization purpose
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
@@ -9,12 +9,12 @@
  */
 package gaFactory;
 
-import algorithm.Crossover;
-import algorithm.Elitism;
-import algorithm.InitPop;
-import algorithm.Mutation;
-import algorithm.Selection;
-import algorithm.Sort;
+import algorithms.Crossover;
+import algorithms.Elitism;
+import algorithms.InitPop;
+import algorithms.Mutation;
+import algorithms.Selection;
+import algorithms.Sort;
 import commonOperators.*;
 import dataCollector.DataCollector;
 /**
@@ -61,10 +61,12 @@ public class IntGAFactory implements GAFactory{
 		return new SinglePointCrossover();
 	}
 	
+	@Override
 	public Sort getSort(){
 		return new sortPop();
 	}
 	
+	@Override
 	public Elitism getElitism(int elitSize, int optimization){
 		return new CommonElitism(elitSize, optimization);
 	}

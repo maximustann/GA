@@ -11,10 +11,10 @@ package commonOperators;
 
 import java.lang.reflect.InvocationTargetException;
 
-import algorithm.Chromosome;
-import algorithm.Gene;
-import algorithm.StdRandom;
-import algorithm.TwoParentsCrossover;
+import algorithms.Chromosome;
+import algorithms.Gene;
+import algorithms.StdRandom;
+import algorithms.TwoParentsCrossover;
 /**
  * Single point crossover
  * NOTICES: 
@@ -26,14 +26,15 @@ public class SinglePointCrossover implements TwoParentsCrossover {
     /**
      * update the Global best according to all the personal bests
      * Steps:
-     * 0. If a random number greater than crossover rate, return the same parents.
-     * 1. First get the sub-type of chromosome.
-     * 2. Get the constructor in which it allows two genes to be composed
-     * 3. Cut the chromosomes into pieces and reconstruct two children
-     * 4. return an array of children
-     * 
-     * @param father The selected chromosome that involved in crossover.
-     * @param mother The selected chromosome that involved in crossover.
+     * <ul>
+     * <li> If a random number greater than crossover rate, return the same parents. </li>
+     * <li> First get the sub-type of chromosome. </li>
+     * <li> Get the constructor in which it allows two genes to be composed </li>
+     * <li> Cut the chromosomes into pieces and reconstruct two children </li>
+     * <li> return an array of children </li>
+     * </ul>
+     * @param father The selected chromosome
+     * @param mother The selected chromosome
      * @param crossoverRate the probability of crossover.
      * @return An array of chromosome children
      */
@@ -46,8 +47,8 @@ public class SinglePointCrossover implements TwoParentsCrossover {
 		Chromosome[] children = new Chromosome[2];
 		/* If random number greater than crossover rate. Do not crossover. */
 		if(StdRandom.uniform() > crossoverRate) {
-			children[0] = father.getCopy();
-			children[1] = mother.getCopy();
+			children[0] = father.clone();
+			children[1] = mother.clone();
 			return children;
 		}
 		

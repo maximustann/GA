@@ -9,9 +9,10 @@
  */
 package commonOperators;
 
-import algorithm.Chromosome;
-import algorithm.StdRandom;
-import algorithm.TwoParentsCrossover;
+import algorithms.Chromosome;
+import algorithms.StdRandom;
+import algorithms.TwoParentsCrossover;
+import commonRepresentation.RealValueChromosome;
 
 /**
  * A real value mutation method

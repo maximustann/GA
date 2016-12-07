@@ -5,11 +5,11 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * BPSOHaiCostFitness.java - cost fitness from Hai's Paper
+ * GAHaiCostFitness.java - cost fitness from Hai's Paper
  */
 package GaAllocationProblem;
-import algorithm.*;
-import commonOperators.IntValueChromosome;
+import algorithms.*;
+import commonRepresentation.IntValueChromosome;
 /**
  * AllocationParameterSettings for Hai's Paper
  *
@@ -36,6 +36,7 @@ public class GAHaiCostFitness extends UnNormalizedFit{
 	}
 	
 
+	@Override
 	public Object call() throws Exception {
 		double[] fit = new double[2];
 		int maxVar = individual.size();

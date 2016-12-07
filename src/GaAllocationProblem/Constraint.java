@@ -11,8 +11,8 @@ package GaAllocationProblem;
 
 import java.util.ArrayList;
 
-import algorithm.Chromosome;
-import commonOperators.IntValueChromosome;
+import algorithms.Chromosome;
+import commonRepresentation.IntValueChromosome;
 
 /**
 *

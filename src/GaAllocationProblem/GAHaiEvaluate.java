@@ -1,20 +1,20 @@
 /*
  * Boxiong Tan (Maximus Tann)
- * Title:        PSO algorithm framework
- * Description:  PSO algorithm framework for general optimization purpose
+ * Title:        GA framework
+ * Description:  GA framework for general optimization purpose
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * BPSOHaiEvaluate.java - evaluation for Hai's paper
+ * GAHaiEvaluate.java - evaluation for Hai's paper
  */
 package GaAllocationProblem;
 
 import java.util.ArrayList;
 
-import algorithm.Chromosome;
-import algorithm.Evaluate;
-import algorithm.FitnessFunc;
-import algorithm.Normalize;
+import algorithms.Chromosome;
+import algorithms.Evaluate;
+import algorithms.FitnessFunc;
+import algorithms.Normalize;
 /**
  *
  * @author Boxiong Tan (Maximus Tann)
@@ -27,9 +27,10 @@ public class GAHaiEvaluate implements Evaluate{
 	/** two values in the array */
 	private double[] weights;
 	
-	/** normalize function*/
+	/** normalize functions */
 	private Normalize[] normalizer;
 	
+	/** constraint functions */
 	private Constraint[] constraints;
 
 	/**
@@ -58,6 +59,7 @@ public class GAHaiEvaluate implements Evaluate{
 	 *  <li> 2. add up n (two, in this case) fitness values multiply by their weights</li>
 	 * </ul>
 	 */
+	@Override
 	public void evaluate(Chromosome[] popVar, ArrayList<double[]> fitness){
 		fitness.clear();
 		ArrayList<ArrayList<double[]>> fitList = new ArrayList<ArrayList<double[]>>();

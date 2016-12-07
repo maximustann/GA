@@ -8,7 +8,7 @@
  * GAFactory.java - An interface of ga factory
  */
 package gaFactory;
-import algorithm.*;
+import algorithms.*;
 import dataCollector.DataCollector;
 
 /**

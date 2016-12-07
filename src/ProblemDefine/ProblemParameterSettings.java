@@ -8,7 +8,7 @@
  * ProblemParameterSettings.java - problem related parameters
  */
 package ProblemDefine;
-import algorithm.*;
+import algorithms.*;
 
 // The existence of this abstract class can be discussed..
 public abstract class ProblemParameterSettings {

@@ -9,9 +9,10 @@
  */
 package commonOperators;
 
-import algorithm.Chromosome;
-import algorithm.Mutation;
-import algorithm.StdRandom;
+import algorithms.Chromosome;
+import algorithms.Mutation;
+import algorithms.StdRandom;
+import commonRepresentation.RealValueChromosome;
 
 /**
  * A real value mutation method
@@ -39,6 +40,7 @@ public class PolyMutation implements Mutation {
 	 * @param popVar population
 	 * @param mutationRate mutation rate
 	 */
+	@Override
 	public void update(Chromosome individual, double mutationRate) {
 		polynomialMutation((RealValueChromosome) individual, mutationRate);
 	}

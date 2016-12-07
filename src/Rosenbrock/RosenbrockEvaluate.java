@@ -11,28 +11,28 @@ package Rosenbrock;
 
 import java.util.ArrayList;
 
-import algorithm.Chromosome;
-import algorithm.Evaluate;
-import algorithm.FitnessFunc;
+import algorithms.Chromosome;
+import algorithms.Evaluate;
+import algorithms.FitnessFunc;
 
 public class RosenbrockEvaluate implements Evaluate{
 	private ArrayList<FitnessFunc> funcList;
 
-	// constructor, initialize fitness function list
+	/** constructor, initialize fitness function list */
 	public RosenbrockEvaluate(ArrayList<FitnessFunc> funcList){
 		this.funcList = funcList;
 	}
 
-	// You can change the fitness function list
+	/** You can change the fitness function list */
 	public void setFuncList(ArrayList<FitnessFunc> funcList){
 		this.funcList = funcList;
 	}
 
 	@Override
-	/**
+	/*
 	 * 
 	 * an implementation of the evaluate interface.
-	 * Basically, the process should evaluate all chromosomes in the popVar array and store
+	 * Basically, the process should evaluate all chromosomes in the popVar array and stores
 	 * fitness values in popFit.
 	 * 
 	 * I did not write this as a template because you might want to use weighted sum with multiple

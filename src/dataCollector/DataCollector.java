@@ -31,7 +31,7 @@ public abstract class DataCollector {
 	
 	
 	/**
-	 * if the flag is 0 generation, start timer
+	 * if the flag is 0, start timer
 	 * else stop the timer, 
 	 * translate time into seconds and keep 2 decimal places
 	 * @param gen current generation
@@ -45,7 +45,7 @@ public abstract class DataCollector {
 	}
 	
 	/**
-	 * Print average time elapse of a run
+	 * Print the average time elapse of a run.
 	 */
 	public void printMeanTime(){
 		int size = timeData.size();
