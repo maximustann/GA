@@ -29,22 +29,22 @@ public class Experiment {
 		int noService;
 		int noLocation;
 		double Cmax, Cmin, Tmax, Tmin;
-		String base = "/Users/maximustann/Documents/workspace/HaiProjData/testCase" + testCase;
+		String base = "/home/tanboxi/HaiProjData/testCase" + testCase;
 		String configAddr = base + "/config.csv";
 		String costAddr = base + "/cost.csv";
 		String latencyAddr = base + "/latency.csv";
 		String freqAddr = base + "/freq.csv";
 		String costRangeAddr = base + "/costRange.csv";
 		String timeRangeAddr = base + "/timeRange.csv";
-		String resultBase = "/Users/maximustann/Documents/workspace/HaiProjResult/GA/testCase" + testCase;
+		String resultBase = "/home/tanboxi/HaiProjResult/GA/testCase" + testCase;
 		String fitnessAddr = resultBase + "/fitness.csv";
 		String timeResultAddr = resultBase + "/time.csv";
 		ReadFileHai readFiles = new ReadFileHai(
-												configAddr, 
-												costAddr, 
-												latencyAddr, 
-												freqAddr, 
-												costRangeAddr, 
+												configAddr,
+												costAddr,
+												latencyAddr,
+												freqAddr,
+												costRangeAddr,
 												timeRangeAddr
 												);
 		WriteFileHai writeFiles = new WriteFileHai(
@@ -67,7 +67,7 @@ public class Experiment {
 		Normalize costLinear = new LinearScaling(Cmax, Cmin);
 		Normalize timeLinear = new LinearScaling(Tmax, Tmin);
 		UnNormalizedFit cost = new GAHaiCostFitness(costMatrix);
-		UnNormalizedFit time = new GAHaiTimeFitness(latencyMatrix, freqMatrix, 
+		UnNormalizedFit time = new GAHaiTimeFitness(latencyMatrix, freqMatrix,
 													noService, noLocation);
 		FitnessFunc costFit = new FitnessFunc(cost.getClass());
 		FitnessFunc timeFit = new FitnessFunc(time.getClass());
@@ -78,7 +78,7 @@ public class Experiment {
 		Evaluate evaluate = new GAHaiEvaluate(funcList, normalizer, constraints, weights);
 		DataCollector collector = new ResultCollector();
 
-		ProblemParameterSettings proSet = new AllocationParameterSettings(evaluate, costMatrix, 
+		ProblemParameterSettings proSet = new AllocationParameterSettings(evaluate, costMatrix,
 																	freqMatrix, latencyMatrix);
 		ParameterSettings pars = new ParameterSettings(
 									mutationRate, crossoverRate, lbound, ubound, tournamentSize,
@@ -89,7 +89,7 @@ public class Experiment {
 		((ResultCollector) collector).printResult();
 		((ResultCollector) collector).mean(30);
 		((ResultCollector) collector).printMeanTime();
-		writeFiles.writeResults(((ResultCollector) collector).getLastResult(30, maxGen), 
+		writeFiles.writeResults(((ResultCollector) collector).getLastResult(30, maxGen),
 				((ResultCollector) collector).getTime());
 		System.out.println("Done!");
 	}
