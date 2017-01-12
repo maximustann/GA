@@ -39,10 +39,13 @@ public abstract class GeneticAlgorithm {
 	protected DataCollector collector;
 
 	/** an array of population variables, the size of array is the population size */
-	 protected Chromosome [] popVar;
+	 protected Chromosome[] popVar;
 
 	 /** An list of [fitness values,their rankings] */
 	 protected ArrayList<double[]> popFit;
+	 
+	 /** violation number for constraint problem */
+	 protected int[] popViolation;
 
 	 /** A sort method */
 	 protected Sort sort;

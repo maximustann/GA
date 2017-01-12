@@ -90,7 +90,7 @@ public class Experiment {
 
 		/** start to run */
 //		myAlg.run(233333); // parameter is a random seed
-		myAlg.runNtimes(23333, 30);
+		myAlg.runNtimes(233333, 30);
 		
 		/** print results */
 		((ResultCollector) collector).printBestInRuns(maxGen);
