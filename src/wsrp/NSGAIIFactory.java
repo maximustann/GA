@@ -5,11 +5,11 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * RealGAFactory.java - A real version of GA factory to assemble different parts
+ * NSGAIIFactory.java - A NSGA-II Factory for WSRP
  */
-package gaFactory;
-
-import algorithms.Constraint;
+package wsrp;
+import ProblemDefine.ParameterSettings;
+import ProblemDefine.ProblemParameterSettings;
 import algorithms.Crossover;
 import algorithms.Distance;
 import algorithms.Elitism;
@@ -19,38 +19,40 @@ import algorithms.Selection;
 import algorithms.Sort;
 import commonOperators.*;
 import dataCollector.DataCollector;
+import gaFactory.GAFactory;
+import multi_objective_operators.BinaryTournamentSelection;
+import multi_objective_operators.FastNonDominatedSorting;
 /**
- * RealGAFactory
+ * NSGAIIFactory
  *
  * @author Boxiong Tan (Maximus Tann)
  * @since PSO framework 1.0
  */
-public class RealGAFactory implements GAFactory{
+public class NSGAIIFactory implements GAFactory{
+
 	private DataCollector collector;
-	private double lbound, ubound, perturbation;
+	private ProblemParameterSettings proSet;
+	private ParameterSettings pars;
 
 	/**
 	 * Constructor
 	 * @param collector is the data collector
-	 * @param lbound lower bound of variable 
-	 * @param ubound upper bound of variable
-	 * @param perturbation the parameter used in polynomial mutation
 	 */
-	public RealGAFactory(
-				DataCollector collector, 
-				double lbound, 
-				double ubound, 
-				double perturbation
-				){
+	public NSGAIIFactory(DataCollector collector, ProblemParameterSettings proSet, 
+						ParameterSettings pars){
+		this.proSet = proSet;
+		this.pars = pars;
 		this.collector = collector;
-		this.lbound = lbound;
-		this.ubound = ubound;
-		this.perturbation = perturbation;
+		
 	}
 
 	@Override
 	public InitPop getInitPopMethod() {
-		return new InitRealChromosomes();
+		return ((AllocationParameterSettings) proSet).getInitPop();
+	}
+
+	public WSRP_Constraint getConstraint(){
+		return ((AllocationParameterSettings) proSet).getConstraint();
 	}
 
 	@Override
@@ -60,38 +62,33 @@ public class RealGAFactory implements GAFactory{
 
 	@Override
 	public Mutation getMutation() {
-		return  new PolyMutation(lbound, ubound, perturbation);
+		return ((AllocationParameterSettings) proSet).getMutatioin();
 	}
+
 
 	@Override
 	public Selection getSelection(int tournamentSize, int optimization) {
-		return new TournamentSelection(tournamentSize, optimization);
+		return new BinaryTournamentSelection(optimization);
 	}
 
 	@Override
 	public Crossover getCrossover() {
-		return new SimulatedBinaryCrossover();
+		return null;
 	}
 	
-	@Override
-	public Sort getSort(){
-		return new sortPop();
-	}
-
-	@Override
-	public Elitism getElitism(int elitSize, int optimization) {
+	public Elitism getElitism(int elitSize, int optimization){
 		return new CommonElitism(elitSize, optimization);
 	}
 
 	@Override
-	public Constraint getConstraint() {
-		// TODO Auto-generated method stub
-		return null;
+	public Sort getSort() {
+		return new FastNonDominatedSorting(pars.getOptimization());
 	}
 
 	@Override
 	public Distance getDistance() {
-		// TODO Auto-generated method stub
-		return null;
+		return ((AllocationParameterSettings) proSet).getDistance();
 	}
+
+
 }

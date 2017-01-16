@@ -25,4 +25,6 @@ public interface GAFactory {
 	public Sort getSort();
 	public DataCollector getDataCollector();
 	public Elitism getElitism(int elitSize, int optimization);
+	public Constraint getConstraint();
+	public Distance getDistance();
 }

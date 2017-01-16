@@ -9,7 +9,9 @@
  */
 package gaFactory;
 
+import algorithms.Constraint;
 import algorithms.Crossover;
+import algorithms.Distance;
 import algorithms.Elitism;
 import algorithms.InitPop;
 import algorithms.Mutation;
@@ -69,6 +71,18 @@ public class IntGAFactory implements GAFactory{
 	@Override
 	public Elitism getElitism(int elitSize, int optimization){
 		return new CommonElitism(elitSize, optimization);
+	}
+
+	@Override
+	public Constraint getConstraint() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Distance getDistance() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

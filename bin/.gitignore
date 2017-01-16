@@ -1,9 +1,7 @@
-/commonRepresentation/
+/wsrp/
 /Rosenbrock/
-/GAProcedure/
-/GaAllocationProblem/
-/ProblemDefine/
 /algorithms/
+/multi_objective_operators/
+/test/
+/GAProcedure/
 /commonOperators/
-/gaFactory/
-/spherical/
