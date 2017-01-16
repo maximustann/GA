@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import algorithms.Chromosome;
 import algorithms.Evaluate;
 import algorithms.FitnessFunc;
-import algorithms.Normalize;
 /**
  *
  * @author Boxiong Tan (Maximus Tann)
@@ -24,29 +23,14 @@ public class WSRPEvaluate implements Evaluate{
 	/** Evaluation function list */
 	private ArrayList<FitnessFunc> funcList;
 	
-	/** two values in the array */
-	private double[] weights;
-	
-	/** normalize functions */
-	private Normalize[] normalizer;
-	
-	/** constraint functions */
-	private Constraint[] constraints;
-
 	/**
 	 * 
 	 * @param funcList Evaluation function list
 	 * @param weights weight is used to balance two objectives, cost and response time
 	 */
 	public WSRPEvaluate(
-						ArrayList<FitnessFunc> funcList, 
-						Normalize[] normalizer,
-						Constraint[] constraints,
-						double[] weights){
+						ArrayList<FitnessFunc> funcList){
 		this.funcList = funcList;
-		this.weights = weights;
-		this.normalizer = normalizer;
-		this.constraints = constraints;
 	}
 
 	public void setFuncList(ArrayList<FitnessFunc> funcList){
@@ -56,27 +40,28 @@ public class WSRPEvaluate implements Evaluate{
 	/**
 	 * <ul>
 	 * 	<li> 1. evaluate population with a list of fitness functions (two, in this case)</li>
-	 *  <li> 2. add up n (two, in this case) fitness values multiply by their weights</li>
 	 * </ul>
 	 */
 	public void evaluate(Chromosome[] popVar, ArrayList<double[]> fitness){
 		fitness.clear();
 		ArrayList<ArrayList<double[]>> fitList = new ArrayList<ArrayList<double[]>>();
 		
+		// evaluate each objective
 		for(int i = 0; i < funcList.size(); i++){
 			ArrayList<double[]> tempFit = funcList.get(i).execute(popVar);
-			tempFit = normalizer[i].doNorm(tempFit);
-			tempFit = constraints[i].punish(popVar, tempFit);
 			fitList.add(tempFit);
 		}
 
 		for(int i = 0; i < popVar.length; i++){
-			double[] fit = new double[2];
-			fit[0] = 0.0;
-			fit[1] = i;
-			for(int j = 0; j < funcList.size(); j++){
-				fit[0] += weights[j] * fitList.get(j).get(i)[0];
-			}
+			// fit[0]: costFitness, fit[1]: energyFitness, fit[2]: index, fit[3]: crowding distance
+			// fit[4]: ranking, fit[5]: violations
+			double[] fit = new double[6];
+			fit[0] = fitList.get(0).get(i)[0];
+			fit[1] = fitList.get(1).get(i)[0];
+			fit[2] = i;
+			fit[3] = 0;
+			fit[4] = 0;
+			fit[5] = 0;
 			fitness.add(fit);
 		}
 	}

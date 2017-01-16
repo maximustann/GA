@@ -18,21 +18,21 @@ import dataCollector.DataCollector;
  * @since PSO framework 1.0
  */
 public class ResultCollector extends DataCollector {
-	private ArrayList<double[]> resultData;
+	private ArrayList<ArrayList<double[]>> resultData;
 
 	public ResultCollector(){
 		super();
-		resultData = new ArrayList<double[]>();
+		resultData = new ArrayList<ArrayList<double[]>>();
 	}
 	
 	/**
 	 * add fitness value
 	 */
 	public void collect(Object data) {
-		resultData.add((double[]) data);
+		resultData.add((ArrayList<double[]>) data);
 	}
 
-	public ArrayList<double[]> getResult(){
+	public ArrayList<ArrayList<double[]>> getResult(){
 		return resultData;
 	}
 
@@ -41,7 +41,15 @@ public class ResultCollector extends DataCollector {
 	 */
 	public void printResult(){
 		for(int i = 0; i < resultData.size(); i++){
-			System.out.println(resultData.get(i)[0]);
+			System.out.println("generation = " + i);
+			for(int j = 0; j < resultData.get(i).size(); j++){
+				System.out.println("costFitness = " + resultData.get(i).get(j)[0] 
+						+ ", EnergyFitness = " + resultData.get(i).get(j)[1]
+						+ ", index = " + resultData.get(i).get(j)[2]
+						+ ", CD = " + resultData.get(i).get(j)[3]
+						+ ", ranking = " + resultData.get(i).get(j)[4]
+						+ ", violations = " + resultData.get(i).get(j)[5]);
+			}
 		}
 		System.out.println();
 	}
@@ -49,24 +57,22 @@ public class ResultCollector extends DataCollector {
 	/**
 	 * get the last fitness value of many runs
 	 */
-	public ArrayList<Double> getLastResult(int runs, int maxGen){
-		ArrayList<Double> lastResults = new ArrayList<Double>();
-		for(int i = 1; i <= runs; i++){
-			lastResults.add(resultData.get(maxGen * i - 1)[0]);
-		}
-		return lastResults;
-	}
+//	public ArrayList<Double> getLastResult(int runs, int maxGen){
+//		ArrayList<Double> lastResults = new ArrayList<Double>();
+//		for(int i = 1; i <= runs; i++){
+//			lastResults.add(resultData.get(maxGen * i - 1)[0]);
+//		}
+//		return lastResults;
+//	}
 
-	public void mean(int runs){
-		int size = resultData.size();
-		int gen = size / runs;
-		double best = 0;
-		for(int i = 1; i <= runs; i++) {
-			best += resultData.get(i * gen - 1)[0];
-		}
-		System.out.println(best / runs);
-	}
-	
-
+//	public void mean(int runs){
+//		int size = resultData.size();
+//		int gen = size / runs;
+//		double best = 0;
+//		for(int i = 1; i <= runs; i++) {
+//			best += resultData.get(i * gen - 1)[0];
+//		}
+//		System.out.println(best / runs);
+//	}
 
 }

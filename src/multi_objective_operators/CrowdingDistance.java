@@ -4,32 +4,45 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class CrowdingDistance {
+import algorithms.Chromosome;
+import algorithms.Distance;
+
+public class CrowdingDistance implements Distance {
 	private int optimization;
 	public CrowdingDistance(int optimization){
 		this.optimization = optimization;
 	}
-	public ArrayList<double[]> calculate(ArrayList<double[]> 	popFit){
+	public void calculate(Chromosome[] popVar, ArrayList<double[]> 	popFit){
 		int ranking = 0, index = 0, lastIndex = 0;
+		int popSize = popVar.length;
+		Chromosome[] newPop = new Chromosome[popSize];
 		while(true){
 			if(index == popFit.size()){
-				calculate(popFit, index, lastIndex);
+				_calculate(popFit, index, lastIndex);
 				break;
 			}
+			
 			if(ranking != (int) popFit.get(index)[4]){
 				ranking = (int) popFit.get(index)[4];
-				calculate(popFit, index, lastIndex);
+				_calculate(popFit, index, lastIndex);
 				lastIndex = index;
 			}
 			index++;
 		}
-		
-		return popFit;
+		// adjust the order of population as well as the index of the chromosomes 
+		for(int i = 0; i < popSize; i++){
+			newPop[i] = popVar[(int) popFit.get(i)[2]];
+			popFit.get(i)[2] = i;
+		}
+		popVar = newPop;
 	}
 
-	private void calculate(ArrayList<double[]> popFit, int index, int lastIndex) {
+	private void _calculate(ArrayList<double[]> popFit, int index, int lastIndex) {
 		ArrayList<double[]> innerPopFit = new ArrayList<double[]>();
-		for(int i = lastIndex; i < index; i++) innerPopFit.add(popFit.get(i));
+		// new a new popFit, make sure it does not affect the old one
+		for(int i = lastIndex; i < index; i++) {
+			innerPopFit.add(popFit.get(i).clone());
+		}
 		if(innerPopFit.size() == 0) return;
 		if(innerPopFit.size() == 1) {
 			popFit.get(lastIndex)[3] = Double.POSITIVE_INFINITY;
@@ -53,16 +66,22 @@ public class CrowdingDistance {
 			}
 		});
 		if(optimization == 1) Collections.reverse(innerPopFit);
+		
+		// get the values on the edge, for normalization
 		double objectiveMaxn = innerPopFit.get(0)[0];
 		double objectiveMinn = innerPopFit.get(innerPopFit.size() - 1)[0];
 		
+		// assign infinite value
 		innerPopFit.get(0)[3] = Double.POSITIVE_INFINITY;
 		innerPopFit.get(innerPopFit.size() - 1)[3] = Double.POSITIVE_INFINITY;
 		
+		
+		// calculate the distance for the individuals in between 
 		for(int j = 1; j < innerPopFit.size() - 1; j++){
 			double distance = innerPopFit.get(j + 1)[0] - innerPopFit.get(j - 1)[0];
 			distance = distance / Math.abs(objectiveMaxn - objectiveMinn);
-			innerPopFit.get(j)[3] = distance;
+			if(distance == distance)
+				innerPopFit.get(j)[3] = distance;
 		}
 		
 		// sort the second objective according to their fitness values.
@@ -77,16 +96,23 @@ public class CrowdingDistance {
 			}
 		});
 		if(optimization == 1) Collections.reverse(innerPopFit);
+		
+		// get the values on the edge, for normalization
 		objectiveMaxn = innerPopFit.get(0)[1];
 		objectiveMinn = innerPopFit.get(innerPopFit.size() - 1)[1];
-		
+	
+		// assign infinite value
 		innerPopFit.get(0)[3] = Double.POSITIVE_INFINITY;
 		innerPopFit.get(innerPopFit.size() - 1)[3] = Double.POSITIVE_INFINITY;
 		
+		// calculate the distance for the individuals in between 
 		for(int j = 1; j < innerPopFit.size() - 1; j++){
 			double distance = innerPopFit.get(j + 1)[1] - innerPopFit.get(j - 1)[1];
+			// normalize
 			distance = distance / Math.abs(objectiveMaxn - objectiveMinn);
-			innerPopFit.get(j)[3] += distance;
+			// if the max == min, the objective's distance is discarded
+			if(distance == distance)
+				innerPopFit.get(j)[3] += distance;
 		}
 		
 		// sort according to their crowding distance.

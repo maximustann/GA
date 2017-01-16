@@ -28,6 +28,7 @@ public class InitWSRP_FirstFit implements InitPop{
 	private double[] vmCpu;
 	private double[] taskCpu;
 	private double[] taskMem;
+	private double[] taskFreq;
 	
 	public InitWSRP_FirstFit(
 							int taskNum,
@@ -37,7 +38,8 @@ public class InitWSRP_FirstFit implements InitPop{
 							double[] vmMem,
 							double[] vmCpu,
 							double[] taskCpu,
-							double[] taskMem
+							double[] taskMem,
+							double[] taskFreq
 							){
 		this.taskNum = taskNum;
 		this.vmTypes = vmTypes;
@@ -47,6 +49,7 @@ public class InitWSRP_FirstFit implements InitPop{
 		this.vmCpu = vmCpu;
 		this.taskCpu = taskCpu;
 		this.taskMem = taskMem;
+		this.taskFreq = taskFreq;
 	}
     /**
      * Generate an array of chromosomes, 
@@ -90,8 +93,8 @@ public class InitWSRP_FirstFit implements InitPop{
 			// Repeat generate vmType until the vm has the capacity to hold the current task
 			while(true) {
 				vmType = StdRandom.uniform(vmTypes);
-				if(vmCpu[vmType] - taskCpu[taskSequence[i]] >= 0 
-				&& vmMem[vmType] - taskMem[taskSequence[i]] >= 0)
+				if(vmCpu[vmType] - taskCpu[taskSequence[i]] * taskFreq[taskSequence[i]] >= 0 
+				&& vmMem[vmType] - taskMem[taskSequence[i]] * taskFreq[taskSequence[i]] >= 0)
 					break;
 			}
 			for(int j = 0; j < pmCount; j++){

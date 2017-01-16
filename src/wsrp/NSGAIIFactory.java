@@ -8,7 +8,10 @@
  * NSGAIIFactory.java - A NSGA-II Factory for WSRP
  */
 package wsrp;
+import ProblemDefine.ParameterSettings;
+import ProblemDefine.ProblemParameterSettings;
 import algorithms.Crossover;
+import algorithms.Distance;
 import algorithms.Elitism;
 import algorithms.InitPop;
 import algorithms.Mutation;
@@ -28,21 +31,29 @@ import multi_objective_operators.FastNonDominatedSorting;
 public class NSGAIIFactory implements GAFactory{
 
 	private DataCollector collector;
+	private ProblemParameterSettings proSet;
+	private ParameterSettings pars;
 
 	/**
 	 * Constructor
 	 * @param collector is the data collector
 	 */
-	public NSGAIIFactory(DataCollector collector){
+	public NSGAIIFactory(DataCollector collector, ProblemParameterSettings proSet, 
+						ParameterSettings pars){
+		this.proSet = proSet;
+		this.pars = pars;
 		this.collector = collector;
+		
 	}
 
 	@Override
 	public InitPop getInitPopMethod() {
-		// TODO
-		return null;
+		return ((AllocationParameterSettings) proSet).getInitPop();
 	}
 
+	public WSRP_Constraint getConstraint(){
+		return ((AllocationParameterSettings) proSet).getConstraint();
+	}
 
 	@Override
 	public DataCollector getDataCollector() {
@@ -51,9 +62,7 @@ public class NSGAIIFactory implements GAFactory{
 
 	@Override
 	public Mutation getMutation() {
-//		return  new IntReverseSequenceMutation();
-		// TO DO
-		return null;
+		return ((AllocationParameterSettings) proSet).getMutatioin();
 	}
 
 
@@ -64,14 +73,7 @@ public class NSGAIIFactory implements GAFactory{
 
 	@Override
 	public Crossover getCrossover() {
-//		return new SinglePointCrossover();
-		// TO DO
 		return null;
-	}
-	
-	public Sort getSort(int optimization){
-//		return new sortPop();
-		return new FastNonDominatedSorting(optimization);
 	}
 	
 	public Elitism getElitism(int elitSize, int optimization){
@@ -80,8 +82,12 @@ public class NSGAIIFactory implements GAFactory{
 
 	@Override
 	public Sort getSort() {
-		// TODO Auto-generated method stub
-		return null;
+		return new FastNonDominatedSorting(pars.getOptimization());
+	}
+
+	@Override
+	public Distance getDistance() {
+		return ((AllocationParameterSettings) proSet).getDistance();
 	}
 
 

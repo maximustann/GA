@@ -37,7 +37,6 @@ public class ReadFileWSRP{
 	private double[][] taskMem;
 	private double[][] taskFreq;
 	private double[][] taskSuccRate;
-	private double[][] utilizationThreshold;
 
 	public ReadFileWSRP(
 					String ProblemConfigPath,
@@ -47,8 +46,7 @@ public class ReadFileWSRP{
 					String taskCpuPath,
 					String taskFreqPath,
 					String taskMemPath,
-					String taskSRPath,
-					String utilizationThresholdPath
+					String taskSRPath
 					){
 
 		readByRow = new ReadByRow();
@@ -89,9 +87,6 @@ public class ReadFileWSRP{
 		taskSuccRate = new double[1][(int) taskNum];
 		readByCol.read(taskSRPath, taskSuccRate);
 		
-		utilizationThreshold = new double[1][1];
-		readByCol.read(utilizationThresholdPath, utilizationThreshold);
-	
 	// End ReadFileWSRP
 	}
 
@@ -143,11 +138,5 @@ public class ReadFileWSRP{
 	public double[] getTaskSuccRate() {
 		return taskSuccRate[0];
 	}
-
-	public double getUtilizationThreshold() {
-		return utilizationThreshold[0][0];
-	}
-
-
 
 }

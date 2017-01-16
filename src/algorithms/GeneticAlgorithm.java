@@ -34,6 +34,12 @@ public abstract class GeneticAlgorithm {
 	
 	/** An Elitism operator */
 	protected Elitism elitism;
+	
+	/** A Constraint method */
+	protected Constraint constraint;
+	
+	/** distance method */
+	protected Distance distance;
 
 	/** An DataCollector object for collecting results */
 	protected DataCollector collector;
@@ -44,9 +50,6 @@ public abstract class GeneticAlgorithm {
 	 /** An list of [fitness values,their rankings] */
 	 protected ArrayList<double[]> popFit;
 	 
-	 /** violation number for constraint problem */
-	 protected int[] popViolation;
-
 	 /** A sort method */
 	 protected Sort sort;
 

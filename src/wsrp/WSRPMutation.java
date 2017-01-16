@@ -22,6 +22,7 @@ public class WSRPMutation implements Mutation {
 	private static double[] vmCpu;
 	private static double[] taskCpu;
 	private static double[] taskMem;
+	private static double[] taskFreq;
 	private double consolidationCoefficient;
 //	
 //	public WSRPMutation(double consolidationCoefficient) {
@@ -36,6 +37,7 @@ public class WSRPMutation implements Mutation {
 			double[] vmCpu,
 			double[] taskCpu,
 			double[] taskMem,
+			double[] taskFreq,
 			double consolidationCoefficient
 			){
 		WSRPMutation.taskNum = taskNum;
@@ -46,6 +48,7 @@ public class WSRPMutation implements Mutation {
 		WSRPMutation.vmCpu = vmCpu;
 		WSRPMutation.taskCpu = taskCpu;
 		WSRPMutation.taskMem = taskMem;
+		WSRPMutation.taskFreq = taskFreq;
 		this.consolidationCoefficient = consolidationCoefficient;
 	}
 	public void update(Chromosome individual, double mutationRate) {
@@ -63,6 +66,7 @@ public class WSRPMutation implements Mutation {
 		}
 	}
 	
+	
 	private void adjustVMIndex(WSRP_IntChromosome individual){
 		int pmCount = 0;
 		ArrayList<double[]> pmResource = new ArrayList<double[]>();
@@ -77,8 +81,6 @@ public class WSRPMutation implements Mutation {
 			int vmType = individual.individual[i * 3 + 1];
 
 			for(int j = 0; j < pmCount; j++){
-				
-				
 				// First scenario is the current Pm has the capacity for the vm
 				if(
 					pmResource.get(j)[0] - vmCpu[vmType] >= 0
@@ -86,6 +88,7 @@ public class WSRPMutation implements Mutation {
 					pmResource.get(j)[0] -= vmCpu[vmType];
 					pmResource.get(j)[1] -= vmMem[vmType];
 					// If it is the first vmType in the current PM,assign its index as 0.
+					// vmTypesInpm.get(pmCount[vmType] is the number of vm
 					if(vmTypesInPm.get(pmCount)[vmType] == 0) {
 						vmTypesInPm.get(pmCount)[vmType]++;
 						individual.individual[i * 3 + 2] = 0;
@@ -133,22 +136,28 @@ public class WSRPMutation implements Mutation {
 			if(pmIndex[chosenIndex] != pmIndex[index]) break;
 		}
 		
-		// swap
+		// swap service
 		temp = individual.individual[chosenIndex * 3];
 		individual.individual[chosenIndex * 3] = individual.individual[index * 3];
 		individual.individual[index * 3] = temp;
+		
+		// swap vm type
+		temp = individual.individual[chosenIndex * 3 + 1];
+		individual.individual[chosenIndex * 3 + 1] = individual.individual[index * 3 + 1];
+		individual.individual[index * 3 + 1] = temp;
 		
 	}
 	
 	private void mutateVMTypes(WSRP_IntChromosome individual, int index){
 		int newType = 0;
 		while(true){
-
 			newType = StdRandom.uniform(vmTypes);
 			// If the new VM type does not violate the basic requirement of task
 			// then it is fine.
-			if(vmCpu[newType] - taskCpu[individual.individual[index * 3]] >= 0
-			&& vmMem[newType] - taskMem[individual.individual[index * 3]] >= 0)
+			if(vmCpu[newType] - taskCpu[individual.individual[index * 3]] 
+								* taskFreq[individual.individual[index * 3]] >= 0
+			&& vmMem[newType] - taskMem[individual.individual[index * 3]] 
+								* taskFreq[individual.individual[index * 3]] >= 0)
 				break;
 		}
 

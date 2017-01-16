@@ -34,24 +34,25 @@ public class FastNonDominatedSorting implements Sort{
 		ArrayList<ArrayList<double[]>> dominatedSet = new ArrayList<ArrayList<double[]>>();
 		ArrayList<double[]> sortedList = new ArrayList<double[]>();
 		
-		
 		// for each chromosome, calculate its domination number and dominated set.
 		for(int i = 0; i < popFit.size(); i++){
-			ArrayList temp = count(i, popFit);
+			ArrayList temp = count(i, popFit, popVar.length);
 			// 0 means the dominationCount
 			dominationCount.add((Integer) temp.get(0));
+			
 			// 1 means the dominatedSet
 			dominatedSet.add((ArrayList<double[]>) temp.get(1));
 		}
 		
-		
 		// insert the chromosome according to its ranking until all chromosomes 
 		// have been inserted.
 		while(true){
+//			System.out.println("sortedList.size = " + sortedList.size() + 
+//								", popFit.size = " + popFit.size());
 			ArrayList<double[]> zeroRankList = new ArrayList<double[]>();
 			// all the fitness has been sorted, break
-			if(sortedList.size() == popFit.size()) break;
-			for(int i = 0; i < popFit.size(); i++){
+			if(sortedList.size() == popVar.length) break;
+			for(int i = 0; i < popVar.length; i++){
 				// If the dominationCount is 0, 
 				// then assign its ranking to the current ranking.
 				if(dominationCount.get(i) == 0){
@@ -64,12 +65,16 @@ public class FastNonDominatedSorting implements Sort{
 			}
 			ranking++;
 			
-			// for each item in the zeroRankList, find its dominatedSet
+			// for each item in the zeroRankList, find its dominated
 			for(int j = 0; j < zeroRankList.size(); j++){
+				
 				ArrayList<double[]> dominatedChromosomes = dominatedSet.get((int) zeroRankList.get(j)[2]);
-				for(double[] chr:dominatedChromosomes){
+				for(int k = 0; k < dominatedChromosomes.size(); k++){
 					// minus 1 for each dominated chromosome's dominationCount
-					dominationCount.set((int) chr[2], dominationCount.get((int) chr[2]) - 1);
+//					dominationCount.set((int) chr[2], dominationCount.get((int) chr[2]) - 1);
+					// get the index of the dominated Chromosome
+					int dominatedChromosomeIndex = (int) dominatedChromosomes.get(k)[2];
+					dominationCount.set(dominatedChromosomeIndex, dominationCount.get(dominatedChromosomeIndex) - 1);
 				}
 			}
 			
@@ -103,6 +108,7 @@ public class FastNonDominatedSorting implements Sort{
 		});
 		
 		for(int i = 0; i < popVar.length; i++){
+//			popVar[(int) sortedList.get(i)[2]].print();
 			newPop[i] = popVar[(int) sortedList.get(i)[2]];
 			sortedList.get(i)[2] = i;
 		}
@@ -120,36 +126,44 @@ public class FastNonDominatedSorting implements Sort{
 	 * 
 	 * @param index the index of current chromosome
 	 * @param popFit fitness
-	 * @return the number of chromosome that dominate current one
+	 * @return the domination number and the current chromosome's dominate set
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private ArrayList count(int index, ArrayList<double[]> popFit){
+	private ArrayList count(int index, ArrayList<double[]> popFit, int popSize){
 		double[] currentFitness = popFit.get(index);
+		// dominatedList is the list of the chromosomes' fitness which are dominated by
+		// the current chromosome
 		ArrayList<double[]> dominatedList = new ArrayList<double[]>();
 		Integer dominatedNo = 0;
-		int popSize = popFit.size();
 		for(int i = 0; i < popSize; i++){
 			if(i == index) continue;
 			double[] targetFitness = popFit.get(i);
 			// count the number of chromosomes that dominate current one
 			if((optimization == 0 && targetFitness[0] <= currentFitness[0] && targetFitness[1] <= currentFitness[1]) ||
 				(optimization == 1 && targetFitness[0] >= currentFitness[0] && targetFitness[1] >= currentFitness[1])){
-				dominatedNo++;
+				// if two chromosomes have the same fitness, they are nondominated
+				if(targetFitness[0] == currentFitness[0] && targetFitness[1] == currentFitness[1]){
+				} else {
+					dominatedNo++;
+				}
 			}
 			
 			// put the chromosome that domainted by current one into an ArrayList
 			if((optimization == 0 && targetFitness[0] >= currentFitness[0] && targetFitness[1] >= currentFitness[1]) ||
 				(optimization == 1 && targetFitness[0] <= currentFitness[0] && targetFitness[1] <= currentFitness[1])){
-				dominatedList.add(targetFitness);
+				if(targetFitness[0] == currentFitness[0] && targetFitness[1] == currentFitness[1]){
+				} else {
+					dominatedList.add(targetFitness);
+				}
 			}
 		}
 
+		// pack the dominationNumber and dominatedSet into a list
 		ArrayList temp = new ArrayList();
 		temp.add(dominatedNo);
 		temp.add(dominatedList);
 		return temp;
 	}
-	
 	
 
 }

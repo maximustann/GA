@@ -5,76 +5,85 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * BPSOHaiTimeFitness.java - a response time fitness function for Hai's paper
+ * Constraint.java - constraint functions for wsrp
  */
 package wsrp;
 
 import java.util.ArrayList;
 
-import algorithms.*;
+import algorithms.Chromosome;
+import algorithms.Constraint;
+
 /**
 *
 * @author Boxiong Tan (Maximus Tann)
 * @since PSO framework 1.0
 */
-public class WSRPEnergyFitness extends UnNormalizedFit {
+public class WSRP_Constraint implements Constraint {
 	/** These are data, therefore, they are defined as static values. */
-	private static double k;
-	private static int taskNum;	
-	private static double pmCpu;
-	private static double pmMem;
-	private static double pmEnergy;
-	private static int vmTypes;
-	private static double[] vmCpu;
-	private static double[] vmMem;
-	private static double[] taskCpu;
-	private static double[] taskFreq;
-
-
-	public WSRPEnergyFitness(
-							int taskNum,
-							int vmTypes,
-							double k,
-							double pmCpu,
-							double pmMem,
-							double pmEnergy,
-							double[] vmCpu,
-							double[] vmMem,
-							double[] taskCpu,
-							double[] taskFreq
-								){
-		super(null);
-		WSRPEnergyFitness.k = k;
-		WSRPEnergyFitness.vmTypes = vmTypes;
-		WSRPEnergyFitness.taskNum = taskNum;
-		WSRPEnergyFitness.pmCpu = pmCpu;
-		WSRPEnergyFitness.pmMem = pmMem;
-		WSRPEnergyFitness.pmEnergy = pmEnergy;
-		WSRPEnergyFitness.vmCpu = vmCpu;
-		WSRPEnergyFitness.vmMem = vmMem;
-		WSRPEnergyFitness.taskCpu = taskCpu;
-		WSRPEnergyFitness.taskFreq = taskFreq;
+	private int taskNum;	
+	private double pmCpu;
+	private double pmMem;
+	private int vmTypes;
+	private double[] vmCpu;
+	private double[] vmMem;
+	private double[] taskCpu;
+	private double[] taskFreq;
+	
+	public WSRP_Constraint(
+				int taskNum,
+				int vmTypes,
+				double pmCpu,
+				double pmMem,
+				double pmEnergy,
+				double[] vmCpu,
+				double[] vmMem,
+				double[] taskCpu,
+				double[] taskMem,
+				double[] taskFreq	
+				){
+		this.taskNum = taskNum;
+		this.vmTypes = vmTypes;
+		this.pmMem = pmMem;
+		this.pmCpu = pmCpu;
+		this.vmMem = vmMem;
+		this.vmCpu = vmCpu;
+		this.taskCpu = taskCpu;
+		this.taskFreq = taskFreq;
+		
 	}
 	
-	public WSRPEnergyFitness(Chromosome individual){
-		super(individual);
-	}
-
-	/**
-	 * evaluate each population
-	 */
+	
 	@Override
-	public Object call() throws Exception {
-		double[] fit = new double[2];
-		int[] pmIndex = pmCount((WSRP_IntChromosome) individual);
+	public void evaluate(Chromosome[] popVar, ArrayList<double[]> popFit){
+		int popSize = popVar.length;
+		for(int i = 0; i < popSize; i++){
+			popFit.get(i)[5] = countViolations((WSRP_IntChromosome) popVar[i]);
+		}
+	}
+	
+	/**
+	 * Count the violation of an individual
+	 * @param individual
+	 * @return the number of violations
+	 */
+	private int countViolations(WSRP_IntChromosome individual){
+		int violationNum = 0;
+		int[] pmIndex = pmCount(individual);
 		int pmNum = pmIndex[pmIndex.length - 1] + 1;
-		double[] pmUtility = new double[pmNum];
-		int lastPm = 0;
 		int taskCount = 0;
+		// for each pm, count the violations in its vms
 		for(int i = 0; i < pmNum; i++){
 			ArrayList[] pmVms = new ArrayList[vmTypes];
-			for(int j = 0; j < vmTypes; j++) pmVms[j] = new ArrayList<Double>();
+			ArrayList[] pmVmCount = new ArrayList[vmTypes];
+			for(int j = 0; j < vmTypes; j++) {
+				pmVms[j] = new ArrayList<Double>();
+				pmVmCount[j] = new ArrayList<Integer>();
+			}
+
 			while(true){
+				// if there is no more task or the task is allocated in a different
+				// Pm, then break
 				if(taskCount == taskNum || pmIndex[taskCount] != i) break;
 				int taskNum = ((WSRP_IntChromosome) individual).individual[taskCount * 3];
 				int vmType = ((WSRP_IntChromosome) individual).individual[taskCount * 3 + 1];
@@ -82,55 +91,47 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 				// if the vm has not been created, calculate the utility and add to list
 				if(pmVms[vmType].isEmpty() || pmVms[vmType].size() < vmIndex + 1){
 					double utility = taskCpu[taskNum] * taskFreq[taskNum] / vmCpu[vmType];
+					
 					if(utility > 1) {
+						violationNum++;
 						System.out.println("Wrong!");
-						System.out.println("taskNum = " + taskNum +
-											", vmType = " + vmType +
-											", vmIndex = " + vmIndex);
-						System.out.println("taskCpu * taskFreq / vmCpu : " +
-											taskCpu[taskNum] + " * " + taskFreq[taskNum] + 
-											" / " + vmCpu[vmType] + " = " + utility);
+//						System.out.println("taskNum = " + taskNum +
+//											", vmType = " + vmType +
+//											", vmIndex = " + vmIndex);
+//						System.out.println("taskCpu * taskFreq / vmCpu : " +
+//											taskCpu[taskNum] + " * " + taskFreq[taskNum] + 
+//											" / " + vmCpu[vmType] + " = " + utility);
 						utility = 1;
 					}
+					pmVmCount[vmType].add(1);
 					pmVms[vmType].add(utility);
 				} else {
 					// the vm has been created, then add up the vm utility
 					double utility = taskCpu[taskNum] * taskFreq[taskNum] / vmCpu[vmType];
 					utility += (double) pmVms[vmType].get(vmIndex);
+					
+					// add up the 
+					if((double) pmVms[vmType].get(vmIndex) < 1 && utility > 1){
+//						violationNum++;
+						violationNum += (int) pmVmCount[vmType].get(vmIndex);
+					} else {
+					// else, just increment one
+						violationNum++;
+					}
+					// violation for service is count
 					if(utility > 1) {
+						violationNum++;
 						utility = 1;
 					}
+					int vmNum = (int) pmVmCount[vmType].get(vmIndex) + 1;
+					pmVmCount[vmType].set(vmIndex, vmNum);
 					pmVms[vmType].set(vmIndex, utility);
 				}
 				taskCount++;
 			} // end While
-			
-			// calculate the pmUtility
-			for(int j = 0; j < vmTypes; j++){
-				while(!pmVms[j].isEmpty()){
-					pmUtility[i] += ((double) pmVms[j].get(0)) * vmCpu[j] / pmCpu;
-					pmVms[j].remove(0);
-				}
-			} // end for
 		} // end for
 
-		// calculate the total energy
-		for(int i = 0; i < pmNum; i++){
-			fit[0] += k * pmEnergy + (1 - k) * pmEnergy * pmUtility[i];
-		}
-		fit[0] = round5(fit[0]);
-		return fit;
-	}
-	
-	/**
-	 * 
-	 * keep 5 decimal points
-	 * @param number
-	 * @return
-	 */
-	private double round5(double number){
-		number = Math.floor(number * 100000) / 100000;
-		return number;
+		return violationNum;
 	}
 	
 	private int[] pmCount(WSRP_IntChromosome individual){
@@ -158,5 +159,6 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 		} // end for
 		return pmIndex;
 	}
+
 
 }

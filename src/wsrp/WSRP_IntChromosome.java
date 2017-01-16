@@ -23,5 +23,14 @@ public class WSRP_IntChromosome extends IntValueChromosome {
 		}
 		System.out.println();
 	}
+	
+	public WSRP_IntChromosome clone(){
+		WSRP_IntChromosome copy = new WSRP_IntChromosome(size());
+		for(int i = 0; i < size(); i++){
+			copy.individual[i] = individual[i];
+		}
+		return copy;
+	}
+
 
 }

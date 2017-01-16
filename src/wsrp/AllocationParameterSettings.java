@@ -16,13 +16,27 @@ package wsrp;
  * @since GA framework 1.0
  */
 import ProblemDefine.ProblemParameterSettings;
+import algorithms.Distance;
 import algorithms.Evaluate;
+import algorithms.InitPop;
+import algorithms.Mutation;
 
 public class AllocationParameterSettings extends ProblemParameterSettings{
-	private double[] costMatrix;
-	private double[] freqMatrix;
-	private double[] latencyMatrix;
-
+	private int vmTypes;
+	private int taskNum;
+	private double pmCpu; 
+	private double pmMem;
+	private double pmEnergy;
+	private double[] vmCpu; 
+	private double[] vmMem;
+	private double[] vmCost;
+	private double[] taskCpu; 
+	private double[] taskMem;
+	private double[] taskFreq;
+	private InitPop initMethod;
+	private Mutation mutate;
+	private WSRP_Constraint constraint;
+	private Distance crowd;
 	/**
 	 * 
 	 * @param evaluate user defined Evaluation method
@@ -32,26 +46,86 @@ public class AllocationParameterSettings extends ProblemParameterSettings{
 	 */
 	public AllocationParameterSettings(
 										Evaluate evaluate, 
-										double[] costMatrix,
-										double[] freqMatrix, 
-										double[] latencyMatrix
+										InitPop initMethod,
+										Mutation mutate,
+										WSRP_Constraint constraint,
+										Distance crowd,
+										int vmTypes,
+										int taskNum,
+										double pmCpu, 
+										double pmMem, 
+										double pmEnergy,
+										double[] vmCpu, 
+										double[] vmMem, 
+										double[] vmCost, 
+										double[] taskCpu, 
+										double[] taskMem, 
+										double[] taskFreq
 										) {
 		super(evaluate);
-		this.costMatrix = costMatrix;
-		this.freqMatrix = freqMatrix;
-		this.latencyMatrix = latencyMatrix;
+		this.vmTypes = vmTypes;
+		this.taskNum = taskNum;
+		this.pmCpu = pmCpu;
+		this.pmMem = pmMem;
+		this.pmEnergy = pmEnergy;
+		this.vmCpu = vmCpu;
+		this.vmMem = vmMem;
+		this.vmCost = vmCost;
+		this.taskCpu = vmCpu;
+		this.taskMem = taskMem;
+		this.taskFreq = taskFreq;
+		this.initMethod = initMethod;
+		this.mutate = mutate;
+		this.constraint = constraint;
+		this.crowd = crowd;
+	}
+	
+	public Distance getDistance(){
+		return crowd;
+	}
+	public WSRP_Constraint getConstraint(){
+		return constraint;
+	}
+	public Mutation getMutatioin(){
+		return mutate;
 	}
 
-	public double[] getCostMatrix() {
-		return costMatrix;
+	public InitPop getInitPop(){
+		return initMethod;
 	}
-
-	public double[] getFreqMatrix() {
-		return freqMatrix;
+	public int getVmTypes() {
+		return vmTypes;
 	}
-
-	public double[] getLatencyMatrix() {
-		return latencyMatrix;
+	public int getTaskNum() {
+		return taskNum;
 	}
+	public double getPmCpu() {
+		return pmCpu;
+	}
+	public double getPmMem() {
+		return pmMem;
+	}
+	public double getPmEnergy() {
+		return pmEnergy;
+	}
+	public double[] getVmCpu() {
+		return vmCpu;
+	}
+	public double[] getVmMem() {
+		return vmMem;
+	}
+	public double[] getVmCost() {
+		return vmCost;
+	}
+	public double[] getTaskCpu() {
+		return taskCpu;
+	}
+	public double[] getTaskMem() {
+		return taskMem;
+	}
+	public double[] getTaskFreq() {
+		return taskFreq;
+	}
+	
 
 }

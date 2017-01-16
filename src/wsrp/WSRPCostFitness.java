@@ -13,7 +13,6 @@ import algorithms.*;
  * AllocationParameterSettings for Hai's Paper
  *
  * @author Boxiong Tan (Maximus Tann)
- * @author Hai Huang
  * @since GA framework 1.0
  */
 public class WSRPCostFitness extends UnNormalizedFit{

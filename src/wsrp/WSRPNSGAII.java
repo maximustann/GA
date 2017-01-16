@@ -13,6 +13,7 @@ import ProblemDefine.ProblemParameterSettings;
 import gaFactory.GAFactory;
 
 import java.util.ArrayList;
+
 import GAProcedure.NSGAII_NoCrossover;
 
 /**
@@ -74,16 +75,15 @@ public class WSRPNSGAII extends NSGAII_NoCrossover{
 		tournamentSize = pars.getTournamentSize();
 		elitSize = pars.getElitSize();
 		popFit = new ArrayList<double[]>();
-		popViolation = new int[popSize];
 
 		initPop = factory.getInitPopMethod();
 		mutation = factory.getMutation();
-		crossover = factory.getCrossover();
-		elitism = factory.getElitism(elitSize, optimization);
+		constraint = factory.getConstraint();
 		selection = factory.getSelection(tournamentSize, optimization);
 		evaluate = proSet.getEvaluate();
 		collector = factory.getDataCollector();
 		sort = factory.getSort();
+		distance = factory.getDistance();
 	}
 
 }
