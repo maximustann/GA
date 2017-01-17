@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import dataCollector.DataCollector;
 /**
- * 
+ *
  * @author Boxiong Tan (Maximus Tann)
  * @since PSO framework 1.0
  */
@@ -24,7 +24,7 @@ public class ResultCollector extends DataCollector {
 		super();
 		resultData = new ArrayList<double[]>();
 	}
-	
+
 	/**
 	 * add fitness value
 	 */
@@ -46,7 +46,7 @@ public class ResultCollector extends DataCollector {
 		}
 		System.out.println();
 	}
-	
+
 	/**
 	 * get the last fitness value of many runs
 	 */
@@ -67,7 +67,12 @@ public class ResultCollector extends DataCollector {
 		}
 		System.out.println(best / runs);
 	}
-	
+
+	@Override
+	public void collectSet(Object set) {
+		// TODO Auto-generated method stub
+
+	}
 
 
 }

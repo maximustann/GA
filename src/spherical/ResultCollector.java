@@ -5,7 +5,7 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * ResultCollector.java 
+ * ResultCollector.java
  */
 package spherical;
 
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import algorithms.Chromosome;
 import dataCollector.DataCollector;
 /**
- * A implementation of dataCollector 
- * @author Boxiong Tan (Maximus Tann) 
+ * A implementation of dataCollector
+ * @author Boxiong Tan (Maximus Tann)
  * @since GA framework 1.0
  */
 public class ResultCollector extends DataCollector {
@@ -44,7 +44,7 @@ public class ResultCollector extends DataCollector {
 	public ArrayList<double[]> getResult(){
 		return resultData;
 	}
-	
+
 
 	public void printResult(){
 		for(int i = 0; i < resultData.size(); i++){
@@ -52,7 +52,7 @@ public class ResultCollector extends DataCollector {
 		}
 		System.out.println();
 	}
-	
+
 	public void printPop(){
 		for(int i = 0; i < data.size(); i++) {
 			for(int j = 0; j < data.get(0).length; j++) {
@@ -62,16 +62,20 @@ public class ResultCollector extends DataCollector {
 			System.out.println();
 		}
 	}
-	
+
 	public void printBestInRuns(int gen){
 		for(int i = gen - 1; i < resultData.size(); i += gen){
 			System.out.println("fitness: " + resultData.get(i)[0]);
 		}
 	}
-	
+
 	public void collectChromosome(Chromosome[] popVar) {
 		data.add(popVar);
 	}
-	
-	
+	@Override
+	public void collectSet(Object set) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

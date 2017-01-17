@@ -11,9 +11,11 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 		collector.collectTime(0);
 		initializeRand(seed);
 		popVar = initPop.init(popSize, maxVar, lbound, ubound);
+		ArrayList<Chromosome> nonDominatedSet = new ArrayList<Chromosome>();
+
 
 		for(int i = 0; i < maxGen; i++){
-			ArrayList<double[]> nonDominatedSet = new ArrayList<double[]>();
+			ArrayList<double[]> nonDominatedSetFit = new ArrayList<double[]>();
 			int childrenCount = 0;
 			ArrayList<double[]> newPopFit = new ArrayList<double[]>();
 			ArrayList<double[]> combinedPopFit = new ArrayList<double[]>();
@@ -31,7 +33,7 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 			sort.sort(popVar, popFit);
 			distance.calculate(popVar, popFit);
 //			for(int j = 0; j < popSize; j++){
-//				System.out.println("costFitness = " + popFit.get(j)[0] 
+//				System.out.println("costFitness = " + popFit.get(j)[0]
 //						+ ", EnergyFitness = " + popFit.get(j)[1]
 //						+ ", index = " + popFit.get(j)[2]
 //						+ ", CD = " + popFit.get(j)[3]
@@ -41,20 +43,19 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 //
 //			int flag = 1;
 //			while(flag == 1){}
-			
+
 			int count = 0;
 			// copy the fitnesses of nonDominated individuals into nonDominatedSet
 			while(true){
 				if(popFit.get(count)[4] == 0){
-					nonDominatedSet.add(popFit.get(count).clone());
+					nonDominatedSetFit.add(popFit.get(count).clone());
 					count++;
 				} else{
 					break;
 				}
 			}
-			collector.collect(nonDominatedSet);
-//			((ResultCollector) collector).printResult();
-			
+			collector.collect(nonDominatedSetFit);
+
 			while(true) {
 				Chromosome child = popVar[selection.selected(popVar, popFit)];
 				mutation.update(child, mutationRate);
@@ -62,27 +63,27 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 				childrenCount++;
 				if(childrenCount == popSize) break;
 			}
-			
+
 			try {
 				evaluate.evaluate(newPop, newPopFit);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			for(int j = 0; j < popSize; j++){
 				combinedPop[j] = newPop[j].clone();
 				combinedPopFit.add(newPopFit.get(j));
 			}
 			for(int j = popSize, k = 0; j < popSize * 2; j++, k++){
 				combinedPop[j] = popVar[k].clone();
-				// you will have to adjust the index in the fitness, 
+				// you will have to adjust the index in the fitness,
 				// otherwise it will mess things up
 				popFit.get(k)[2] = j;
 				combinedPopFit.add(popFit.get(k));
 			}
 
-			sort.sort(combinedPop, combinedPopFit);	
+			sort.sort(combinedPop, combinedPopFit);
 			distance.calculate(combinedPop, combinedPopFit);
 			popFit.clear();
 			// elitism
@@ -93,12 +94,23 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 				popFit.get(j)[2] = j;
 			}
 		}
+
 		collector.collectTime(1);
+		// collect the non dominated Set
+		for(int count = 0; count < popSize; count++){
+			if(popFit.get(count)[4] == 0){
+				nonDominatedSet.add(popVar[(int) popFit.get(count)[2]].clone());
+				count++;
+			} else{
+				break;
+			}
+		}
+		collector.collectSet(nonDominatedSet);
 	}
 
 	@Override
 	protected abstract void prepare();
-	
+
 	/**
 	 * Repeat experiment N times
 	 */
