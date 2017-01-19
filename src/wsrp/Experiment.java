@@ -29,7 +29,7 @@ public class Experiment {
 		double k = 0.7;
 		weights[0] = weights[1] = 0.5;
 
-		int testCase = 1;
+		int testCase = 5;
 		String base = "/home/tanboxi/workspace/WSRData/testCase" + testCase;
 		String ProblemConfig = base + "/ProblemConfig.csv";
 		String PMConfig = base + "/PMConfig.csv";
@@ -75,6 +75,29 @@ public class Experiment {
 											pmCpu, vmMem, vmCpu,
 											taskCpu, taskMem, taskFreq);
 
+		// debug
+		ResourceHelper helper = new ResourceHelper(taskNum, vmTypes, pmMem,
+													pmCpu, vmMem, vmCpu,
+													taskCpu, taskMem, taskFreq);
+		Chromosome[] popVar = initMethod.init(popSize, 3 * taskNum, lbound, ubound);
+//		popVar[0].print();
+//		for(int i = 0; i < popSize; i++){
+//			popVar[i].print();
+//			helper.evaluate((WSRP_IntChromosome) popVar[i]);
+//			ArrayList<Integer> bound = helper.getBound();
+//			ArrayList<double[]> leftResource = helper.getLeftResource();
+//			popVar[0].print();
+////			for(int j = 0; j < bound.size(); j++){
+////				System.out.println("bound = " + bound.get(j));
+////				System.out.println("cpu left = " + leftResource.get(j)[0] + ", mem left = " + leftResource.get(j)[1]);
+////			}
+//		}
+
+		// debug
+
+
+
+
 		Mutation mutation = new WSRPMutation(
 											taskNum, vmTypes, pmMem,
 											pmCpu, vmMem, vmCpu,
@@ -114,16 +137,16 @@ public class Experiment {
 									mutationRate, crossoverRate, lbound, ubound, tournamentSize,
 									eliteSize, optimization, popSize, maxGen, taskNum * 3);
 		GeneticAlgorithm myAlg = new WSRPNSGAII(pars, proSet, new NSGAIIFactory(collector, proSet, pars));
-//		myAlg.run(1);
-		myAlg.runNtimes(2333, 30);
-//		((ResultCollector) collector).printResult();
+		myAlg.run(1);
+//		myAlg.runNtimes(2333, 30);
+		((ResultCollector) collector).printResult();
 //		writeFiles.writeGenerationsFitnessToFile(((ResultCollector) collector).getResult());
 //		((ResultCollector) collector).mean(30);
 //		((ResultCollector) collector).printMeanTime();
-		writeFiles.writeResults(((ResultCollector) collector).getLastResult(30, maxGen),
-				((ResultCollector) collector).getTime(), ((ResultCollector) collector).getNonDonSet());
-		post.process(30, ((ResultCollector) collector).getLastResult(30, maxGen),
-						((ResultCollector) collector).getNonDonSet());
+//		writeFiles.writeResults(((ResultCollector) collector).getLastResult(30, maxGen),
+//				((ResultCollector) collector).getTime(), ((ResultCollector) collector).getNonDonSet());
+//		post.process(30, ((ResultCollector) collector).getLastResult(30, maxGen),
+//						((ResultCollector) collector).getNonDonSet());
 //		System.out.println("Done!");
 	}
 }

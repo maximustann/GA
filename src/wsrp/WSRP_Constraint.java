@@ -96,7 +96,13 @@ public class WSRP_Constraint implements Constraint {
 
 					if(utility > 1) {
 						violationNum++;
-						System.out.println("Wrong!");
+						System.out.println("Wrong! constriant");
+						System.out.println("taskNum = " + taskNum +
+								", vmType = " + vmType +
+								", vmIndex = " + vmIndex);
+						System.out.println("taskCpu * taskFreq / vmCpu : " +
+								taskCpu[taskNum] + " * " + taskFreq[taskNum] +
+								" / " + vmCpu[vmType] + " = " + utility);
 						utility = 1;
 					}
 					pmVmCount[vmType].add(1);
@@ -159,6 +165,12 @@ public class WSRP_Constraint implements Constraint {
 					if(utility > 1) {
 						violationNum++;
 						System.out.println("Wrong!");
+						System.out.println("taskNum = " + taskNum +
+								", vmType = " + vmType +
+								", vmIndex = " + vmIndex);
+						System.out.println("taskCpu * taskFreq / vmCpu : " +
+								taskCpu[taskNum] + " * " + taskFreq[taskNum] +
+								" / " + vmCpu[vmType] + " = " + utility);
 						utility = 1;
 					}
 					pmVms[vmType].add(utility);
@@ -209,7 +221,7 @@ public class WSRP_Constraint implements Constraint {
 				int vmIndex = ((WSRP_IntChromosome) individual).individual[taskCount * 3 + 2];
 
 				// if the vm has not been created, calculate the utility and add to list
-				if(pmVms[vmType].isEmpty() || pmVms[vmType].size() < vmIndex + 1){
+				if(pmVms[vmType].isEmpty() || (pmVms[vmType].size() < vmIndex + 1)){
 					double utility = taskCpu[taskNum] * taskFreq[taskNum] / vmCpu[vmType];
 					double[] resource = new double[]{pmCpu - taskCpu[taskNum] * taskFreq[taskNum],
 													  pmMem - taskMem[taskNum] * taskFreq[taskNum]};
@@ -218,6 +230,12 @@ public class WSRP_Constraint implements Constraint {
 					if(utility > 1) {
 						violationNum++;
 						System.out.println("Wrong!");
+						System.out.println("taskNum = " + taskNum +
+								", vmType = " + vmType +
+								", vmIndex = " + vmIndex);
+						System.out.println("taskCpu * taskFreq / vmCpu : " +
+								taskCpu[taskNum] + " * " + taskFreq[taskNum] +
+								" / " + vmCpu[vmType] + " = " + utility);
 						utility = 1;
 					}
 					pmVms[vmType].add(utility);

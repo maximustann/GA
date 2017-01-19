@@ -46,7 +46,7 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 
 			int count = 0;
 			// copy the fitnesses of nonDominated individuals into nonDominatedSet
-			while(true){
+			while(count < popFit.size()){
 				if(popFit.get(count)[4] == 0){
 					nonDominatedSetFit.add(popFit.get(count).clone());
 					count++;

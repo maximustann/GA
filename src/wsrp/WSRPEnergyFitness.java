@@ -20,7 +20,7 @@ import algorithms.*;
 public class WSRPEnergyFitness extends UnNormalizedFit {
 	/** These are data, therefore, they are defined as static values. */
 	private static double k;
-	private static int taskNum;	
+	private static int taskNum;
 	private static double pmCpu;
 	private static double pmMem;
 	private static double pmEnergy;
@@ -55,7 +55,7 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 		WSRPEnergyFitness.taskCpu = taskCpu;
 		WSRPEnergyFitness.taskFreq = taskFreq;
 	}
-	
+
 	public WSRPEnergyFitness(Chromosome individual){
 		super(individual);
 	}
@@ -83,12 +83,12 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 				if(pmVms[vmType].isEmpty() || pmVms[vmType].size() < vmIndex + 1){
 					double utility = taskCpu[taskNum] * taskFreq[taskNum] / vmCpu[vmType];
 					if(utility > 1) {
-						System.out.println("Wrong!");
+						System.out.println("Wrong! evaluate");
 						System.out.println("taskNum = " + taskNum +
 											", vmType = " + vmType +
 											", vmIndex = " + vmIndex);
 						System.out.println("taskCpu * taskFreq / vmCpu : " +
-											taskCpu[taskNum] + " * " + taskFreq[taskNum] + 
+											taskCpu[taskNum] + " * " + taskFreq[taskNum] +
 											" / " + vmCpu[vmType] + " = " + utility);
 						utility = 1;
 					}
@@ -104,7 +104,7 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 				}
 				taskCount++;
 			} // end While
-			
+
 			// calculate the pmUtility
 			for(int j = 0; j < vmTypes; j++){
 				while(!pmVms[j].isEmpty()){
@@ -121,9 +121,9 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 		fit[0] = round5(fit[0]);
 		return fit;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * keep 5 decimal points
 	 * @param number
 	 * @return
@@ -132,7 +132,7 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 		number = Math.floor(number * 100000) / 100000;
 		return number;
 	}
-	
+
 	private int[] pmCount(WSRP_IntChromosome individual){
 		int pmCount = 0;
 		ArrayList<double[]> pmResource = new ArrayList<double[]>();
@@ -151,7 +151,7 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 			} else {
 				// if there is not enough resource, allocate a new PM
 				pmCount++;
-				pmResource.add(new double[]{pmCpu - vmCpu[individual.individual[i * 3 + 1]], 
+				pmResource.add(new double[]{pmCpu - vmCpu[individual.individual[i * 3 + 1]],
 											pmMem - vmMem[individual.individual[i * 3 + 1]]});
 			}
 			pmIndex[i] = pmCount;
