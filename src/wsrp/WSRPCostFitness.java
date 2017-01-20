@@ -8,9 +8,10 @@
  * GAHaiCostFitness.java - cost fitness from Hai's Paper
  */
 package wsrp;
+import java.util.ArrayList;
+
 import algorithms.*;
 /**
- * AllocationParameterSettings for Hai's Paper
  *
  * @author Boxiong Tan (Maximus Tann)
  * @since GA framework 1.0
@@ -18,13 +19,13 @@ import algorithms.*;
 public class WSRPCostFitness extends UnNormalizedFit{
 	private static double[] vmCost;
 
-	
+
 	public WSRPCostFitness(Chromosome individual){
 		super(individual);
 	}
 
 	/**
-	 * 
+	 *
 	 * @param con a user defined constraint, in this case user define a max cost constraint
 	 * @param costMatrix cost matrix, read from file, generate from normal distribution [20,100]
 	 */
@@ -32,13 +33,25 @@ public class WSRPCostFitness extends UnNormalizedFit{
 		super(null);
 		WSRPCostFitness.vmCost = vmCost;
 	}
-	
+
 
 	public Object call() throws Exception {
 		double[] fit = new double[2];
+		fit[0] = 0;
+		ArrayList<Integer> vmCount = new ArrayList<Integer>();
 		int taskNum = individual.size() / 3;
 		for(int i = 0; i < taskNum; i++) {
-			fit[0] += vmCost[((WSRP_IntChromosome) individual).individual[i * 3 + 1]];
+			if(vmCount.isEmpty()){
+				fit[0] += vmCost[((WSRP_IntChromosome) individual).individual[i * 3 + 1]];
+				vmCount.add(((WSRP_IntChromosome) individual).individual[i * 3 + 2]);
+				continue;
+			}
+			if(!vmCount.contains(((WSRP_IntChromosome) individual).individual[i * 3 + 2])){
+				fit[0] += vmCost[((WSRP_IntChromosome) individual).individual[i * 3 + 1]];
+				vmCount.add(((WSRP_IntChromosome) individual).individual[i * 3 + 2]);
+			}
+//		System.out.println("cost = " + fit[0] +
+//				", number = " + ((WSRP_IntChromosome) individual).individual[i * 3 + 2]);
 		}
 
 		fit[1] = 0;
