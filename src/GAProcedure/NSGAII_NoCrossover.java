@@ -55,9 +55,20 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 				}
 			}
 			collector.collect(nonDominatedSetFit);
+			int violations = 0;
+			for(int j = 0; j < popSize; j++){
+				violations += popFit.get(j)[5];
+			}
+			violations /= popSize;
+			if(violations == 0){
+				mutationRate = 0.001;
+			} else
+//				mutationRate = 1 / violations;
+				mutationRate = 1 / (1 + Math.exp(-violations + popSize / 2));
 
 			while(true) {
-				Chromosome child = popVar[selection.selected(popVar, popFit)];
+
+				Chromosome child = popVar[selection.selected(popVar, popFit)].clone();
 				mutation.update(child, mutationRate);
 				newPop[childrenCount] = child.clone();
 				childrenCount++;

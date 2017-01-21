@@ -72,7 +72,13 @@ public class WSRP_Constraint implements Constraint {
 	 */
 	private int violationCount(WSRP_IntChromosome chromo){
 		int violations = 0;
-		ArrayList<Double> utilization = new ArrayList<Double>();
+		int totalVMNum = 0;
+		for(int i = 0; i < taskNum; i++) {
+			if(chromo.individual[i * 3 + 2] >= totalVMNum)
+				totalVMNum = chromo.individual[i * 3 + 2] + 1;
+		}
+
+		double[] utilization = new double[totalVMNum];
 		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
 		for(int i = 0; i < taskNum; i++){
 			if(!numType.containsKey(chromo.individual[i * 3 + 2])){
@@ -81,33 +87,33 @@ public class WSRP_Constraint implements Constraint {
 		}
 
 		// for the first service
-		utilization.add(taskCpu[chromo.individual[0]]
+		utilization[0] = taskCpu[chromo.individual[0]]
 						* taskFreq[chromo.individual[0]]
-							/ vmCpu[chromo.individual[1]]);
+							/ vmCpu[chromo.individual[1]];
 
 		// for each service
 		for(int i = 1; i < taskNum; i++){
 
 			// If the vm has not been calculated
-			if(utilization.size() == chromo.individual[i * 3 + 2]){
-					utilization.add(taskCpu[chromo.individual[i * 3]]
-									* taskFreq[chromo.individual[i * 3]]
-									/ vmCpu[chromo.individual[i * 3 + 1]]);
+			if(utilization[chromo.individual[i * 3 + 2]] == 0){
+					utilization[chromo.individual[i * 3 + 2]] = taskCpu[chromo.individual[i * 3]]
+															* taskFreq[chromo.individual[i * 3]]
+																/ vmCpu[chromo.individual[i * 3 + 1]];
 			} else {
 			// add up the utilization that the vm has, if it exceeds 1, set to 1
-				double util = utilization.get(chromo.individual[i * 3 + 2]);
-				util += taskCpu[chromo.individual[i * 3]]
-						* taskFreq[chromo.individual[i * 3]]
-						/ vmCpu[chromo.individual[i * 3 + 1]];
+				double util = taskCpu[chromo.individual[i * 3]]
+							* taskFreq[chromo.individual[i * 3]]
+									/ vmCpu[chromo.individual[i * 3 + 1]];
 
-				if(util > 1) {
-					util = 1;
+				if(utilization[chromo.individual[i * 3 + 2]] + util > 1) {
+					utilization[chromo.individual[i * 3 + 2]] = 1;
+				} else{
+					utilization[chromo.individual[i * 3 + 2]] += util;
 				}
-				utilization.set(chromo.individual[i * 3 + 2], util);
 			}
 		}
-		for(int i = 0; i < utilization.size(); i++){
-			if(utilization.get(i) == 1){
+		for(int i = 0; i < totalVMNum; i++){
+			if(utilization[i] == 1){
 				for(int j = 0; j < taskNum; j++){
 					if(chromo.individual[j * 3 + 2] == i) violations++;
 				}

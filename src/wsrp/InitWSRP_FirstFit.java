@@ -10,6 +10,7 @@
 package wsrp;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import algorithms.*;
 
@@ -80,6 +81,7 @@ public class InitWSRP_FirstFit implements InitPop{
 		}
 		return popVar;
 	}
+
 
 	private WSRP_IntChromosome generateChromosome(){
 		WSRP_IntChromosome chromo = new WSRP_IntChromosome(taskNum * 3);

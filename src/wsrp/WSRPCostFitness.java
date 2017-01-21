@@ -40,18 +40,19 @@ public class WSRPCostFitness extends UnNormalizedFit{
 		fit[0] = 0;
 		ArrayList<Integer> vmCount = new ArrayList<Integer>();
 		int taskNum = individual.size() / 3;
-		for(int i = 0; i < taskNum; i++) {
-			if(vmCount.isEmpty()){
-				fit[0] += vmCost[((WSRP_IntChromosome) individual).individual[i * 3 + 1]];
-				vmCount.add(((WSRP_IntChromosome) individual).individual[i * 3 + 2]);
-				continue;
-			}
-			if(!vmCount.contains(((WSRP_IntChromosome) individual).individual[i * 3 + 2])){
-				fit[0] += vmCost[((WSRP_IntChromosome) individual).individual[i * 3 + 1]];
-				vmCount.add(((WSRP_IntChromosome) individual).individual[i * 3 + 2]);
-			}
-//		System.out.println("cost = " + fit[0] +
-//				", number = " + ((WSRP_IntChromosome) individual).individual[i * 3 + 2]);
+//		for(int i = 0; i < taskNum; i++) {
+//			if(vmCount.isEmpty()){
+//				fit[0] += vmCost[((WSRP_IntChromosome) individual).individual[i * 3 + 1]];
+//				vmCount.add(((WSRP_IntChromosome) individual).individual[i * 3 + 2]);
+//				continue;
+//			}
+//			if(!vmCount.contains(((WSRP_IntChromosome) individual).individual[i * 3 + 2])){
+//				fit[0] += vmCost[((WSRP_IntChromosome) individual).individual[i * 3 + 1]];
+//				vmCount.add(((WSRP_IntChromosome) individual).individual[i * 3 + 2]);
+//			}
+//		}
+		for(int i = 0; i < taskNum; i++){
+			fit[0] += vmCost[((WSRP_IntChromosome) individual).individual[i * 3 + 1]];
 		}
 
 		fit[1] = 0;

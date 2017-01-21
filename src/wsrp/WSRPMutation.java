@@ -9,6 +9,7 @@
  */
 package wsrp;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import algorithms.Chromosome;
 import algorithms.Mutation;
@@ -53,31 +54,85 @@ public class WSRPMutation implements Mutation {
 	}
 
 	public void update(Chromosome individual, double mutationRate){
+//		individual.print();
 		for(int i = 0; i < taskNum; i++){
 			if(StdRandom.uniform() <= mutationRate){
+//				System.out.println("Before");
+//				individual.print();
+//				System.out.println(" , index = " + i);
 				mutateVMTypes((WSRP_IntChromosome) individual, i);
+//				System.out.println("After");
+//				individual.print();
+//				System.out.println();
 			}
 		}
+		if(!validation((WSRP_IntChromosome) individual)){
+			System.out.println("wrong");
+		}
+	}
+
+
+	private boolean validation(WSRP_IntChromosome chromo){
+		HashSet<Integer> vmSet = new HashSet<Integer>();
+		int topNum = 0;
+		for(int i = 0; i < taskNum; i++){
+			vmSet.add(chromo.individual[i * 3 + 2]);
+			if(topNum < chromo.individual[i * 3 + 2])
+				topNum = chromo.individual[i * 3 + 2];
+		}
+		if(vmSet.size() != topNum + 1){
+			chromo.print();
+			return false;
+		}
+		return true;
+
 	}
 
 
 	private void mutateVMTypes(WSRP_IntChromosome chromo, int index){
 		ArrayList<Integer>[] existingVMTypes = findExistingVms(chromo);
+
 		int totalVMNum = 0;
+		int currentVM = chromo.individual[index * 3 + 2];
+		int currentVMCount = 0;
 		for(int i = 0; i < taskNum; i++) {
 			if(chromo.individual[i * 3 + 2] >= totalVMNum)
 				totalVMNum = chromo.individual[i * 3 + 2] + 1;
+			if(chromo.individual[i * 3 + 2] == currentVM)
+				currentVMCount++;
 		}
 
+//		System.out.println("currentVMCount = " + currentVMCount);
 		int task = chromo.individual[index * 3];
 		int suitableType = suitableVM(task);
 		int vmType = StdRandom.uniform(suitableType, vmTypes);
+
+
 		// Check if there is an existing VM with the vmType, if no, launch a new VM with vmType
 		if(existingVMTypes[vmType].isEmpty()){
+			int insertPoint = StdRandom.uniform(totalVMNum);
+			for(int i = 0; i < taskNum; i++){
+				if(chromo.individual[i * 3 + 2] >= insertPoint)
+					chromo.individual[i * 3 + 2] += 1;
+			}
+
+
 			existingVMTypes[vmType].add(totalVMNum);
 			chromo.individual[index * 3 + 1] = vmType;
-			chromo.individual[index * 3 + 2] = totalVMNum;
+			chromo.individual[index * 3 + 2] = insertPoint;
 			totalVMNum += 1;
+
+			// If after last change the existing vm disappeared
+			if(currentVMCount == 1){
+				for(int i = 0; i < taskNum; i++){
+					if(chromo.individual[i * 3 + 2] > currentVM){
+						chromo.individual[i * 3 + 2] = chromo.individual[i * 3 + 2] - 1;
+					}
+				}
+				totalVMNum -= 1;
+			}
+
+
 		} else {
 			// else, generate a random number u, check if it smaller than consolidation factor
 			double u = StdRandom.uniform();
@@ -88,12 +143,42 @@ public class WSRPMutation implements Mutation {
 				int pickedVM = existingVMTypes[vmType].get(pickedVMIndex);
 				chromo.individual[index * 3 + 1] = vmType;
 				chromo.individual[index * 3 + 2] = pickedVM;
+
+				// After the changing, the current VM is gone, therefore adjustment is needed
+				if(currentVMCount == 1 && pickedVM != currentVM){
+//					System.out.println("currentVM = " + currentVM +
+//										", pickedVM = " + pickedVM +
+//										", suitableType = " + suitableType
+//										);
+					for(int i = 0; i < taskNum; i++){
+						if(chromo.individual[i * 3 + 2] > currentVM){
+							chromo.individual[i * 3 + 2] = chromo.individual[i * 3 + 2] - 1;
+						}
+					}
+				}
 			} else {
-				// If no, launch a new VM with vmType
+				// If no, launch a new VM with vmType, but we need to insert this new VM in somewhere
+				int insertPoint = StdRandom.uniform(totalVMNum);
+				for(int i = 0; i < taskNum; i++){
+					if(chromo.individual[i * 3 + 2] >= insertPoint)
+						chromo.individual[i * 3 + 2] += 1;
+				}
+
 				existingVMTypes[vmType].add(totalVMNum);
 				chromo.individual[index * 3 + 1] = vmType;
-				chromo.individual[index * 3 + 2] = totalVMNum;
+				chromo.individual[index * 3 + 2] = insertPoint ;
 				totalVMNum += 1;
+
+				// If after last change the existing vm disappeared
+				if(currentVMCount == 1){
+					for(int i = 0; i < taskNum; i++){
+						if(chromo.individual[i * 3 + 2] > currentVM){
+							chromo.individual[i * 3 + 2] = chromo.individual[i * 3 + 2] - 1;
+						}
+					}
+					totalVMNum -= 1;
+				}
+
 			}
 		}
 	}
@@ -102,26 +187,22 @@ public class WSRPMutation implements Mutation {
 		ArrayList<Integer>[] existingVMTypes = new ArrayList[vmTypes];
 		for(int i = 0; i < vmTypes; i++) existingVMTypes[i] = new ArrayList<Integer>();
 		for(int i = 0; i < taskNum; i++){
-			if(existingVMTypes[chromo.individual[i * 3 + 1]].isEmpty()
-			|| !existingVMTypes[chromo.individual[i * 3 + 1]].contains(chromo.individual[i * 3 + 2])){
-				existingVMTypes[chromo.individual[i * 3 + 1]].add(chromo.individual[i * 3 + 2]);
+			int type = chromo.individual[i * 3 + 1];
+			if(existingVMTypes[type].isEmpty())
+				existingVMTypes[type].add(chromo.individual[i * 3 + 2]);
+			if(!existingVMTypes[type].contains(chromo.individual[i * 3 + 2])){
+				existingVMTypes[type].add(chromo.individual[i * 3 + 2]);
 			}
 		}
+
 		return existingVMTypes;
 	}
 
 	private int suitableVM(int taskNo){
 		int vmType = 0;
-//		System.out.println("taskNum = " + taskNo);
 		for(int k = 0; k < vmTypes; k++){
 			if(vmCpu[k] - taskCpu[taskNo] * taskFreq[taskNo] >= 0
 			&& vmMem[k] - taskMem[taskNo] * taskFreq[taskNo] >= 0){
-//				System.out.println("taskNo = " + taskNo +
-//									", vmCpu = " + vmCpu[k] +
-//									" ,vmMem = " + vmMem[k] +
-//									" ,taskCpu = " + taskCpu[taskNo] +
-//									" ,taskMem = " + taskMem[taskNo] +
-//									", taskFreq = " + taskFreq[taskNo]);
 				vmType = k;
 				break;
 			}

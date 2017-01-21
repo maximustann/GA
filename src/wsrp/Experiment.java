@@ -19,17 +19,17 @@ public class Experiment {
 
 
 		double crossoverRate = 0.6;
-		double mutationRate = 0.5;
-		double consolidationFactor = 0.7;
+		double mutationRate = 0.9;
+		double consolidationFactor = 0.01;
 		int optimization = 0; //minimize
 		int tournamentSize = 10;
 		int eliteSize = 20;
-		int popSize = 1;
-		int maxGen = 50;
+		int popSize = 50;
+		int maxGen = 1000;
 		double k = 0.7;
 		weights[0] = weights[1] = 0.5;
 
-		int testCase = 1;
+		int testCase = 2;
 		String base = "/home/tanboxi/workspace/WSRData/testCase" + testCase;
 		String ProblemConfig = base + "/ProblemConfig.csv";
 		String PMConfig = base + "/PMConfig.csv";
@@ -79,8 +79,27 @@ public class Experiment {
 //		ResourceHelper helper = new ResourceHelper(taskNum, vmTypes, pmMem,
 //													pmCpu, vmMem, vmCpu,
 //													taskCpu, taskMem, taskFreq);
+//		StdRandom.setSeed(4);
 //		Chromosome[] popVar = initMethod.init(popSize, 3 * taskNum, lbound, ubound);
 //		ArrayList<double[]> popFit = new ArrayList<double[]>();
+
+
+//		for(int i = 0; i < popSize; i++) popVar[i].print();
+//		Mutation mutation = new WSRPMutation(
+//				taskNum, vmTypes, pmMem,
+//				pmCpu, vmMem, vmCpu,
+//				taskCpu, taskMem, taskFreq,
+//				consolidationFactor);
+////
+//
+//		for(int i = 0; i < popSize; i++) {
+//		System.out.println(i);
+//		popVar[13].print();
+//		mutation.update(popVar[i], mutationRate);
+//		popVar[13].print();
+//			popVar[i].print();
+
+//		}
 //		popVar[0].print();
 //		UnNormalizedFit energy = new WSRPEnergyFitness(
 //											taskNum, vmTypes, k, pmCpu,
@@ -106,47 +125,47 @@ public class Experiment {
 
 
 //
-//		Mutation mutation = new WSRPMutation(
-//											taskNum, vmTypes, pmMem,
-//											pmCpu, vmMem, vmCpu,
-//											taskCpu, taskMem, taskFreq,
-//											consolidationFactor);
+		Mutation mutation = new WSRPMutation(
+											taskNum, vmTypes, pmMem,
+											pmCpu, vmMem, vmCpu,
+											taskCpu, taskMem, taskFreq,
+											consolidationFactor);
+
+		UnNormalizedFit cost = new WSRPCostFitness(vmCost);
+		UnNormalizedFit energy = new WSRPEnergyFitness(
+											taskNum, vmTypes, k, pmCpu,
+											pmMem, pmEnergy, vmCpu,
+											vmMem, taskCpu, taskFreq);
+
+		FitnessFunc costFit = new FitnessFunc(cost.getClass());
+		FitnessFunc energyFit = new FitnessFunc(energy.getClass());
+
+		WSRP_Constraint constraint = new WSRP_Constraint(
+								taskNum, vmTypes, pmCpu,
+								pmMem, pmEnergy, vmCpu,
+								vmMem, taskCpu, taskMem, taskFreq);
+		PostProcessing post = new PostProcessing(constraint);
+
+		funcList.add(costFit);
+		funcList.add(energyFit);
+
+		Evaluate evaluate = new WSRPEvaluate(funcList);
+		DataCollector collector = new ResultCollector();
+		Distance crowd = new CrowdingDistance(optimization);
 //
-//		UnNormalizedFit cost = new WSRPCostFitness(vmCost);
-//		UnNormalizedFit energy = new WSRPEnergyFitness(
-//											taskNum, vmTypes, k, pmCpu,
-//											pmMem, pmEnergy, vmCpu,
-//											vmMem, taskCpu, taskFreq);
-//
-//		FitnessFunc costFit = new FitnessFunc(cost.getClass());
-//		FitnessFunc energyFit = new FitnessFunc(energy.getClass());
-//
-//		WSRP_Constraint constraint = new WSRP_Constraint(
-//								taskNum, vmTypes, pmCpu,
-//								pmMem, pmEnergy, vmCpu,
-//								vmMem, taskCpu, taskMem, taskFreq);
-//		PostProcessing post = new PostProcessing(constraint);
-//
-//		funcList.add(costFit);
-//		funcList.add(energyFit);
-//
-//		Evaluate evaluate = new WSRPEvaluate(funcList);
-//		DataCollector collector = new ResultCollector();
-//		Distance crowd = new CrowdingDistance(optimization);
-////
-//		ProblemParameterSettings proSet = new AllocationParameterSettings(
-//												evaluate, initMethod, mutation, constraint, crowd,
-//												vmTypes,taskNum,
-//												pmCpu, pmMem, pmEnergy,
-//												vmCpu, vmMem, vmCost,
-//												taskCpu, taskMem, taskFreq);
-//		ParameterSettings pars = new ParameterSettings(
-//									mutationRate, crossoverRate, lbound, ubound, tournamentSize,
-//									eliteSize, optimization, popSize, maxGen, taskNum * 3);
-//		GeneticAlgorithm myAlg = new WSRPNSGAII(pars, proSet, new NSGAIIFactory(collector, proSet, pars));
-//		myAlg.run(1);
+		ProblemParameterSettings proSet = new AllocationParameterSettings(
+												evaluate, initMethod, mutation, constraint, crowd,
+												vmTypes,taskNum,
+												pmCpu, pmMem, pmEnergy,
+												vmCpu, vmMem, vmCost,
+												taskCpu, taskMem, taskFreq);
+		ParameterSettings pars = new ParameterSettings(
+									mutationRate, crossoverRate, lbound, ubound, tournamentSize,
+									eliteSize, optimization, popSize, maxGen, taskNum * 3);
+		GeneticAlgorithm myAlg = new WSRPNSGAII(pars, proSet, new NSGAIIFactory(collector, proSet, pars));
+		myAlg.run(1);
 //		myAlg.runNtimes(2333, 30);
-//		((ResultCollector) collector).printResult();
+		((ResultCollector) collector).printResult();
 //		writeFiles.writeGenerationsFitnessToFile(((ResultCollector) collector).getResult());
 //		((ResultCollector) collector).mean(30);
 //		((ResultCollector) collector).printMeanTime();
