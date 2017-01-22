@@ -1,66 +1,64 @@
 package wsrp;
 
+
 import java.util.ArrayList;
 
 import FileHandlers.ReadByRow;
 
 public class PostProcessing {
 	private WSRP_Constraint constraint;
+	private ArrayList<ArrayList<double[]>> emptiness;
+	private ArrayList<ArrayList<Double>> utilization;
 
-	public PostProcessing(
-			WSRP_Constraint constraint
-			){
+	public PostProcessing(WSRP_Constraint constraint){
 		this.constraint = constraint;
 	}
 
-	public void process(int runs, ArrayList<ArrayList<double[]>> fitness, ArrayList<ArrayList<double[]>> nonDominatedSet){
-		for(int i = 0; i < runs; i++){
-			_process(fitness.get(i), nonDominatedSet.get(i));
+	public void processing(ArrayList<ArrayList<WSRP_IntChromosome>> nonDom){
+		emptiness = new ArrayList<ArrayList<double[]>>();
+		utilization = new ArrayList<ArrayList<Double>>();
+		// for each generation
+		for(int i = 0; i < nonDom.size(); i++){
+			// for each none dominated set
+			ArrayList<double[]> genEmptiness = new ArrayList<double[]>();
+			ArrayList<Double> genUtil = new ArrayList<Double>();
+			for(int j = 0; j < nonDom.get(i).size(); j++){
+				genEmptiness.add(constraint.emptinessMean(nonDom.get(i).get(j)));
+				genUtil.add(constraint.pmUtilization(nonDom.get(i).get(j)));
+			}
+			emptiness.add(genEmptiness);
+			utilization.add(genUtil);
 		}
 	}
-
-	public void _process(ArrayList<double[]> fitness, ArrayList<double[]> nonDominatedSet){
-		int size = nonDominatedSet.size();
-		int[] vmViolations = new int[size];
-		int[] serviceViolations = new int[size];
-		int[] pmCount = new int[size];
-		ArrayList<int[]> vmsInPM = new ArrayList<int[]>();
-		ArrayList resourceLeft = new ArrayList();
-
-
-		WSRP_IntChromosome[] nonDonSet = adaptor(nonDominatedSet);
-		int serviceNo = nonDonSet[0].size() / 3;
-		// for each individual
-		for(int i = 0; i < size; i++){
-			int[] pmIndex = constraint.pmCount(nonDonSet[i]);
-			pmCount[i] = pmIndex[pmIndex.length - 1] + 1;
-			vmViolations[i] = (int) fitness.get(i)[5];
-			serviceViolations[i] = constraint.countServiceViolations(nonDonSet[i]);
-
-			int[] serviceInfo = new int[4];
-			for(int j = 0; j < serviceNo; j++){
-				serviceInfo[0] = j;
-				serviceInfo[1] = pmIndex[j];
-				serviceInfo[2] = nonDonSet[i].individual[j * 3 + 1];
-				serviceInfo[3] = nonDonSet[i].individual[j * 3 + 2];
+	
+	public void printEmptiness(){
+		for(int i = 0; i < emptiness.size(); i++){
+			System.out.println("Generation = " + i);
+			for(int j = 0; j < emptiness.get(i).size(); j++){
+				System.out.println("Cpu emptiness = " + emptiness.get(i).get(j)[0] + 
+								   " ,Mem emptiness = " + emptiness.get(i).get(j)[1]);
 			}
-			vmsInPM.add(serviceInfo);
-			resourceLeft.add(constraint.leftResource(nonDonSet[i]));
 		}
 	}
-
-	private WSRP_IntChromosome[] adaptor(ArrayList<double[]> nonDominatedSet){
-		int size = nonDominatedSet.size();
-		int maxVar = nonDominatedSet.get(0).length;
-		WSRP_IntChromosome[] popVar = new WSRP_IntChromosome[size];
-		for(int i = 0; i < size; i++){
-			popVar[i] = new WSRP_IntChromosome(maxVar);
-			for(int j = 0; j < maxVar; j++){
-				popVar[i].individual[j] = (int) nonDominatedSet.get(i)[j];
+	
+	public void printUtilization(){
+		for(int i = 0; i < utilization.size(); i++){
+			System.out.println("Generation = " + i);
+			for(int j = 0; j < emptiness.get(i).size(); j++){
+				System.out.println("uitlization = " + utilization.get(i).get(j));
 			}
 		}
-		return popVar;
-
+	}
+	
+	public void printEmpUtil(){
+		for(int i = 0; i < utilization.size(); i++){
+			System.out.println("Generation = " + i);
+			for(int j = 0; j < utilization.get(i).size(); j++){
+				System.out.println("Cpu emptiness = " + emptiness.get(i).get(j)[0] + 
+								   " ,Mem emptiness = " + emptiness.get(i).get(j)[1] + 
+								   " ,utilization = " + utilization.get(i).get(j));
+			}
+		}
 	}
 
 }

@@ -122,244 +122,159 @@ public class WSRP_Constraint implements Constraint {
 
 		return violations;
 	}
+	
+	
+	/**
+	 * calculate the utilization of each vm
+	 *
+	 * @param chromo individual
+	 * @return an array of utilization, each entry's index is the number of the vm
+	 */
+	private double[] vmUtilization(WSRP_IntChromosome chromo){
+		int totalVMNum = 0;
+		for(int i = 0; i < taskNum; i++) {
+			if(chromo.individual[i * 3 + 2] >= totalVMNum)
+				totalVMNum = chromo.individual[i * 3 + 2] + 1;
+		}
+		double[] utilization = new double[totalVMNum];
+		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
+		for(int i = 0; i < taskNum; i++){
+			if(!numType.containsKey(chromo.individual[i * 3 + 2])){
+				numType.put(chromo.individual[i * 3 + 2], chromo.individual[i * 3 + 1]);
+			}
+		}
 
+		// for the first service
+		utilization[0] = taskCpu[chromo.individual[0]]
+						* taskFreq[chromo.individual[0]]
+							/ vmCpu[chromo.individual[1]];
 
-//	@Override
-//	public void evaluate(Chromosome[] popVar, ArrayList<double[]> popFit){
-//		int popSize = popVar.length;
-//		for(int i = 0; i < popSize; i++){
-//			popFit.get(i)[5] = countServiceViolations((WSRP_IntChromosome) popVar[i]);
-//		}
-//	}
+		// for each service
+		for(int i = 1; i < taskNum; i++){
+
+			// If the vm has not been calculated
+			if(utilization[chromo.individual[i * 3 + 2]] == 0){
+					utilization[chromo.individual[i * 3 + 2]] = taskCpu[chromo.individual[i * 3]]
+									* taskFreq[chromo.individual[i * 3]]
+									/ vmCpu[chromo.individual[i * 3 + 1]];
+			} else {
+			// add up the utilization that the vm has, if it exceeds 1, set to 1
+				double util = taskCpu[chromo.individual[i * 3]]
+						* taskFreq[chromo.individual[i * 3]]
+						/ vmCpu[chromo.individual[i * 3 + 1]];
+
+				if(util + utilization[chromo.individual[i * 3 + 2]] > 1) utilization[chromo.individual[i * 3 + 2]] = 1;
+				else utilization[chromo.individual[i * 3 + 2]] += util;
+			}
+		}
+		// convert to pm utilization
+		for(int i = 0; i < totalVMNum; i++){
+//			try{
+			utilization[i] = utilization[i] * vmCpu[numType.get(i)] / pmCpu;
+//			} catch(NullPointerException e){
+//				System.out.println("totalVMNum = " + totalVMNum
+//									+ ", i = " + i +
+//									", numType.size = " + numType.size() +
+//									", utilization.length = " + utilization.length +
+//									", numType.get(i) = " + numType.get(i));
+//			}
+		}
+		return utilization;
+	}
 
 	/**
-	 * Count the violation of an individual
-	 * @param individual
-	 * @return the number of violations
+	 * 
+	 *
 	 */
-//	public int countServiceViolations(WSRP_IntChromosome individual){
-//		int violationNum = 0;
-//		int[] pmIndex = pmCount(individual);
-//		int pmNum = pmIndex[pmIndex.length - 1] + 1;
-//		int taskCount = 0;
-//		// for each pm, count the violations in its vms
-//		for(int i = 0; i < pmNum; i++){
-//			ArrayList[] pmVms = new ArrayList[vmTypes];
-//			ArrayList[] pmVmCount = new ArrayList[vmTypes];
-//			for(int j = 0; j < vmTypes; j++) {
-//				pmVms[j] = new ArrayList<Double>();
-//				pmVmCount[j] = new ArrayList<Integer>();
-//			}
-//
-//			while(true){
-//				// if there is no more task or the task is allocated in a different
-//				// Pm, then break
-//				if(taskCount == taskNum || pmIndex[taskCount] != i) break;
-//				int taskNum = ((WSRP_IntChromosome) individual).individual[taskCount * 3];
-//				int vmType = ((WSRP_IntChromosome) individual).individual[taskCount * 3 + 1];
-//				int vmIndex = ((WSRP_IntChromosome) individual).individual[taskCount * 3 + 2];
-//				// if the vm has not been created, calculate the utility and add to list
-//				if(pmVms[vmType].isEmpty() || pmVms[vmType].size() < vmIndex + 1){
-//					double utility = taskCpu[taskNum] * taskFreq[taskNum] / vmCpu[vmType];
-//
-//					if(utility > 1) {
-//						violationNum++;
-//						System.out.println("Wrong! constriant");
-//						System.out.println("taskNum = " + taskNum +
-//								", vmType = " + vmType +
-//								", vmIndex = " + vmIndex);
-//						System.out.println("taskCpu * taskFreq / vmCpu : " +
-//								taskCpu[taskNum] + " * " + taskFreq[taskNum] +
-//								" / " + vmCpu[vmType] + " = " + utility);
-//						utility = 1;
-//					}
-//					pmVmCount[vmType].add(1);
-//					pmVms[vmType].add(utility);
-//				} else {
-//					// the vm has been created, then add up the vm utility
-//					double utility = taskCpu[taskNum] * taskFreq[taskNum] / vmCpu[vmType];
-//					utility += (double) pmVms[vmType].get(vmIndex);
-//
-//					// add up the
-//					if((double) pmVms[vmType].get(vmIndex) < 1 && utility > 1){
-//						violationNum += (int) pmVmCount[vmType].get(vmIndex);
-//					} else {
-//					// else, just increment one
-//						violationNum++;
-//					}
-//					if(utility > 1) {
-//						utility = 1;
-//					}
-//					int vmNum = (int) pmVmCount[vmType].get(vmIndex) + 1;
-//					pmVmCount[vmType].set(vmIndex, vmNum);
-//					pmVms[vmType].set(vmIndex, utility);
-//				}
-//				taskCount++;
-//			} // end While
-//		} // end for
-//
-//		return violationNum;
-//	}
+	public double[] emptinessMean(WSRP_IntChromosome chromo){
+		ArrayList<ArrayList<Integer>> pms = vmsInPm(chromo);
+		double cpuMeanEmptiness = 0;
+		double memMeanEmptiness = 0;
+		
+		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
+		for(int i = 0; i < taskNum; i++){
+			if(!numType.containsKey(chromo.individual[i * 3 + 2])){
+				numType.put(chromo.individual[i * 3 + 2], chromo.individual[i * 3 + 1]);
+			}
+		}
+		
+		// for each pm
+		for(int i = 0; i < pms.size(); i++){
+			double pmCpuEmptiness = 0;
+			double pmMemEmptiness = 0;
+			// for each vm
+			for(int j = 0; j < pms.get(i).size(); j++){
+				pmCpuEmptiness += vmCpu[numType.get(pms.get(i).get(j))];
+				pmMemEmptiness += vmMem[numType.get(pms.get(i).get(j))];
+			}
+			pmCpuEmptiness /= pmCpu;
+			pmMemEmptiness /= pmMem;
+			
+			cpuMeanEmptiness += pmCpuEmptiness;
+			memMeanEmptiness += pmMemEmptiness;
+		}
+		cpuMeanEmptiness /= pms.size();
+		memMeanEmptiness /= pms.size();
+		
+		return new double[]{cpuMeanEmptiness, memMeanEmptiness};
+	}
+	
+	
+	public double pmUtilization(WSRP_IntChromosome chromo){
+		double[] vmU = vmUtilization(chromo);
+		ArrayList<ArrayList<Integer>> pms = new ArrayList<ArrayList<Integer>>();
+		pms = vmsInPm(chromo);
+		
+		double util = 0;
+		for(int i = 0; i < pms.size(); i++){
+			double pmUtil = 0;
+			for(int j = 0; j < pms.get(i).size(); j++){
+				pmUtil += vmU[pms.get(i).get(j)];
+			}
+			util += pmUtil;
+		}
+		util /= pms.size();
+		return util;
+		
+	}
+	
+	private ArrayList<ArrayList<Integer>> vmsInPm(WSRP_IntChromosome chromo){
+		ArrayList<ArrayList<Integer>> pm = new ArrayList<ArrayList<Integer>>();
+		ArrayList<double[]> pmResource = new ArrayList<double[]>();
+		ArrayList<Integer> vmNumList = new ArrayList<Integer>();
+
+		pmResource.add(new double[]{pmCpu - vmCpu[chromo.individual[1]],
+									pmMem - vmMem[chromo.individual[1]]});
 
 
-	/**
-	 * Count the violation of an individual
-	 * @param individual
-	 * @return the number of violations
-	 */
-//	public int countVmViolations(WSRP_IntChromosome individual){
-//		int violationNum = 0;
-//		int[] pmIndex = pmCount(individual);
-//		int pmNum = pmIndex[pmIndex.length - 1] + 1;
-//		int taskCount = 0;
-//		// for each pm, count the violations in its vms
-//		for(int i = 0; i < pmNum; i++){
-//			ArrayList[] pmVms = new ArrayList[vmTypes];
-//			for(int j = 0; j < vmTypes; j++) {
-//				pmVms[j] = new ArrayList<Double>();
-//			}
-//
-//			while(true){
-//				// if there is no more task or the task is allocated in a different
-//				// Pm, then break
-//				if(taskCount == taskNum || pmIndex[taskCount] != i) break;
-//				int taskNum = ((WSRP_IntChromosome) individual).individual[taskCount * 3];
-//				int vmType = ((WSRP_IntChromosome) individual).individual[taskCount * 3 + 1];
-//				int vmIndex = ((WSRP_IntChromosome) individual).individual[taskCount * 3 + 2];
-//				// if the vm has not been created, calculate the utility and add to list
-//				if(pmVms[vmType].isEmpty() || pmVms[vmType].size() < vmIndex + 1){
-//					double utility = taskCpu[taskNum] * taskFreq[taskNum] / vmCpu[vmType];
-//
-//					if(utility > 1) {
-//						violationNum++;
-//						System.out.println("Wrong!");
-//						System.out.println("taskNum = " + taskNum +
-//								", vmType = " + vmType +
-//								", vmIndex = " + vmIndex);
-//						System.out.println("taskCpu * taskFreq / vmCpu : " +
-//								taskCpu[taskNum] + " * " + taskFreq[taskNum] +
-//								" / " + vmCpu[vmType] + " = " + utility);
-//						utility = 1;
-//					}
-//					pmVms[vmType].add(utility);
-//				} else {
-//					// the vm has been created, then add up the vm utility
-//					double utility = taskCpu[taskNum] * taskFreq[taskNum] / vmCpu[vmType];
-//					utility += (double) pmVms[vmType].get(vmIndex);
-//
-//					// we only add the violation count for the first time which vm is violated
-//					if((double) pmVms[vmType].get(vmIndex) < 1 && utility > 1){
-//						violationNum++;
-//					}
-//
-//					if(utility > 1) {
-//						utility = 1;
-//					}
-//					pmVms[vmType].set(vmIndex, utility);
-//				}
-//				taskCount++;
-//			} // end While
-//		} // end for
-//
-//		return violationNum;
-//	}
+		pm.add(new ArrayList<Integer>());
+		pm.get(0).add(chromo.individual[2]);
+		vmNumList.add(chromo.individual[2]);
+		int pmCount = 1;
+		for(int i = 1; i < taskNum; i++){
+			int vmType = chromo.individual[i * 3 + 1];
+			int vmNum = chromo.individual[i * 3 + 2];
+			double leftCpu = pmResource.get(pmCount - 1)[0];
+			double leftMem = pmResource.get(pmCount - 1)[1];
+			if(vmNumList.contains(vmNum)) continue;
 
-
-//	public ArrayList leftResource(WSRP_IntChromosome individual){
-//		int violationNum = 0;
-//		int[] pmIndex = pmCount(individual);
-//		int pmNum = pmIndex[pmIndex.length - 1] + 1;
-//		int taskCount = 0;
-//		ArrayList leftResource = new ArrayList();
-//		// for each pm, count the violations in its vms
-//		for(int i = 0; i < pmNum; i++){
-//			ArrayList[] pmVms = new ArrayList[vmTypes];
-//			ArrayList[] vmResource = new ArrayList[vmTypes];
-//			for(int j = 0; j < vmTypes; j++) {
-//				pmVms[j] = new ArrayList<Double>();
-//				vmResource[j] = new ArrayList<double[]>();
-//			}
-//
-//			while(true){
-//				// if there is no more task or the task is allocated in a different
-//				// Pm, then break
-//				if(taskCount == taskNum || pmIndex[taskCount] != i) break;
-//				int taskNum = ((WSRP_IntChromosome) individual).individual[taskCount * 3];
-//				int vmType = ((WSRP_IntChromosome) individual).individual[taskCount * 3 + 1];
-//				int vmIndex = ((WSRP_IntChromosome) individual).individual[taskCount * 3 + 2];
-//
-//				// if the vm has not been created, calculate the utility and add to list
-//				if(pmVms[vmType].isEmpty() || (pmVms[vmType].size() < vmIndex + 1)){
-//					double utility = taskCpu[taskNum] * taskFreq[taskNum] / vmCpu[vmType];
-//					double[] resource = new double[]{pmCpu - taskCpu[taskNum] * taskFreq[taskNum],
-//													  pmMem - taskMem[taskNum] * taskFreq[taskNum]};
-//					vmResource[vmType].add(resource);
-//
-//					if(utility > 1) {
-//						violationNum++;
-//						System.out.println("Wrong!");
-//						System.out.println("taskNum = " + taskNum +
-//								", vmType = " + vmType +
-//								", vmIndex = " + vmIndex);
-//						System.out.println("taskCpu * taskFreq / vmCpu : " +
-//								taskCpu[taskNum] + " * " + taskFreq[taskNum] +
-//								" / " + vmCpu[vmType] + " = " + utility);
-//						utility = 1;
-//					}
-//					pmVms[vmType].add(utility);
-//				} else {
-//					// the vm has been created, then add up the vm utility
-//					double utility = taskCpu[taskNum] * taskFreq[taskNum] / vmCpu[vmType];
-//					utility += (double) pmVms[vmType].get(vmIndex);
-//
-//					// current resource left
-//					double cpu = ((double[]) vmResource[vmType].get(vmIndex))[0] - taskCpu[taskNum] * taskFreq[taskNum];
-//					double mem = ((double[]) vmResource[vmType].get(vmIndex))[1] - taskMem[taskNum] * taskFreq[taskNum];
-//
-//					// we only add the violation count for the first time which vm is violated
-//					if((double) pmVms[vmType].get(vmIndex) < 1 && utility > 1){
-//						violationNum++;
-//					}
-//
-//					if(utility > 1) {
-//						utility = 1;
-//					}
-//					vmResource[vmType].set(vmIndex, new double[]{cpu, mem});
-//					pmVms[vmType].set(vmIndex, utility);
-//				}
-//				taskCount++;
-//			} // end While
-//			leftResource.add(vmResource);
-//		} // end for
-//
-//		return leftResource;
-//	}
-
-//	public int[] pmCount(WSRP_IntChromosome individual){
-//		int pmCount = 0;
-//		ArrayList<double[]> pmResource = new ArrayList<double[]>();
-//		int[] pmIndex = new int[taskNum];
-//		pmResource.add(new double[]{pmCpu, pmMem});
-//
-//		for(int i = 0; i < taskNum; i++){
-//			// If there is enough resource in the current PM, then allocate it.
-//			if(pmResource.get(pmCount)[0] - vmCpu[individual.individual[i * 3 + 1]] >= 0
-//			&& pmResource.get(pmCount)[1] - vmMem[individual.individual[i * 3 + 1]] >= 0) {
-//				// If it is allocated in a new vm.
-//				if(individual.individual[i * 3 + 2] == 0) {
-//					pmResource.get(pmCount)[0] -= vmCpu[individual.individual[i * 3 + 1]];
-//					pmResource.get(pmCount)[1] -= vmMem[individual.individual[i * 3 + 1]];
-//				}
-//			} else {
-//				// if there is not enough resource, allocate a new PM
-//				pmCount++;
-//				pmResource.add(new double[]{pmCpu - vmCpu[individual.individual[i * 3 + 1]],
-//											pmMem - vmMem[individual.individual[i * 3 + 1]]});
-//			}
-//			pmIndex[i] = pmCount;
-//		} // end for
-//		return pmIndex;
-//	}
-
+			// if the current PM is still capable of allocating the vm, update resource left in PM
+			if(leftCpu - vmCpu[vmType] >= 0 && leftMem - vmMem[vmType] >= 0){
+				leftCpu -= vmCpu[vmType];
+				leftMem -= vmMem[vmType];
+				pmResource.set(pmCount - 1, new double[]{leftCpu, leftMem});
+				pm.get(pmCount - 1).add(vmNum);
+			} else {
+			// a new PM has to be launched
+				pmResource.add(new double[]{pmCpu - vmCpu[vmType],
+											pmMem - vmMem[vmType]});
+				pm.add(new ArrayList<Integer>());
+				pmCount += 1;
+				pm.get(pmCount - 1).add(vmNum);
+				vmNumList.add(vmNum);
+			}
+		}
+		return pm;
+	}
 
 }

@@ -15,16 +15,18 @@ import dataCollector.DataCollector;
 /**
  *
  * @author Boxiong Tan (Maximus Tann)
- * @since PSO framework 1.0
+ * @since GA framework 1.0
  */
 public class ResultCollector extends DataCollector {
 	private ArrayList<ArrayList<double[]>> resultData;
-	private ArrayList<ArrayList<double[]>> nonDominatedSet;
+	private ArrayList<ArrayList<WSRP_IntChromosome>> nonDominatedSet;
+	
+	
 
 	public ResultCollector(){
 		super();
 		resultData = new ArrayList<ArrayList<double[]>>();
-		nonDominatedSet = new ArrayList<ArrayList<double[]>>();
+		nonDominatedSet = new ArrayList<ArrayList<WSRP_IntChromosome>>();
 	}
 
 	/**
@@ -38,7 +40,11 @@ public class ResultCollector extends DataCollector {
 		return resultData;
 	}
 
-	public ArrayList<ArrayList<double[]>> getNonDonSet(){
+	/**
+	 * 
+	 * @return non dominated Set
+	 */
+	public ArrayList<ArrayList<WSRP_IntChromosome>> getNonDonSet(){
 		return nonDominatedSet;
 	}
 
@@ -47,8 +53,9 @@ public class ResultCollector extends DataCollector {
 	 */
 	public void printResult(){
 		for(int i = 0; i < resultData.size(); i++){
-			System.out.println("generation = " + i);
+			System.out.println("generation = " + i + ", number = " + resultData.get(i).size());
 			for(int j = 0; j < resultData.get(i).size(); j++){
+//				nonDominatedSet.get(i).get(j).print();
 				System.out.println("costFitness = " + resultData.get(i).get(j)[0]
 						+ ", EnergyFitness = " + resultData.get(i).get(j)[1]
 						+ ", index = " + resultData.get(i).get(j)[2]
@@ -58,6 +65,15 @@ public class ResultCollector extends DataCollector {
 			}
 		}
 		System.out.println();
+	}
+	
+	public void printNonDonSet(){
+		for(int i = 0; i < nonDominatedSet.size(); i++){
+			System.out.println("generation = " + i);
+			for(int j = 0; j < nonDominatedSet.get(i).size(); j++){
+				nonDominatedSet.get(i).get(j).print();
+			}
+		}
 	}
 
 	/**
@@ -74,26 +90,77 @@ public class ResultCollector extends DataCollector {
 		}
 		return lastResults;
 	}
+	
+//	public boolean checkFitnessIndPair(){
+//		if(resultData.size() != nonDominatedSet.size()){
+//			System.out.println("Generation size problem !");
+//			return false;
+//		}
+//		for(int i = 0; i < resultData.size(); i++){
+//			System.out.println("Generation = " + i);
+//			if(resultData.get(i).size() != nonDominatedSet.get(i).size()){
+//				System.out.println("fit size = " + resultData.get(i).size() + " ,nonDominatedSet size = " + nonDominatedSet.get(i).size());
+//				System.out.println("None dominated set size problem !");
+//				return false;
+//			}
+//		}
+//		System.out.println("Perfect!");
+//		return true;
+//	}
+	
+	
+	public void postProcessing(){
+		ArrayList<ArrayList<WSRP_IntChromosome>> nonDomSet = new ArrayList<ArrayList<WSRP_IntChromosome>>();
+		ArrayList<ArrayList<double[]>> nonDomFit = new ArrayList<ArrayList<double[]>>();
+		for(int i = 0; i < resultData.size(); i++){
+			ArrayList noDup = eliminatedReplicates(nonDominatedSet.get(i), resultData.get(i));
+			nonDomSet.add((ArrayList<WSRP_IntChromosome>) noDup.get(0));
+			nonDomFit.add((ArrayList<double[]>) noDup.get(1));
+		}
+		nonDominatedSet = nonDomSet;
+		resultData = nonDomFit;
+	}
+	
+	private ArrayList eliminatedReplicates(ArrayList<WSRP_IntChromosome> inputSet, ArrayList<double[]> inputFit){
+		ArrayList<WSRP_IntChromosome> outputSet = new ArrayList<WSRP_IntChromosome>();
+		ArrayList<double[]> outputFit = new ArrayList<double[]>();
+		for(int i = 0; i < inputFit.size(); i++){
+			if(!checkDuplicate(inputSet.get(i), outputSet)){
+				outputSet.add(inputSet.get(i).clone());
+				outputFit.add(inputFit.get(i).clone());
+			}
+		}
+		
+		ArrayList returnList = new ArrayList();
+		returnList.add(outputSet);
+		returnList.add(outputFit);
+		return returnList;
+	}
+	
+	private boolean checkDuplicate(WSRP_IntChromosome target, ArrayList<WSRP_IntChromosome> inputList){
+		for(int i = 0; i < inputList.size(); i++){
+			if(inputList.get(i).equals(target)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	public void proNonDominatePrinting(){
+	}
+	
+	
+	
+	
 
 	@Override
 	public void collectSet(Object set) {
+		
 		// TODO Auto-generated method stub
-		nonDominatedSet.add(adaptor((ArrayList<WSRP_IntChromosome>)set));
+		nonDominatedSet.add((ArrayList<WSRP_IntChromosome>)set);
 	}
 
-	private ArrayList<double[]> adaptor(ArrayList<WSRP_IntChromosome> set){
-		ArrayList<double[]> transition = new ArrayList<double[]>();
-		int size = set.size();
-		int maxVar = set.get(0).size();
-		for(int i = 0;i < size; i++){
-			double[] individual = new double[maxVar];
-			for(int j = 0; j < maxVar; j++){
-				individual[j] = (double) set.get(i).individual[j];
-			}
-			transition.add(individual);
-		}
-		return transition;
-	}
 
 //	public void mean(int runs){
 //		int size = resultData.size();

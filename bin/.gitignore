@@ -1,0 +1,15 @@
+/.DS_Store
+/FileHandlers/
+/GAProcedure/
+/GaAllocationProblem/
+/ProblemDefine/
+/Rosenbrock/
+/algorithms/
+/commonOperators/
+/commonRepresentation/
+/dataCollector/
+/gaFactory/
+/multi_objective_operators/
+/spherical/
+/test/
+/wsrp/

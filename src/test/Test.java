@@ -10,18 +10,26 @@ import multi_objective_operators.FastNonDominatedSorting;
 public class Test {
 	public static void main(String[] arg){
 		IntValueChromosome[] chromosomes;
-		int popSize = 5;
+		int popSize = 13;
 		int optimization = 0;
 		InitIntChromosomes init = new InitIntChromosomes();
 		chromosomes = init.init(popSize, 1, 0, 10);
 		ArrayList<double[]> fitness = new ArrayList<double[]>();
 		FastNonDominatedSorting sorting = new FastNonDominatedSorting(optimization);
 		CrowdingDistance crowding = new CrowdingDistance(optimization);
-		fitness.add(new double[]{5, 2, 0, 0, 0, 0});
-		fitness.add(new double[]{1, 8, 1, 0, 0, 0});
-		fitness.add(new double[]{2, 6, 2, 0, 0, 0});
-		fitness.add(new double[]{10, 3, 3, 0, 0, 0});
-		fitness.add(new double[]{10, 3, 4, 0, 0, 0});
+		fitness.add(new double[]{2425, 1660.468, 0, 0, 0, 0});
+		fitness.add(new double[]{2525, 1446.270, 1, 0, 0, 0});
+		fitness.add(new double[]{2400, 2136.440, 2, 0, 0, 0});
+		fitness.add(new double[]{2450, 1624.379, 3, 0, 0, 0});
+		fitness.add(new double[]{2425, 1639.875, 4, 0, 0, 0});
+		fitness.add(new double[]{2400, 1600.468, 5, 0, 0, 0});
+		fitness.add(new double[]{2400, 1506.468, 6, 0, 0, 0});
+		fitness.add(new double[]{2400, 1486.673, 7, 0, 0, 0});
+		fitness.add(new double[]{2825, 1434.098, 8, 0, 0, 0});
+		fitness.add(new double[]{2424, 1325.429, 9, 0, 0, 0});
+		fitness.add(new double[]{2400, 1470.880, 10, 0, 0, 0});
+		fitness.add(new double[]{2675, 1302.076, 11, 0, 0, 0});
+		fitness.add(new double[]{2400, 1297.152, 12, 0, 0, 0});
 
 		
 //		fitness.add(new double[]{5, 4, 0, 0, 0});

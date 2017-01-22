@@ -37,17 +37,32 @@ public class WriteFileWSRP {
 	public WriteFileWSRP(String base){
 		this.base = base;
 	}
-	public void writeGenerationsFitnessToFile(ArrayList<ArrayList<double[]>> fitness) throws IOException {
+	public void writeGenerationsFitnessToFile(ArrayList<ArrayList<double[]>> fitness, ArrayList<ArrayList<WSRP_IntChromosome>> nonDom) throws IOException {
 		int generation = fitness.size();
 		for(int i = 0; i < generation; i++){
 			String generationAddr = base + "/generationFitness/" + i;
+			
 			File dir = new File(generationAddr);
 			dir.mkdir();
-			generationAddr += "/fitness.csv";
+			String generationFitAddr = generationAddr + "/fitness.csv";
+			String generationIndAddr = generationAddr + "/chromosome.csv";
 			fitnessWriter = new WriteByRow(",", 0);
-			fitnessWriter.writeArray(generationAddr, fitness.get(i));
+			fitnessWriter.writeArray(generationFitAddr, fitness.get(i));
+			fitnessWriter.writeArray(generationIndAddr, adapter(nonDom.get(i)));
 		}
 		System.out.println("Done");
+	}
+	
+	private ArrayList<double[]> adapter(ArrayList<WSRP_IntChromosome> input){
+		ArrayList<double[]> output = new ArrayList<double[]>();
+		for(int i = 0; i < input.size(); i++){
+			double[] chromo = new double[input.get(i).size()];
+			for(int j = 0; j < input.get(i).size(); j++){
+				chromo[j] = input.get(i).individual[j];
+			}
+			output.add(chromo);
+		}
+		return output;
 	}
 
 	/**

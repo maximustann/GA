@@ -19,18 +19,18 @@ public class Experiment {
 
 
 		double crossoverRate = 0.6;
-		double mutationRate = 0.9;
-		double consolidationFactor = 0.01;
+		double mutationRate = 0.1;
+		double consolidationFactor = 0.1;
 		int optimization = 0; //minimize
 		int tournamentSize = 10;
 		int eliteSize = 20;
 		int popSize = 50;
-		int maxGen = 1000;
+		int maxGen = 500;
 		double k = 0.7;
 		weights[0] = weights[1] = 0.5;
 
-		int testCase = 2;
-		String base = "/home/tanboxi/workspace/WSRData/testCase" + testCase;
+		int testCase = 1;
+		String base = "/Users/maximustann/Documents/workspace/WSRData/testCase" + testCase;
 		String ProblemConfig = base + "/ProblemConfig.csv";
 		String PMConfig = base + "/PMConfig.csv";
 		String VMConfig = base + "/VMConfig.csv";
@@ -41,7 +41,7 @@ public class Experiment {
 		String taskSRAddr = base + "/taskSR.csv";
 //		String utilizationThresholdAddr = base + "/utilizationThreshold.csv";
 
-		String resultBase = "/home/tanboxi/workspace/WSRResult/GA/testCase" + testCase;
+		String resultBase = "/Users/maximustann/Documents/workspace/WSRResult/GA/testCase" + testCase;
 		String fitnessAddr = resultBase + "/fitness.csv";
 		String timeResultAddr = resultBase + "/time.csv";
 		ReadFileWSRP readFiles = new ReadFileWSRP(
@@ -165,8 +165,15 @@ public class Experiment {
 		GeneticAlgorithm myAlg = new WSRPNSGAII(pars, proSet, new NSGAIIFactory(collector, proSet, pars));
 		myAlg.run(1);
 //		myAlg.runNtimes(2333, 30);
+//		((ResultCollector) collector).printResult();
+		((ResultCollector) collector).postProcessing();
 		((ResultCollector) collector).printResult();
-//		writeFiles.writeGenerationsFitnessToFile(((ResultCollector) collector).getResult());
+		post.processing(((ResultCollector) collector).getNonDonSet());
+		post.printEmpUtil();
+		
+//		((ResultCollector) collector).printNonDonSet();
+		
+//		writeFiles.writeGenerationsFitnessToFile(((ResultCollector) collector).getResult(), ((ResultCollector) collector).getNonDonSet());
 //		((ResultCollector) collector).mean(30);
 //		((ResultCollector) collector).printMeanTime();
 //		writeFiles.writeResults(((ResultCollector) collector).getLastResult(30, maxGen),
