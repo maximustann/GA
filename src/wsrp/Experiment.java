@@ -20,11 +20,11 @@ public class Experiment {
 
 		double crossoverRate = 0.5;
 		double mutationRate = 0.9;
-		double consolidationFactor = 0.1;
+		double consolidationFactor = 0.01;
 		int optimization = 0; //minimize
 		int tournamentSize = 2;
 		int eliteSize = 20;
-		int popSize = 1;
+		int popSize = 50;
 		int maxGen = 500;
 		double k = 0.7;
 		weights[0] = weights[1] = 0.5;
@@ -165,10 +165,10 @@ public class Experiment {
 		myAlg.run(1);
 //		myAlg.runNtimes(2333, 30);
 //		((ResultCollector) collector).printResult();
-//		((ResultCollector) collector).postProcessing();
-//		((ResultCollector) collector).printResult();
-//		post.processing(((ResultCollector) collector).getNonDonSet());
-//		post.printEmpUtil();
+		((ResultCollector) collector).postProcessing();
+		((ResultCollector) collector).printResult();
+		post.processing(((ResultCollector) collector).getNonDonSet());
+		post.printEmpUtil();
 
 //		((ResultCollector) collector).printNonDonSet();
 

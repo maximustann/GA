@@ -90,23 +90,19 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 		}
 
 		// for the first service
-		utilization[0] = taskCpu[chromo.individual[0]]
-						* taskFreq[chromo.individual[0]]
-							/ vmCpu[chromo.individual[1]];
+//		utilization[0] = taskCpu[chromo.individual[0]]
+//						* taskFreq[chromo.individual[0]]
+//							/ vmCpu[chromo.individual[1]];
 
 		// for each service
-		for(int i = 1; i < taskNum; i++){
+		for(int i = 0; i < taskNum; i++){
 
 			// If the vm has not been calculated
 			if(utilization[chromo.individual[i * 2 + 1]] == 0){
-					utilization[chromo.individual[i * 2 + 1]] = taskCpu[i]
-									* taskFreq[i]
-									/ vmCpu[chromo.individual[i * 2]];
+					utilization[chromo.individual[i * 2 + 1]] = taskCpu[i] * taskFreq[i] / vmCpu[chromo.individual[i * 2]];
 			} else {
 			// add up the utilization that the vm has, if it exceeds 1, set to 1
-				double util = taskCpu[i]
-						* taskFreq[i]
-						/ vmCpu[chromo.individual[i * 2]];
+				double util = taskCpu[i] * taskFreq[i] / vmCpu[chromo.individual[i * 2]];
 
 				if(util + utilization[chromo.individual[i * 2 + 1]] > 1) utilization[chromo.individual[i * 2 + 1]] = 1;
 				else utilization[chromo.individual[i * 2 + 1]] += util;
@@ -133,8 +129,8 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 		ArrayList<double[]> pmResource = new ArrayList<double[]>();
 		ArrayList<Integer> vmNumList = new ArrayList<Integer>();
 
-		pmResource.add(new double[]{pmCpu - vmCpu[chromo.individual[1]],
-									pmMem - vmMem[chromo.individual[1]]});
+		pmResource.add(new double[]{pmCpu - vmCpu[chromo.individual[0]],
+									pmMem - vmMem[chromo.individual[0]]});
 
 
 		pm.add(new ArrayList<Integer>());

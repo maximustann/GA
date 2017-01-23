@@ -167,7 +167,7 @@ public class WSRP_Constraint implements Constraint {
 					utilization[chromo.individual[i * 2 + 1]] = taskCpu[i] * taskFreq[i] / vmCpu[chromo.individual[i * 2]];
 			} else {
 			// add up the utilization that the vm has, if it exceeds 1, set to 1
-				double util = taskCpu[i] * taskFreq[i] / vmCpu[i];
+				double util = taskCpu[i] * taskFreq[i] / vmCpu[chromo.individual[i * 2]];
 
 				if(util + utilization[chromo.individual[i * 2 + 1]] > 1) utilization[chromo.individual[i * 2 + 1]] = 1;
 				else utilization[chromo.individual[i * 2 + 1]] += util;
@@ -245,8 +245,8 @@ public class WSRP_Constraint implements Constraint {
 		ArrayList<double[]> pmResource = new ArrayList<double[]>();
 		ArrayList<Integer> vmNumList = new ArrayList<Integer>();
 
-		pmResource.add(new double[]{pmCpu - vmCpu[chromo.individual[1]],
-									pmMem - vmMem[chromo.individual[1]]});
+		pmResource.add(new double[]{pmCpu - vmCpu[chromo.individual[0]],
+									pmMem - vmMem[chromo.individual[0]]});
 
 
 		pm.add(new ArrayList<Integer>());
