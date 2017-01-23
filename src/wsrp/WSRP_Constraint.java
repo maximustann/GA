@@ -68,136 +68,131 @@ public class WSRP_Constraint implements Constraint {
 	 * calculate the utilization of each vm
 	 *
 	 * @param chromo individual
-	 * @return an array of utilization, each entry's index is the number of the vm
+	 * @return a total violation of service
 	 */
 	private int violationCount(WSRP_IntChromosome chromo){
 		int violations = 0;
 		int totalVMNum = 0;
 		for(int i = 0; i < taskNum; i++) {
-			if(chromo.individual[i * 3 + 2] >= totalVMNum)
-				totalVMNum = chromo.individual[i * 3 + 2] + 1;
+			if(chromo.individual[i * 2 + 1] >= totalVMNum)
+				totalVMNum = chromo.individual[i * 2 + 1] + 1;
 		}
+//
+		double[] cpuUtilization = vmUtilization(chromo);
+		double[] memUtilization = memUtilization(chromo);
 
-		double[] utilization = new double[totalVMNum];
-		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
-		for(int i = 0; i < taskNum; i++){
-			if(!numType.containsKey(chromo.individual[i * 3 + 2])){
-				numType.put(chromo.individual[i * 3 + 2], chromo.individual[i * 3 + 1]);
-			}
-		}
-
-		// for the first service
-		utilization[0] = taskCpu[chromo.individual[0]]
-						* taskFreq[chromo.individual[0]]
-							/ vmCpu[chromo.individual[1]];
-
-		// for each service
-		for(int i = 1; i < taskNum; i++){
-
-			// If the vm has not been calculated
-			if(utilization[chromo.individual[i * 3 + 2]] == 0){
-					utilization[chromo.individual[i * 3 + 2]] = taskCpu[chromo.individual[i * 3]]
-															* taskFreq[chromo.individual[i * 3]]
-																/ vmCpu[chromo.individual[i * 3 + 1]];
-			} else {
-			// add up the utilization that the vm has, if it exceeds 1, set to 1
-				double util = taskCpu[chromo.individual[i * 3]]
-							* taskFreq[chromo.individual[i * 3]]
-									/ vmCpu[chromo.individual[i * 3 + 1]];
-
-				if(utilization[chromo.individual[i * 3 + 2]] + util > 1) {
-					utilization[chromo.individual[i * 3 + 2]] = 1;
-				} else{
-					utilization[chromo.individual[i * 3 + 2]] += util;
-				}
-			}
-		}
-		for(int i = 0; i < totalVMNum; i++){
-			if(utilization[i] == 1){
+		for(int i = 0; i < cpuUtilization.length; i++){
+			if(cpuUtilization[i] == 1 || memUtilization[i] == 1){
 				for(int j = 0; j < taskNum; j++){
-					if(chromo.individual[j * 3 + 2] == i) violations++;
+					if(chromo.individual[j * 2 + 1] == i) {
+						violations++;
+//						System.out.println("utilization[" + i + "] = " + utilization[i] +
+//										" ,service Cpu = " + taskCpu[j] +
+//										" ,service Mem = " + taskMem[j] +
+//										" ,service Freq = " + taskFreq[j] +
+//										" , vm Type = " + chromo.individual[j * 2] +
+//										", violations = " + violations);
+					}
 				}
 			}
 		}
 
 		return violations;
 	}
-	
-	
+	private double[] memUtilization(WSRP_IntChromosome chromo){
+		int totalVMNum = 0;
+		for(int i = 0; i < taskNum; i++) {
+			if(chromo.individual[i * 2 + 1] >= totalVMNum)
+				totalVMNum = chromo.individual[i * 2 + 1] + 1;
+		}
+		double[] utilization = new double[totalVMNum];
+		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
+		for(int i = 0; i < taskNum; i++){
+			if(!numType.containsKey(chromo.individual[i * 2 + 1])){
+				numType.put(chromo.individual[i * 2 + 1], chromo.individual[i * 2]);
+			}
+		}
+
+		// for each service
+		for(int i = 0; i < taskNum; i++){
+
+			// If the vm has not been calculated
+			if(utilization[chromo.individual[i * 2 + 1]] == 0){
+					utilization[chromo.individual[i * 2 + 1]] = taskMem[i]
+									* taskFreq[i]
+									/ vmMem[chromo.individual[i * 2]];
+			} else {
+			// add up the utilization that the vm has, if it exceeds 1, set to 1
+				double util = taskMem[i]
+						* taskFreq[i]
+						/ vmMem[chromo.individual[i * 2]];
+
+				if(util + utilization[chromo.individual[i * 2 + 1]] > 1) utilization[chromo.individual[i * 2 + 1]] = 1;
+				else utilization[chromo.individual[i * 2 + 1]] += util;
+			}
+		}
+
+		return utilization;
+
+
+	}
+
+
 	/**
-	 * calculate the utilization of each vm
+	 * calculate the utilization of each vm which is not converted to Pm utilization
 	 *
 	 * @param chromo individual
 	 * @return an array of utilization, each entry's index is the number of the vm
 	 */
 	private double[] vmUtilization(WSRP_IntChromosome chromo){
 		int totalVMNum = 0;
+		// the total VM Num of vms must be plus one higher than the vm count
 		for(int i = 0; i < taskNum; i++) {
-			if(chromo.individual[i * 3 + 2] >= totalVMNum)
-				totalVMNum = chromo.individual[i * 3 + 2] + 1;
+			if(chromo.individual[i * 2 + 1] >= totalVMNum)
+				totalVMNum = chromo.individual[i * 2 + 1] + 1;
 		}
 		double[] utilization = new double[totalVMNum];
 		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
 		for(int i = 0; i < taskNum; i++){
-			if(!numType.containsKey(chromo.individual[i * 3 + 2])){
-				numType.put(chromo.individual[i * 3 + 2], chromo.individual[i * 3 + 1]);
+			if(!numType.containsKey(chromo.individual[i * 2 + 1])){
+				numType.put(chromo.individual[i * 2 + 1], chromo.individual[i * 2]);
 			}
 		}
-
-		// for the first service
-		utilization[0] = taskCpu[chromo.individual[0]]
-						* taskFreq[chromo.individual[0]]
-							/ vmCpu[chromo.individual[1]];
 
 		// for each service
-		for(int i = 1; i < taskNum; i++){
+		for(int i = 0; i < taskNum; i++){
 
 			// If the vm has not been calculated
-			if(utilization[chromo.individual[i * 3 + 2]] == 0){
-					utilization[chromo.individual[i * 3 + 2]] = taskCpu[chromo.individual[i * 3]]
-									* taskFreq[chromo.individual[i * 3]]
-									/ vmCpu[chromo.individual[i * 3 + 1]];
+			if(utilization[chromo.individual[i * 2 + 1]] == 0){
+					utilization[chromo.individual[i * 2 + 1]] = taskCpu[i] * taskFreq[i] / vmCpu[chromo.individual[i * 2]];
 			} else {
 			// add up the utilization that the vm has, if it exceeds 1, set to 1
-				double util = taskCpu[chromo.individual[i * 3]]
-						* taskFreq[chromo.individual[i * 3]]
-						/ vmCpu[chromo.individual[i * 3 + 1]];
+				double util = taskCpu[i] * taskFreq[i] / vmCpu[i];
 
-				if(util + utilization[chromo.individual[i * 3 + 2]] > 1) utilization[chromo.individual[i * 3 + 2]] = 1;
-				else utilization[chromo.individual[i * 3 + 2]] += util;
+				if(util + utilization[chromo.individual[i * 2 + 1]] > 1) utilization[chromo.individual[i * 2 + 1]] = 1;
+				else utilization[chromo.individual[i * 2 + 1]] += util;
 			}
 		}
-		// convert to pm utilization
-		for(int i = 0; i < totalVMNum; i++){
-//			try{
-			utilization[i] = utilization[i] * vmCpu[numType.get(i)] / pmCpu;
-//			} catch(NullPointerException e){
-//				System.out.println("totalVMNum = " + totalVMNum
-//									+ ", i = " + i +
-//									", numType.size = " + numType.size() +
-//									", utilization.length = " + utilization.length +
-//									", numType.get(i) = " + numType.get(i));
-//			}
-		}
+
 		return utilization;
 	}
 
 	/**
-	 * 
+	 *
 	 *
 	 */
 	public double[] emptinessMean(WSRP_IntChromosome chromo){
 		ArrayList<ArrayList<Integer>> pms = vmsInPm(chromo);
 		double cpuMeanEmptiness = 0;
 		double memMeanEmptiness = 0;
-		
+
 		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
 		for(int i = 0; i < taskNum; i++){
-			if(!numType.containsKey(chromo.individual[i * 3 + 2])){
-				numType.put(chromo.individual[i * 3 + 2], chromo.individual[i * 3 + 1]);
+			if(!numType.containsKey(chromo.individual[i * 2 + 1])){
+				numType.put(chromo.individual[i * 2 + 1], chromo.individual[i * 2]);
 			}
 		}
-		
+
 		// for each pm
 		for(int i = 0; i < pms.size(); i++){
 			double pmCpuEmptiness = 0;
@@ -209,35 +204,42 @@ public class WSRP_Constraint implements Constraint {
 			}
 			pmCpuEmptiness /= pmCpu;
 			pmMemEmptiness /= pmMem;
-			
+
 			cpuMeanEmptiness += pmCpuEmptiness;
 			memMeanEmptiness += pmMemEmptiness;
 		}
 		cpuMeanEmptiness /= pms.size();
 		memMeanEmptiness /= pms.size();
-		
+
 		return new double[]{cpuMeanEmptiness, memMeanEmptiness};
 	}
-	
-	
-	public double pmUtilization(WSRP_IntChromosome chromo){
+
+
+
+	/**
+	 *
+	 * @param chromo in individual
+	 * @return the average utilization of vms which have no violation
+	 */
+	public double averageNonVioVmUtil(WSRP_IntChromosome chromo){
 		double[] vmU = vmUtilization(chromo);
 		ArrayList<ArrayList<Integer>> pms = new ArrayList<ArrayList<Integer>>();
 		pms = vmsInPm(chromo);
-		
-		double util = 0;
-		for(int i = 0; i < pms.size(); i++){
-			double pmUtil = 0;
-			for(int j = 0; j < pms.get(i).size(); j++){
-				pmUtil += vmU[pms.get(i).get(j)];
+
+		double totalNonVioUtil = 0;
+		int nonVioUtilNum = 0;
+		// for each vm
+		for(int i = 0; i < vmU.length; i++){
+			if(vmU[i] != 0){
+				totalNonVioUtil += vmU[i];
+				nonVioUtilNum++;
 			}
-			util += pmUtil;
 		}
-		util /= pms.size();
-		return util;
-		
+
+		return totalNonVioUtil / nonVioUtilNum;
+
 	}
-	
+
 	private ArrayList<ArrayList<Integer>> vmsInPm(WSRP_IntChromosome chromo){
 		ArrayList<ArrayList<Integer>> pm = new ArrayList<ArrayList<Integer>>();
 		ArrayList<double[]> pmResource = new ArrayList<double[]>();
@@ -252,8 +254,8 @@ public class WSRP_Constraint implements Constraint {
 		vmNumList.add(chromo.individual[2]);
 		int pmCount = 1;
 		for(int i = 1; i < taskNum; i++){
-			int vmType = chromo.individual[i * 3 + 1];
-			int vmNum = chromo.individual[i * 3 + 2];
+			int vmType = chromo.individual[i * 2];
+			int vmNum = chromo.individual[i * 2 + 1];
 			double leftCpu = pmResource.get(pmCount - 1)[0];
 			double leftMem = pmResource.get(pmCount - 1)[1];
 			if(vmNumList.contains(vmNum)) continue;

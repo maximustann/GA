@@ -60,7 +60,7 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 //			if(violations == 0){
 //				mutationRate = 0.001;
 //			} else
-////				mutationRate = 1 / violations;
+//				mutationRate = 1 / violations;
 //				mutationRate = 1 / (1 + Math.exp(-violations + popSize / 2));
 
 			while(true) {
@@ -101,7 +101,7 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 				// adjust the index
 				popFit.get(j)[2] = j;
 			}
-			
+
 //			for(int j = 0; j < popSize; j++){
 //				if(popFit.get(j)[4] == 0){
 //					nonDominatedSet.add(popVar[(int) popFit.get(j)[2]].clone());
@@ -111,7 +111,7 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 //				}
 //			}
 //			collector.collectSet(nonDominatedSet);
-			
+
 		}
 
 		collector.collectTime(1);

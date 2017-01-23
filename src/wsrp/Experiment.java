@@ -18,19 +18,19 @@ public class Experiment {
 		// dummy variables
 
 
-		double crossoverRate = 0.6;
-		double mutationRate = 0.1;
+		double crossoverRate = 0.5;
+		double mutationRate = 0.9;
 		double consolidationFactor = 0.1;
 		int optimization = 0; //minimize
-		int tournamentSize = 10;
+		int tournamentSize = 2;
 		int eliteSize = 20;
-		int popSize = 50;
+		int popSize = 1;
 		int maxGen = 500;
 		double k = 0.7;
 		weights[0] = weights[1] = 0.5;
 
 		int testCase = 1;
-		String base = "/Users/maximustann/Documents/workspace/WSRData/testCase" + testCase;
+		String base = "/home/tanboxi/workspace/WSRData/testCase" + testCase;
 		String ProblemConfig = base + "/ProblemConfig.csv";
 		String PMConfig = base + "/PMConfig.csv";
 		String VMConfig = base + "/VMConfig.csv";
@@ -41,7 +41,7 @@ public class Experiment {
 		String taskSRAddr = base + "/taskSR.csv";
 //		String utilizationThresholdAddr = base + "/utilizationThreshold.csv";
 
-		String resultBase = "/Users/maximustann/Documents/workspace/WSRResult/GA/testCase" + testCase;
+		String resultBase = "/home/tanboxi/workspace/WSRResult/GA/testCase" + testCase;
 		String fitnessAddr = resultBase + "/fitness.csv";
 		String timeResultAddr = resultBase + "/time.csv";
 		ReadFileWSRP readFiles = new ReadFileWSRP(
@@ -80,7 +80,7 @@ public class Experiment {
 //													pmCpu, vmMem, vmCpu,
 //													taskCpu, taskMem, taskFreq);
 //		StdRandom.setSeed(4);
-//		Chromosome[] popVar = initMethod.init(popSize, 3 * taskNum, lbound, ubound);
+//		Chromosome[] popVar = initMethod.init(popSize, 2 * taskNum, lbound, ubound);
 //		ArrayList<double[]> popFit = new ArrayList<double[]>();
 
 
@@ -124,7 +124,7 @@ public class Experiment {
 //
 
 
-//
+
 		Mutation mutation = new WSRPMutation(
 											taskNum, vmTypes, pmMem,
 											pmCpu, vmMem, vmCpu,
@@ -152,7 +152,6 @@ public class Experiment {
 		Evaluate evaluate = new WSRPEvaluate(funcList);
 		DataCollector collector = new ResultCollector();
 		Distance crowd = new CrowdingDistance(optimization);
-//
 		ProblemParameterSettings proSet = new AllocationParameterSettings(
 												evaluate, initMethod, mutation, constraint, crowd,
 												vmTypes,taskNum,
@@ -161,18 +160,18 @@ public class Experiment {
 												taskCpu, taskMem, taskFreq);
 		ParameterSettings pars = new ParameterSettings(
 									mutationRate, crossoverRate, lbound, ubound, tournamentSize,
-									eliteSize, optimization, popSize, maxGen, taskNum * 3);
+									eliteSize, optimization, popSize, maxGen, taskNum * 2);
 		GeneticAlgorithm myAlg = new WSRPNSGAII(pars, proSet, new NSGAIIFactory(collector, proSet, pars));
 		myAlg.run(1);
 //		myAlg.runNtimes(2333, 30);
 //		((ResultCollector) collector).printResult();
-		((ResultCollector) collector).postProcessing();
-		((ResultCollector) collector).printResult();
-		post.processing(((ResultCollector) collector).getNonDonSet());
-		post.printEmpUtil();
-		
+//		((ResultCollector) collector).postProcessing();
+//		((ResultCollector) collector).printResult();
+//		post.processing(((ResultCollector) collector).getNonDonSet());
+//		post.printEmpUtil();
+
 //		((ResultCollector) collector).printNonDonSet();
-		
+
 //		writeFiles.writeGenerationsFitnessToFile(((ResultCollector) collector).getResult(), ((ResultCollector) collector).getNonDonSet());
 //		((ResultCollector) collector).mean(30);
 //		((ResultCollector) collector).printMeanTime();

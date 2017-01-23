@@ -49,8 +49,8 @@ public class ResourceHelper {
 		for(int i = 0; i < 4; i++) indexCount[i] = new ArrayList<Integer>();
 
 		for(int i = 0; i < taskNum; i++){
-			int vmType = chromo.individual[i * 3 + 1];
-			int vmIndex = chromo.individual[i * 3 + 2];
+			int vmType = chromo.individual[i * 2];
+			int vmIndex = chromo.individual[i * 2 + 1];
 			if(pmCpu - cpuResource - vmCpu[vmType] <= 0 || pmMem - memResource - vmMem[vmType] <= 0){
 				double cpu = pmCpu - cpuResource - vmCpu[vmType];
 				double mem = pmMem - memResource - vmMem[vmType];
