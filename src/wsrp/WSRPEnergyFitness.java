@@ -134,8 +134,8 @@ public class WSRPEnergyFitness extends UnNormalizedFit {
 
 
 		pm.add(new ArrayList<Integer>());
-		pm.get(0).add(chromo.individual[2]);
-		vmNumList.add(chromo.individual[2]);
+		pm.get(0).add(chromo.individual[1]);
+		vmNumList.add(chromo.individual[1]);
 		int pmCount = 1;
 		for(int i = 1; i < taskNum; i++){
 			int vmType = chromo.individual[i * 2];

@@ -5,7 +5,7 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * AllocationParameterSettings.java - allocation parameter setting for Hai's Paper 
+ * AllocationParameterSettings.java - allocation parameter setting for Hai's Paper
  */
 package wsrp;
 
@@ -24,13 +24,13 @@ import algorithms.Mutation;
 public class AllocationParameterSettings extends ProblemParameterSettings{
 	private int vmTypes;
 	private int taskNum;
-	private double pmCpu; 
+	private double pmCpu;
 	private double pmMem;
 	private double pmEnergy;
-	private double[] vmCpu; 
+	private double[] vmCpu;
 	private double[] vmMem;
 	private double[] vmCost;
-	private double[] taskCpu; 
+	private double[] taskCpu;
 	private double[] taskMem;
 	private double[] taskFreq;
 	private InitPop initMethod;
@@ -38,28 +38,28 @@ public class AllocationParameterSettings extends ProblemParameterSettings{
 	private WSRP_Constraint constraint;
 	private Distance crowd;
 	/**
-	 * 
+	 *
 	 * @param evaluate user defined Evaluation method
 	 * @param costMatrix cost matrix, which is an input matrix read from file
 	 * @param freqMatrix frequency matrix, which is an input matrix read from file
 	 * @param latencyMatrix latency matrix
 	 */
 	public AllocationParameterSettings(
-										Evaluate evaluate, 
+										Evaluate evaluate,
 										InitPop initMethod,
 										Mutation mutate,
 										WSRP_Constraint constraint,
 										Distance crowd,
 										int vmTypes,
 										int taskNum,
-										double pmCpu, 
-										double pmMem, 
+										double pmCpu,
+										double pmMem,
 										double pmEnergy,
-										double[] vmCpu, 
-										double[] vmMem, 
-										double[] vmCost, 
-										double[] taskCpu, 
-										double[] taskMem, 
+										double[] vmCpu,
+										double[] vmMem,
+										double[] vmCost,
+										double[] taskCpu,
+										double[] taskMem,
 										double[] taskFreq
 										) {
 		super(evaluate);
@@ -79,7 +79,7 @@ public class AllocationParameterSettings extends ProblemParameterSettings{
 		this.constraint = constraint;
 		this.crowd = crowd;
 	}
-	
+
 	public Distance getDistance(){
 		return crowd;
 	}
@@ -126,6 +126,6 @@ public class AllocationParameterSettings extends ProblemParameterSettings{
 	public double[] getTaskFreq() {
 		return taskFreq;
 	}
-	
+
 
 }

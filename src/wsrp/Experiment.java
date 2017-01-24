@@ -22,14 +22,14 @@ public class Experiment {
 		double mutationRate = 0.9;
 		double consolidationFactor = 0.01;
 		int optimization = 0; //minimize
-		int tournamentSize = 2;
+		int tournamentSize = 3;
 		int eliteSize = 20;
-		int popSize = 50;
+		int popSize = 100;
 		int maxGen = 500;
 		double k = 0.7;
 		weights[0] = weights[1] = 0.5;
 
-		int testCase = 1;
+		int testCase = 2;
 		String base = "/home/tanboxi/workspace/WSRData/testCase" + testCase;
 		String ProblemConfig = base + "/ProblemConfig.csv";
 		String PMConfig = base + "/PMConfig.csv";
@@ -73,63 +73,32 @@ public class Experiment {
 		InitPop initMethod = new InitWSRP_FirstFit(
 											taskNum, vmTypes, pmMem,
 											pmCpu, vmMem, vmCpu,
-											taskCpu, taskMem, taskFreq, consolidationFactor);
+											taskCpu, taskMem, taskFreq, 0.01);
 
 		// debug
 //		ResourceHelper helper = new ResourceHelper(taskNum, vmTypes, pmMem,
 //													pmCpu, vmMem, vmCpu,
 //													taskCpu, taskMem, taskFreq);
 //		StdRandom.setSeed(4);
-//		Chromosome[] popVar = initMethod.init(popSize, 2 * taskNum, lbound, ubound);
-//		ArrayList<double[]> popFit = new ArrayList<double[]>();
-
-
-//		for(int i = 0; i < popSize; i++) popVar[i].print();
-//		Mutation mutation = new WSRPMutation(
-//				taskNum, vmTypes, pmMem,
-//				pmCpu, vmMem, vmCpu,
-//				taskCpu, taskMem, taskFreq,
-//				consolidationFactor);
-////
-//
-//		for(int i = 0; i < popSize; i++) {
-//		System.out.println(i);
-//		popVar[13].print();
-//		mutation.update(popVar[i], mutationRate);
-//		popVar[13].print();
-//			popVar[i].print();
-
-//		}
-//		popVar[0].print();
-//		UnNormalizedFit energy = new WSRPEnergyFitness(
-//											taskNum, vmTypes, k, pmCpu,
-//											pmMem, pmEnergy, vmCpu,
-//											vmMem, taskCpu, taskFreq);
-//		FitnessFunc energyFit = new FitnessFunc(energy.getClass());
-//		energyFit.execute(popVar);
-
-//		for(int i = 0; i < popSize; i++){
-//			popVar[i].print();
-//			helper.evaluate((WSRP_IntChromosome) popVar[i]);
-//			ArrayList<Integer> bound = helper.getBound();
-//			ArrayList<double[]> leftResource = helper.getLeftResource();
-//			popVar[0].print();
-////			for(int j = 0; j < bound.size(); j++){
-////				System.out.println("bound = " + bound.get(j));
-////				System.out.println("cpu left = " + leftResource.get(j)[0] + ", mem left = " + leftResource.get(j)[1]);
-////			}
-//		}
-
-		// debug
-//
-
-
-
+		Chromosome[] popVar = initMethod.init(popSize, 2 * taskNum, lbound, ubound);
 		Mutation mutation = new WSRPMutation(
-											taskNum, vmTypes, pmMem,
-											pmCpu, vmMem, vmCpu,
-											taskCpu, taskMem, taskFreq,
-											consolidationFactor);
+								taskNum, vmTypes, pmMem,
+								pmCpu, vmMem, vmCpu,
+								taskCpu, taskMem, taskFreq,
+								consolidationFactor);
+
+
+
+//		ArrayList<double[]> popFit = new ArrayList<double[]>();
+		// debug
+
+
+
+//		Mutation mutation = new WSRPMutation(
+//											taskNum, vmTypes, pmMem,
+//											pmCpu, vmMem, vmCpu,
+//											taskCpu, taskMem, taskFreq,
+//											consolidationFactor);
 
 		UnNormalizedFit cost = new WSRPCostFitness(vmCost);
 		UnNormalizedFit energy = new WSRPEnergyFitness(

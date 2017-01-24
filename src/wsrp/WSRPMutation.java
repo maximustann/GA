@@ -9,6 +9,9 @@
  */
 package wsrp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import algorithms.Chromosome;
@@ -54,20 +57,13 @@ public class WSRPMutation implements Mutation {
 	}
 
 	public void update(Chromosome individual, double mutationRate){
-//		individual.print();
 		for(int i = 0; i < taskNum; i++){
 			if(StdRandom.uniform() <= mutationRate){
-//				System.out.println("Before");
-//				individual.print();
-//				System.out.println(" , index = " + i);
-				mutateVMTypes((WSRP_IntChromosome) individual, i);
-//				System.out.println("After");
-//				individual.print();
-//				System.out.println();
+				mutateVMTypes2((WSRP_IntChromosome) individual, i);
 			}
 		}
 		if(!validation((WSRP_IntChromosome) individual)){
-			System.out.println("wrong");
+			throw(new IllegalStateException());
 		}
 	}
 
@@ -88,6 +84,155 @@ public class WSRPMutation implements Mutation {
 
 	}
 
+	private void mutateVMTypes2(WSRP_IntChromosome chromo, int index){
+		ArrayList<Integer>[] existingVMTypes = findExistingVms(chromo);
+		ArrayList<double[]> suitableVmAndFit = new ArrayList<double[]>();
+		double[] vmUtil = vmUtilization(chromo);
+		double[] vmFit = vmFitness(vmUtil);
+
+
+		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
+		for(int i = 0; i < taskNum; i++){
+			if(!numType.containsKey(chromo.individual[i * 2 + 1])){
+				numType.put(chromo.individual[i * 2 + 1], chromo.individual[i * 2]);
+			}
+		}
+
+		int totalVMNum = 0;
+		int currentVM = chromo.individual[index * 2 + 1];
+		int currentVMCount = 0;
+		for(int i = 0; i < taskNum; i++) {
+			if(chromo.individual[i * 2 + 1] >= totalVMNum)
+				totalVMNum = chromo.individual[i * 2 + 1] + 1;
+			if(chromo.individual[i * 2 + 1] == currentVM)
+				currentVMCount++;
+		}
+
+//		System.out.println("currentVMCount = " + currentVMCount);
+		int task = index;
+		int suitableType = suitableVM(task);
+		int suitableVmNum = 0;
+
+		for(int i = suitableType; i < vmTypes; i++){
+			for(int j = 0; j < existingVMTypes[i].size(); j++){
+				suitableVmNum++;
+				suitableVmAndFit.add(new double[]{existingVMTypes[i].get(j), vmFit[existingVMTypes[i].get(j)]});
+			}
+		}
+
+
+		// If there is no suitable vm existed, then creat a vm with the most suitable type
+		if(suitableVmNum == 0){
+			int insertPoint = StdRandom.uniform(totalVMNum);
+			for(int i = 0; i < taskNum; i++){
+				if(chromo.individual[i * 2 + 1] >= insertPoint)
+					chromo.individual[i * 2 + 1] += 1;
+			}
+
+			chromo.individual[index * 2] = suitableType;
+			chromo.individual[index * 2 + 1] = insertPoint;
+			totalVMNum += 1;
+
+
+			// If after last change the existing vm disappeared
+			if(currentVMCount == 1){
+				for(int i = 0; i < taskNum; i++){
+					if(chromo.individual[i * 2 + 1] > currentVM){
+						chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
+					}
+				}
+				totalVMNum -= 1;
+			}
+		} else {
+		// If there is some suitable vm existed, then whether you want to create a new one, or consolidate into old ones
+			double u = StdRandom.uniform();
+			// If yes, randomly pick an existing VM with the type of vmType
+			if(u < consolidationFactor){
+				// Here we implement a roulette wheel method to choose an existing suitable vm to consolidate
+				// the vm with lower utility get higher chance to be selected
+				suitableVmAndFit = rouletteWheel(suitableVmAndFit);
+				// sort the vm Fitness
+				Collections.sort(suitableVmAndFit, new Comparator<double[]>() {
+					@Override
+					public int compare(double[] fitness1, double[] fitness2) {
+						int condition = 0;
+						if(fitness2[1] - fitness1[1] > 0.0) condition = 1;
+						else if(fitness2[1] - fitness1[1] < 0.0) condition = -1;
+						else condition = 0;
+						return condition;
+					}
+				});
+
+				// else, generate a random number
+				double p = StdRandom.uniform();
+				int chosenVm = 0;
+				for(int i = 0; i < suitableVmNum; i++){
+					if(suitableVmAndFit.get(i)[1] > p) {
+						chosenVm = (int) suitableVmAndFit.get(i)[0];
+						break;
+					}
+				}
+
+				chromo.individual[index * 2] = numType.get(chosenVm);
+				chromo.individual[index * 2 + 1] = chosenVm;
+
+				// After the changing, the current VM is gone, therefore adjustment is needed
+				if(currentVMCount == 1 && chosenVm!= currentVM){
+					for(int i = 0; i < taskNum; i++){
+						if(chromo.individual[i * 2 + 1] > currentVM){
+							chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
+						}
+					}
+				}
+			} else {
+				// If no, launch a new VM with vmType, but we need to insert this new VM in somewhere
+				int insertPoint = StdRandom.uniform(totalVMNum);
+				for(int i = 0; i < taskNum; i++){
+					if(chromo.individual[i * 2 + 1] >= insertPoint)
+						chromo.individual[i * 2 + 1] += 1;
+				}
+
+				existingVMTypes[suitableType].add(totalVMNum);
+				chromo.individual[index * 2] = suitableType;
+				chromo.individual[index * 2 + 1] = insertPoint ;
+				totalVMNum += 1;
+
+				// If after last change the existing vm disappeared
+				if(currentVMCount == 1){
+					for(int i = 0; i < taskNum; i++){
+						if(chromo.individual[i * 2 + 1] > currentVM){
+							chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
+						}
+					}
+					totalVMNum -= 1;
+				}
+
+			}
+		}
+	}
+
+	private ArrayList<double[]> rouletteWheel(ArrayList<double[]> vmAndFit){
+		ArrayList<double[]> vmAndPro = new ArrayList<double[]>();
+		int num = vmAndFit.size();
+		double sumOfUtil = 0;
+		double previous_pro = 0;
+		for(int i = 0; i < num; i++){
+			sumOfUtil += vmAndFit.get(i)[1];
+		}
+
+		for(int i = 0; i < num; i++){
+			double fit = previous_pro + vmAndFit.get(i)[1] / sumOfUtil;
+			previous_pro = fit;
+			vmAndPro.add(new double[]{vmAndFit.get(i)[0], fit});
+		}
+		return vmAndPro;
+	}
+
+	private double[] vmFitness(double[] vmUtil){
+		double[] vmFit = new double[vmUtil.length];
+		for(int i = 0; i < vmUtil.length; i++) vmFit[i] = 1 / vmUtil[i];
+		return vmFit;
+	}
 
 	private void mutateVMTypes(WSRP_IntChromosome chromo, int index){
 		ArrayList<Integer>[] existingVMTypes = findExistingVms(chromo);
@@ -183,11 +328,55 @@ public class WSRPMutation implements Mutation {
 		}
 	}
 
+
+	/**
+	 * calculate the utilization of each vm which is not converted to Pm utilization
+	 *
+	 * @param chromo individual
+	 * @return an array of utilization, each entry's index is the number of the vm
+	 */
+	private double[] vmUtilization(WSRP_IntChromosome chromo){
+		int totalVMNum = 0;
+		// the total VM Num of vms must be plus one higher than the vm count
+		for(int i = 0; i < taskNum; i++) {
+			if(chromo.individual[i * 2 + 1] >= totalVMNum)
+				totalVMNum = chromo.individual[i * 2 + 1] + 1;
+		}
+		double[] utilization = new double[totalVMNum];
+		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
+		for(int i = 0; i < taskNum; i++){
+			if(!numType.containsKey(chromo.individual[i * 2 + 1])){
+				numType.put(chromo.individual[i * 2 + 1], chromo.individual[i * 2]);
+			}
+		}
+
+		// for each service
+		for(int i = 0; i < taskNum; i++){
+
+			// If the vm has not been calculated
+			if(utilization[chromo.individual[i * 2 + 1]] == 0){
+					utilization[chromo.individual[i * 2 + 1]] = taskCpu[i] * taskFreq[i] / vmCpu[chromo.individual[i * 2]];
+			} else {
+			// add up the utilization that the vm has, if it exceeds 1, set to 1
+				double util = taskCpu[i] * taskFreq[i] / vmCpu[chromo.individual[i * 2]];
+
+				if(util + utilization[chromo.individual[i * 2 + 1]] > 1) utilization[chromo.individual[i * 2 + 1]] = 1;
+				else utilization[chromo.individual[i * 2 + 1]] += util;
+			}
+		}
+
+		return utilization;
+	}
+
+	// return a array of ArrayList,
+	// each entry of the array is a type of vm
+	// each entry of the ArrayList is the number of vm
 	private ArrayList<Integer>[] findExistingVms(WSRP_IntChromosome chromo){
 		ArrayList<Integer>[] existingVMTypes = new ArrayList[vmTypes];
 		for(int i = 0; i < vmTypes; i++) existingVMTypes[i] = new ArrayList<Integer>();
 		for(int i = 0; i < taskNum; i++){
 			int type = chromo.individual[i * 2];
+			// If the there is no machine or the current list has no such vm number, then add the vm number in the list
 			if(existingVMTypes[type].isEmpty())
 				existingVMTypes[type].add(chromo.individual[i * 2 + 1]);
 			if(!existingVMTypes[type].contains(chromo.individual[i * 2 + 1])){

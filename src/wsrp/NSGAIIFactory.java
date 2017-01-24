@@ -38,12 +38,12 @@ public class NSGAIIFactory implements GAFactory{
 	 * Constructor
 	 * @param collector is the data collector
 	 */
-	public NSGAIIFactory(DataCollector collector, ProblemParameterSettings proSet, 
+	public NSGAIIFactory(DataCollector collector, ProblemParameterSettings proSet,
 						ParameterSettings pars){
 		this.proSet = proSet;
 		this.pars = pars;
 		this.collector = collector;
-		
+
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class NSGAIIFactory implements GAFactory{
 	public Crossover getCrossover() {
 		return null;
 	}
-	
+
 	public Elitism getElitism(int elitSize, int optimization){
 		return new CommonElitism(elitSize, optimization);
 	}
