@@ -52,15 +52,16 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 			}
 			collector.collectSet(nonDominatedSet);
 			collector.collect(nonDominatedSetFit);
-//			int violations = 0;
-//			for(int j = 0; j < popSize; j++){
-//				violations += popFit.get(j)[5];
-//			}
-//			violations /= popSize;
-//			if(violations == 0){
-//				mutationRate = 0.001;
-//			} else
-//				mutationRate = 1 / violations;
+//
+			int violations = 0;
+			for(int j = 0; j < popSize; j++){
+				violations += popFit.get(j)[5];
+			}
+			violations /= popSize;
+			if(violations > 0.25){
+				mutationRate = 0.9;
+			} else
+				mutationRate = 0.1;
 //				mutationRate = 1 / (1 + Math.exp(-violations + popSize / 2));
 
 			while(true) {

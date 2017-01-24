@@ -120,96 +120,69 @@ public class WSRPMutation implements Mutation {
 			}
 		}
 
-
-		// If there is no suitable vm existed, then creat a vm with the most suitable type
-//		if(suitableVmNum == 0){
-//			if(1 == 1) throw(new IllegalStateException());
-//			int insertPoint = StdRandom.uniform(totalVMNum);
-//			for(int i = 0; i < taskNum; i++){
-//				if(chromo.individual[i * 2 + 1] >= insertPoint)
-//					chromo.individual[i * 2 + 1] += 1;
-//			}
-//
-//			chromo.individual[index * 2] = suitableType;
-//			chromo.individual[index * 2 + 1] = insertPoint;
-//			totalVMNum += 1;
-//
-//
-//			// If after last change the existing vm disappeared
-//			if(currentVMCount == 1){
-//				for(int i = 0; i < taskNum; i++){
-//					if(chromo.individual[i * 2 + 1] > currentVM){
-//						chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
-//					}
-//				}
-//				totalVMNum -= 1;
-//			}
-//		} else {
-		// If there is some suitable vm existed, then whether you want to create a new one, or consolidate into old ones
-			double u = StdRandom.uniform();
-			// If yes, randomly pick an existing VM with the type of vmType
-			if(u < consolidationFactor){
-				// Here we implement a roulette wheel method to choose an existing suitable vm to consolidate
-				// the vm with lower utility get higher chance to be selected
-				suitableVmAndFit = rouletteWheel(suitableVmAndFit);
-				// sort the vm Fitness
-				Collections.sort(suitableVmAndFit, new Comparator<double[]>() {
-					@Override
-					public int compare(double[] fitness1, double[] fitness2) {
-						int condition = 0;
-						if(fitness2[1] - fitness1[1] > 0.0) condition = 1;
-						else if(fitness2[1] - fitness1[1] < 0.0) condition = -1;
-						else condition = 0;
-						return condition;
-					}
-				});
-
-				// else, generate a random number
-				double p = StdRandom.uniform();
-				int chosenVm = 0;
-				for(int i = 0; i < suitableVmNum; i++){
-					if(suitableVmAndFit.get(i)[1] > p) {
-						chosenVm = (int) suitableVmAndFit.get(i)[0];
-						break;
-					}
+	// If there is some suitable vm existed, then whether you want to create a new one, or consolidate into old ones
+		double u = StdRandom.uniform();
+		// If yes, randomly pick an existing VM with the type of vmType
+		if(u < consolidationFactor){
+			// Here we implement a roulette wheel method to choose an existing suitable vm to consolidate
+			// the vm with lower utility get higher chance to be selected
+			suitableVmAndFit = rouletteWheel(suitableVmAndFit);
+			// sort the vm Fitness
+			Collections.sort(suitableVmAndFit, new Comparator<double[]>() {
+				@Override
+				public int compare(double[] fitness1, double[] fitness2) {
+					int condition = 0;
+					if(fitness2[1] - fitness1[1] > 0.0) condition = 1;
+					else if(fitness2[1] - fitness1[1] < 0.0) condition = -1;
+					else condition = 0;
+					return condition;
 				}
+			});
 
-				chromo.individual[index * 2] = numType.get(chosenVm);
-				chromo.individual[index * 2 + 1] = chosenVm;
-
-				// After the changing, the current VM is gone, therefore adjustment is needed
-				if(currentVMCount == 1 && chosenVm!= currentVM){
-					for(int i = 0; i < taskNum; i++){
-						if(chromo.individual[i * 2 + 1] > currentVM){
-							chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
-						}
-					}
+			// else, generate a random number
+			double p = StdRandom.uniform();
+			int chosenVm = 0;
+			for(int i = 0; i < suitableVmNum; i++){
+				if(suitableVmAndFit.get(i)[1] > p) {
+					chosenVm = (int) suitableVmAndFit.get(i)[0];
+					break;
 				}
-			} else {
-				// If no, launch a new VM with vmType, but we need to insert this new VM in somewhere
-				int insertPoint = StdRandom.uniform(totalVMNum);
-				for(int i = 0; i < taskNum; i++){
-					if(chromo.individual[i * 2 + 1] >= insertPoint)
-						chromo.individual[i * 2 + 1] += 1;
-				}
-
-				existingVMTypes[suitableType].add(totalVMNum);
-				chromo.individual[index * 2] = suitableType;
-				chromo.individual[index * 2 + 1] = insertPoint ;
-				totalVMNum += 1;
-
-				// If after last change the existing vm disappeared
-				if(currentVMCount == 1){
-					for(int i = 0; i < taskNum; i++){
-						if(chromo.individual[i * 2 + 1] > currentVM){
-							chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
-						}
-					}
-					totalVMNum -= 1;
-				}
-
 			}
-//		}
+
+			chromo.individual[index * 2] = numType.get(chosenVm);
+			chromo.individual[index * 2 + 1] = chosenVm;
+
+			// After the changing, the current VM is gone, therefore adjustment is needed
+			if(currentVMCount == 1 && chosenVm!= currentVM){
+				for(int i = 0; i < taskNum; i++){
+					if(chromo.individual[i * 2 + 1] > currentVM){
+						chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
+					}
+				}
+			}
+		} else {
+			// If no, launch a new VM with vmType, but we need to insert this new VM in somewhere
+			int insertPoint = StdRandom.uniform(totalVMNum);
+			for(int i = 0; i < taskNum; i++){
+				if(chromo.individual[i * 2 + 1] >= insertPoint)
+					chromo.individual[i * 2 + 1] += 1;
+			}
+
+			existingVMTypes[suitableType].add(totalVMNum);
+			chromo.individual[index * 2] = suitableType;
+			chromo.individual[index * 2 + 1] = insertPoint ;
+			totalVMNum += 1;
+
+			// If after last change the existing vm disappeared
+			if(currentVMCount == 1){
+				for(int i = 0; i < taskNum; i++){
+					if(chromo.individual[i * 2 + 1] > currentVM){
+						chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
+					}
+				}
+				totalVMNum -= 1;
+			}
+		}
 	}
 
 	private ArrayList<double[]> rouletteWheel(ArrayList<double[]> vmAndFit){

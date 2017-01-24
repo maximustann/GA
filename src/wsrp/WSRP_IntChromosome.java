@@ -1,6 +1,7 @@
 package wsrp;
 
 import algorithms.Gene;
+import commonRepresentation.IntGene;
 import commonRepresentation.IntValueChromosome;
 public class WSRP_IntChromosome extends IntValueChromosome {
 
@@ -31,6 +32,23 @@ public class WSRP_IntChromosome extends IntValueChromosome {
 		}
 		return copy;
 	}
+	
+	public IntGene cut(int cutPoint, int geneIndicator){
+		IntGene part;
+		if(geneIndicator == 0){
+			part = new IntGene(cutPoint + 1);
+			for(int i = 0; i < cutPoint + 1; i++){
+				part.gene[i] = individual[i];
+			}
+		} else{
+			part = new IntGene(size() - (cutPoint + 1));
+			for(int i = cutPoint + 1, j = 0; i < size(); i++, j++){
+				part.gene[j] = individual[i];
+			}
+		}
+		return part;
+	}
+
 
 
 }

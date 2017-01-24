@@ -84,6 +84,7 @@ public class WSRPNSGAII extends NSGAII_NoCrossover{
 		collector = factory.getDataCollector();
 		sort = factory.getSort();
 		distance = factory.getDistance();
+		crossover = factory.getCrossover();
 	}
 
 }

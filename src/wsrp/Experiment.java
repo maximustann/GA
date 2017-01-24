@@ -29,8 +29,8 @@ public class Experiment {
 		double k = 0.7;
 		weights[0] = weights[1] = 0.5;
 
-		int testCase = 1;
-		String base = "/home/tanboxi/workspace/WSRData/testCase" + testCase;
+		int testCase = 5;
+		String base = "/Users/maximustann/Documents/workspace/WSRData/testCase" + testCase;
 		String ProblemConfig = base + "/ProblemConfig.csv";
 		String PMConfig = base + "/PMConfig.csv";
 		String VMConfig = base + "/VMConfig.csv";
@@ -41,7 +41,7 @@ public class Experiment {
 		String taskSRAddr = base + "/taskSR.csv";
 //		String utilizationThresholdAddr = base + "/utilizationThreshold.csv";
 
-		String resultBase = "/home/tanboxi/workspace/WSRResult/GA/testCase" + testCase;
+		String resultBase = "/Users/maximustann/Documents/workspace/WSRResult/GA/testCase" + testCase;
 		String fitnessAddr = resultBase + "/fitness.csv";
 		String timeResultAddr = resultBase + "/time.csv";
 		ReadFileWSRP readFiles = new ReadFileWSRP(
