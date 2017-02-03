@@ -29,7 +29,7 @@ public class Experiment {
 		double k = 0.7;
 		weights[0] = weights[1] = 0.5;
 
-		int testCase = 5;
+		int testCase = 4;
 		String base = "/Users/maximustann/Documents/workspace/WSRData/testCase" + testCase;
 		String ProblemConfig = base + "/ProblemConfig.csv";
 		String PMConfig = base + "/PMConfig.csv";
