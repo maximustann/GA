@@ -31,9 +31,9 @@ public class WriteByRow implements WriteCsvFile {
 		}
 
 		FileWriter fw = new FileWriter(file.getAbsolutePath(), true);
-		@SuppressWarnings("resource")
-		PrintWriter writer = new PrintWriter(file);
-		writer.print("");
+//		@SuppressWarnings("resource")
+////		PrintWriter writer = new PrintWriter(file);
+//		writer.print("");
 
 		for(int i = 0, j = 0; i < dataSize; i++, j++){
 			if(j == enterNum){
@@ -60,9 +60,8 @@ public class WriteByRow implements WriteCsvFile {
 		}
 
 		FileWriter fw = new FileWriter(file.getAbsolutePath(), true);
-		@SuppressWarnings("resource")
-		PrintWriter writer = new PrintWriter(file);
-		writer.print("");
+//		@SuppressWarnings("resource")
+//		PrintWriter writer = new PrintWriter(file);
 
 		for(int i = 0; i < dataSize; i++){
 			for(int j = 0; j < colNum; j++){
@@ -72,6 +71,8 @@ public class WriteByRow implements WriteCsvFile {
 					fw.write(String.valueOf(data.get(i)[j]) + csvSplitBy);
 			}
 		}
+
+//		writer.close();
 		fw.close();
 	}
 

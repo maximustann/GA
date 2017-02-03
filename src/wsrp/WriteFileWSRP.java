@@ -41,7 +41,7 @@ public class WriteFileWSRP {
 		int generation = fitness.size();
 		for(int i = 0; i < generation; i++){
 			String generationAddr = base + "/generationFitness/" + i;
-			
+
 			File dir = new File(generationAddr);
 			dir.mkdir();
 			String generationFitAddr = generationAddr + "/fitness.csv";
@@ -52,7 +52,7 @@ public class WriteFileWSRP {
 		}
 		System.out.println("Done");
 	}
-	
+
 	private ArrayList<double[]> adapter(ArrayList<WSRP_IntChromosome> input){
 		ArrayList<double[]> output = new ArrayList<double[]>();
 		for(int i = 0; i < input.size(); i++){
@@ -71,23 +71,31 @@ public class WriteFileWSRP {
 	 * @param time time values
 	 * @throws IOException
 	 */
-	public void writeResults(ArrayList<ArrayList<double[]>> fitness, ArrayList<Double> time,
-							Object nonDonSet) throws IOException{
+	public void writeResults(ArrayList<ArrayList<ArrayList<double[]>>> fitness, ArrayList<Double> time
+							) throws IOException{
 		fitnessWriter = new WriteByRow(",", 0);
 		timeWriter = new WriteByRow(",", 1);
 		WriteByRow nonDonSetWriter = new WriteByRow(",", 1);
 
+		// for each generation
 		for(int i = 0; i < fitness.size(); i++){
 			String runAddr = base + "/runFitness/" + i;
-			fitnessAddr = base + "/runFitness/" + i + "/fitness.csv";
-			timeAddr = base + "/runFitness/" + i + "/time.csv";
-			String nonDonSetAddr = base + "/runFitness/" + i + "/nonDominatedSet.csv";
 			File dir = new File(runAddr);
-			fitnessWriter.writeArray(fitnessAddr, fitness.get(i));
-			ArrayList<Double> tempTime = new ArrayList<Double>();
-			tempTime.add(time.get(i));
-			timeWriter.write(timeAddr, tempTime);
-			nonDonSetWriter.writeArray(nonDonSetAddr, ((ArrayList<ArrayList<double[]>>) nonDonSet).get(i));
+			dir.mkdirs();
+			for(int j = 0; j < fitness.get(i).size(); j++){
+				String generation = runAddr + "/" + j;
+				File gen = new File(generation);
+				gen.mkdirs();
+				String generationFit = generation + "/fitness.csv";
+				timeAddr = generation + "/time.csv";
+				fitnessWriter.writeArray(generationFit, fitness.get(i).get(j));
+				ArrayList<Double> tempTime = new ArrayList<Double>();
+				tempTime.add(time.get(i));
+				timeWriter.write(timeAddr, tempTime);
+			}
+
+//			String nonDonSetAddr = base + "/runFitness/" + i + "/nonDominatedSet.csv";
+//			nonDonSetWriter.writeArray(nonDonSetAddr, ((ArrayList<ArrayList<double[]>>) nonDonSet).get(i));
 		}
 	}
 }

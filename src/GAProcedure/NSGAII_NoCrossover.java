@@ -11,6 +11,7 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 		collector.collectTime(0);
 		initializeRand(seed);
 		popVar = initPop.init(popSize, maxVar, lbound, ubound);
+		ArrayList<ArrayList<double[]>> genNonDomFit = new ArrayList<ArrayList<double[]>>();
 
 
 		for(int i = 0; i < maxGen; i++){
@@ -27,17 +28,7 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 			constraint.evaluate(popVar, popFit);
 			sort.sort(popVar, popFit);
 			distance.calculate(popVar, popFit);
-//			for(int j = 0; j < popSize; j++){
-//				System.out.println("costFitness = " + popFit.get(j)[0]
-//						+ ", EnergyFitness = " + popFit.get(j)[1]
-//						+ ", index = " + popFit.get(j)[2]
-//						+ ", CD = " + popFit.get(j)[3]
-//						+ ", ranking = " + popFit.get(j)[4]
-//						+ ", violations = " + popFit.get(j)[5]);
-//			}
-//
-//			int flag = 1;
-//			while(flag == 1){}
+
 
 			int count = 0;
 			// copy the fitnesses of nonDominated individuals into nonDominatedSet
@@ -50,18 +41,19 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 					break;
 				}
 			}
+			genNonDomFit.add(nonDominatedSetFit);
 			collector.collectSet(nonDominatedSet);
-			collector.collect(nonDominatedSetFit);
+//			collector.collect(nonDominatedSetFit);
 //
-			int violations = 0;
-			for(int j = 0; j < popSize; j++){
-				violations += popFit.get(j)[5];
-			}
-			violations /= popSize;
-			if(violations > 0.25){
-				mutationRate = 0.9;
-			} else
-				mutationRate = 0.1;
+//			int violations = 0;
+//			for(int j = 0; j < popSize; j++){
+//				violations += popFit.get(j)[5];
+//			}
+//			violations /= popSize;
+//			if(violations > 0.1 * popVar[0].size() / 4){
+//				mutationRate = 0.9;
+//			} else
+//				mutationRate = 0.1;
 //				mutationRate = 1 / (1 + Math.exp(-violations + popSize / 2));
 
 			while(true) {
@@ -76,7 +68,6 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 			try {
 				evaluate.evaluate(newPop, newPopFit);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -112,9 +103,9 @@ public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 //				}
 //			}
 //			collector.collectSet(nonDominatedSet);
-
 		}
 
+		collector.collect(genNonDomFit);
 		collector.collectTime(1);
 	}
 

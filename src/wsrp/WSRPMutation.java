@@ -59,7 +59,7 @@ public class WSRPMutation implements Mutation {
 	public void update(Chromosome individual, double mutationRate){
 		for(int i = 0; i < taskNum; i++){
 			if(StdRandom.uniform() <= mutationRate){
-				mutateVMTypes2((WSRP_IntChromosome) individual, i);
+				mutateVMTypes3((WSRP_IntChromosome) individual, i);
 			}
 		}
 		if(!validation((WSRP_IntChromosome) individual)){
@@ -83,6 +83,212 @@ public class WSRPMutation implements Mutation {
 		return true;
 
 	}
+
+
+	// This is a greedy approach in selecting the consolidation vm
+	private void mutateVMTypes3(WSRP_IntChromosome chromo, int index){
+		ArrayList<Integer>[] existingVMTypes = findExistingVms(chromo);
+		ArrayList<double[]> suitableVmAndFit = new ArrayList<double[]>();
+		double[] vmUtil = vmUtilization(chromo);
+		double[] vmFit = vmFitness(vmUtil);
+
+
+		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
+		for(int i = 0; i < taskNum; i++){
+			if(!numType.containsKey(chromo.individual[i * 2 + 1])){
+				numType.put(chromo.individual[i * 2 + 1], chromo.individual[i * 2]);
+			}
+		}
+
+		int totalVMNum = 0;
+		int currentVM = chromo.individual[index * 2 + 1];
+		int currentVMCount = 0;
+		for(int i = 0; i < taskNum; i++) {
+			if(chromo.individual[i * 2 + 1] >= totalVMNum)
+				totalVMNum = chromo.individual[i * 2 + 1] + 1;
+			if(chromo.individual[i * 2 + 1] == currentVM)
+				currentVMCount++;
+		}
+
+//		System.out.println("currentVMCount = " + currentVMCount);
+		int task = index;
+		int suitableType = suitableVM(task);
+		int suitableVmNum = 0;
+
+		for(int i = suitableType; i < vmTypes; i++){
+			for(int j = 0; j < existingVMTypes[i].size(); j++){
+				suitableVmNum++;
+				suitableVmAndFit.add(new double[]{existingVMTypes[i].get(j), vmFit[existingVMTypes[i].get(j)]});
+			}
+		}
+
+	// If there is some suitable vm existed, then whether you want to create a new one, or consolidate into old ones
+		double u = StdRandom.uniform();
+		// If yes, randomly pick an existing VM with the type of vmType
+		if(u < consolidationFactor){
+			// Here we implement a roulette wheel method to choose an existing suitable vm to consolidate
+			// the vm with lower utility get higher chance to be selected
+//			suitableVmAndFit = rouletteWheel(suitableVmAndFit);
+			// sort the vm Fitness
+			Collections.sort(suitableVmAndFit, new Comparator<double[]>() {
+				@Override
+				public int compare(double[] fitness1, double[] fitness2) {
+					int condition = 0;
+					if(fitness1[1] - fitness2[1] > 0.0) condition = 1;
+					else if(fitness1[1] - fitness2[1] < 0.0) condition = -1;
+					else condition = 0;
+					return condition;
+				}
+			});
+
+			// choose the best in terms of fitness
+			int chosenVm = (int) suitableVmAndFit.get(0)[0];
+//			for(int i = 0; i < suitableVmNum; i++){
+//				if(suitableVmAndFit.get(i)[1] > p) {
+//					chosenVm = (int) suitableVmAndFit.get(i)[0];
+//					break;
+//				}
+//			}
+
+			chromo.individual[index * 2] = numType.get(chosenVm);
+			chromo.individual[index * 2 + 1] = chosenVm;
+
+			// After the changing, the current VM is gone, therefore adjustment is needed
+			if(currentVMCount == 1 && chosenVm!= currentVM){
+				for(int i = 0; i < taskNum; i++){
+					if(chromo.individual[i * 2 + 1] > currentVM){
+						chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
+					}
+				}
+			}
+		} else {
+			// If no, launch a new VM with vmType, but we need to insert this new VM in somewhere
+			int insertPoint = StdRandom.uniform(totalVMNum);
+			for(int i = 0; i < taskNum; i++){
+				if(chromo.individual[i * 2 + 1] >= insertPoint)
+					chromo.individual[i * 2 + 1] += 1;
+			}
+
+			existingVMTypes[suitableType].add(totalVMNum);
+			chromo.individual[index * 2] = suitableType;
+			chromo.individual[index * 2 + 1] = insertPoint ;
+			totalVMNum += 1;
+
+			// If after last change the existing vm disappeared
+			if(currentVMCount == 1){
+				for(int i = 0; i < taskNum; i++){
+					if(chromo.individual[i * 2 + 1] > currentVM){
+						chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
+					}
+				}
+				totalVMNum -= 1;
+			}
+		}
+	}
+
+	private void mutateVMTypes4(WSRP_IntChromosome chromo, int index){
+		ArrayList<Integer>[] existingVMTypes = findExistingVms(chromo);
+		ArrayList<double[]> suitableVmAndFit = new ArrayList<double[]>();
+		double[] vmUtil = vmUtilization(chromo);
+		double[] vmFit = vmFitness(vmUtil);
+
+
+		HashMap<Integer, Integer> numType = new HashMap<Integer, Integer>();
+		for(int i = 0; i < taskNum; i++){
+			if(!numType.containsKey(chromo.individual[i * 2 + 1])){
+				numType.put(chromo.individual[i * 2 + 1], chromo.individual[i * 2]);
+			}
+		}
+
+		int totalVMNum = 0;
+		int currentVM = chromo.individual[index * 2 + 1];
+		int currentVMCount = 0;
+		for(int i = 0; i < taskNum; i++) {
+			if(chromo.individual[i * 2 + 1] >= totalVMNum)
+				totalVMNum = chromo.individual[i * 2 + 1] + 1;
+			if(chromo.individual[i * 2 + 1] == currentVM)
+				currentVMCount++;
+		}
+
+//		System.out.println("currentVMCount = " + currentVMCount);
+		int task = index;
+		int suitableType = suitableVM(task);
+		int suitableVmNum = 0;
+
+		for(int i = suitableType; i < vmTypes; i++){
+			for(int j = 0; j < existingVMTypes[i].size(); j++){
+				suitableVmNum++;
+				suitableVmAndFit.add(new double[]{existingVMTypes[i].get(j), vmFit[existingVMTypes[i].get(j)]});
+			}
+		}
+
+	// If there is some suitable vm existed, then whether you want to create a new one, or consolidate into old ones
+		double u = StdRandom.uniform();
+		// If yes, randomly pick an existing VM with the type of vmType
+		if(u < consolidationFactor){
+			// Here we implement a roulette wheel method to choose an existing suitable vm to consolidate
+			// the vm with lower utility get higher chance to be selected
+			suitableVmAndFit = rouletteWheel(suitableVmAndFit);
+			// sort the vm Fitness
+			Collections.sort(suitableVmAndFit, new Comparator<double[]>() {
+				@Override
+				public int compare(double[] fitness1, double[] fitness2) {
+					int condition = 0;
+					if(fitness2[1] - fitness1[1] > 0.0) condition = 1;
+					else if(fitness2[1] - fitness1[1] < 0.0) condition = -1;
+					else condition = 0;
+					return condition;
+				}
+			});
+
+			// else, generate a random number
+			double p = StdRandom.uniform();
+			int chosenVm = 0;
+			for(int i = 0; i < suitableVmNum; i++){
+				if(suitableVmAndFit.get(i)[1] > p) {
+					chosenVm = (int) suitableVmAndFit.get(i)[0];
+					break;
+				}
+			}
+
+			chromo.individual[index * 2] = numType.get(chosenVm);
+			chromo.individual[index * 2 + 1] = chosenVm;
+
+			// After the changing, the current VM is gone, therefore adjustment is needed
+			if(currentVMCount == 1 && chosenVm!= currentVM){
+				for(int i = 0; i < taskNum; i++){
+					if(chromo.individual[i * 2 + 1] > currentVM){
+						chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
+					}
+				}
+			}
+		} else {
+
+			int vmType = StdRandom.uniform(suitableType, vmTypes);
+			// If no, launch a new VM with vmType, but we need to insert this new VM in somewhere
+			int insertPoint = StdRandom.uniform(totalVMNum);
+			for(int i = 0; i < taskNum; i++){
+				if(chromo.individual[i * 2 + 1] >= insertPoint)
+					chromo.individual[i * 2 + 1] += 1;
+			}
+
+			existingVMTypes[vmType].add(totalVMNum);
+			chromo.individual[index * 2] = vmType;
+			chromo.individual[index * 2 + 1] = insertPoint ;
+			totalVMNum += 1;
+
+			// If after last change the existing vm disappeared
+			if(currentVMCount == 1){
+				for(int i = 0; i < taskNum; i++){
+					if(chromo.individual[i * 2 + 1] > currentVM){
+						chromo.individual[i * 2 + 1] = chromo.individual[i * 2 + 1] - 1;
+					}
+				}
+				totalVMNum -= 1;
+			}
+		}
+	}
+
 
 	private void mutateVMTypes2(WSRP_IntChromosome chromo, int index){
 		ArrayList<Integer>[] existingVMTypes = findExistingVms(chromo);

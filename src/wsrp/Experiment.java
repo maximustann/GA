@@ -25,12 +25,14 @@ public class Experiment {
 		int tournamentSize = 3;
 		int eliteSize = 20;
 		int popSize = 100;
-		int maxGen = 500;
+		int maxGen = 200;
 		double k = 0.7;
 		weights[0] = weights[1] = 0.5;
 
-		int testCase = 5;
-		String base = "/Users/maximustann/Documents/workspace/WSRData/testCase" + testCase;
+		int testCase = 4;
+
+		String base = "/home/tanboxi/workspace/WSRData/testCase" + testCase;
+//		String base = "/Users/maximustann/Documents/workspace/WSRData/testCase" + testCase;
 		String ProblemConfig = base + "/ProblemConfig.csv";
 		String PMConfig = base + "/PMConfig.csv";
 		String VMConfig = base + "/VMConfig.csv";
@@ -41,7 +43,8 @@ public class Experiment {
 		String taskSRAddr = base + "/taskSR.csv";
 //		String utilizationThresholdAddr = base + "/utilizationThreshold.csv";
 
-		String resultBase = "/Users/maximustann/Documents/workspace/WSRResult/GA/testCase" + testCase;
+		String resultBase = "/home/tanboxi/workspace/WSRResult/GA/testCase" + testCase;
+//		String resultBase = "/Users/maximustann/Documents/workspace/WSRResult/GA/testCase" + testCase;
 		String fitnessAddr = resultBase + "/fitness.csv";
 		String timeResultAddr = resultBase + "/time.csv";
 		ReadFileWSRP readFiles = new ReadFileWSRP(
@@ -131,17 +134,17 @@ public class Experiment {
 									mutationRate, crossoverRate, lbound, ubound, tournamentSize,
 									eliteSize, optimization, popSize, maxGen, taskNum * 2);
 		GeneticAlgorithm myAlg = new WSRPNSGAII(pars, proSet, new NSGAIIFactory(collector, proSet, pars));
-		myAlg.run(1);
-//		myAlg.runNtimes(2333, 30);
+//		myAlg.run(1);
+		myAlg.runNtimes(2333, 30);
+		writeFiles.writeResults(((ResultCollector) collector).getResult(), ((ResultCollector) collector).getTime());
+//		writeFiles.writeGenerationsFitnessToFile(((ResultCollector) collector).getResult(), ((ResultCollector) collector).getNonDonSet());
+//		((ResultCollector) collector).postProcessing();
 //		((ResultCollector) collector).printResult();
-		((ResultCollector) collector).postProcessing();
-		((ResultCollector) collector).printResult();
-		post.processing(((ResultCollector) collector).getNonDonSet());
-		post.printEmpUtil();
+//		post.processing(((ResultCollector) collector).getNonDonSet());
+//		post.printEmpUtil();
 
 //		((ResultCollector) collector).printNonDonSet();
 
-//		writeFiles.writeGenerationsFitnessToFile(((ResultCollector) collector).getResult(), ((ResultCollector) collector).getNonDonSet());
 //		((ResultCollector) collector).mean(30);
 //		((ResultCollector) collector).printMeanTime();
 //		writeFiles.writeResults(((ResultCollector) collector).getLastResult(30, maxGen),
