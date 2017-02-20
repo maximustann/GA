@@ -1,3 +1,12 @@
+/*
+ * Boxiong Tan (Maximus Tann)
+ * Title:        Single-objective GA framework
+ * Description:  Single-objective GA framework for general optimization purpose
+ * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
+ *
+ * Copyright (c) 2016-2019, The Victoria University of Wellington
+ * BinaryTournamentSelection.java - A binary tournament selection procedure
+ */
 package multi_objective_operators;
 
 import java.util.ArrayList;
@@ -6,6 +15,10 @@ import algorithms.Chromosome;
 import algorithms.StdRandom;
 import commonOperators.TournamentSelection;
 
+/**
+ * @author Boxiong Tan (Maximus Tann) 
+ * @since GA framework 1.0
+ */
 public class BinaryTournamentSelection extends TournamentSelection{
 
 	public BinaryTournamentSelection(int optimization) {
@@ -13,6 +26,25 @@ public class BinaryTournamentSelection extends TournamentSelection{
 	}
 
 	@Override
+	/**
+	 * Randomly select two chomosomes' fitness 
+	 * the fitness is constructed as follows:
+	 * <ul>
+	 * 	<li> [0] obj1 value </li>
+	 *  <li> [1] obj2 value </li>
+	 *  <li> [2] position in the population </li>
+	 *  <li> [3] crowding distance </li>
+	 *  <li> [4] rank </li> 
+	 *  <li> [5] number of violations </li>
+	 * </ul>
+	 * 
+	 * This implementation using a ranked domination to select better chromosome 
+	 * in the binary selection. It first considers the number of violations.
+	 * A chromosome with a lower number of violations will always be selected.
+	 * A chromosome with better ranking is always better.
+	 * If two chromosomes are in the same ranking, the one with smaller Crowding distance
+	 * is better.
+	 */
 	public int selected(Chromosome[] popVar, ArrayList<double[]> fitness) {
 		double[] rank 				= new double[2];
 		double[] crowdingDistance 	= new double[2];

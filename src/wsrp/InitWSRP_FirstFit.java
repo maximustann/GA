@@ -15,7 +15,6 @@ import java.util.HashSet;
 import algorithms.*;
 
 /**
- * Bin Pack (First Fit) Initialization of population for WSRP
  *
  * @author Boxiong Tan (Maximus Tann)
  * @since GA framework 1.0

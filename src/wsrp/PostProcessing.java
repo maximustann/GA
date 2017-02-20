@@ -1,3 +1,12 @@
+/*
+ * Boxiong Tan (Maximus Tann)
+ * Title:        Genetic algorithm framework
+ * Description:  Genetic algorithm framework for general optimization purpose
+ * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
+ *
+ * Copyright (c) 2016-2019, The Victoria University of Wellington
+ * PostProcessing.java
+ */
 package wsrp;
 
 
@@ -5,6 +14,11 @@ import java.util.ArrayList;
 
 import FileHandlers.ReadByRow;
 
+/**
+ *
+ * @author Boxiong Tan (Maximus Tann)
+ * @since GA framework 1.0
+ */
 public class PostProcessing {
 	private WSRP_Constraint constraint;
 	private ArrayList<ArrayList<double[]>> emptiness;

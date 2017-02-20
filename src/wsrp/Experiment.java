@@ -144,13 +144,6 @@ public class Experiment {
 //		post.printEmpUtil();
 
 //		((ResultCollector) collector).printNonDonSet();
-
-//		((ResultCollector) collector).mean(30);
-//		((ResultCollector) collector).printMeanTime();
-//		writeFiles.writeResults(((ResultCollector) collector).getLastResult(30, maxGen),
-//				((ResultCollector) collector).getTime(), ((ResultCollector) collector).getNonDonSet());
-//		post.process(30, ((ResultCollector) collector).getLastResult(30, maxGen),
-//						((ResultCollector) collector).getNonDonSet());
 //		System.out.println("Done!");
 	}
 }

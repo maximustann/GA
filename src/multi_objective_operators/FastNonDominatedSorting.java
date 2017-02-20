@@ -1,3 +1,12 @@
+/*
+ * Boxiong Tan (Maximus Tann)
+ * Title:        Single-objective GA framework
+ * Description:  Single-objective GA framework for general optimization purpose
+ * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
+ *
+ * Copyright (c) 2016-2019, The Victoria University of Wellington
+ * FastNonDominatedSorting.java
+ */
 package multi_objective_operators;
 
 import java.util.ArrayList;
@@ -6,7 +15,10 @@ import java.util.Comparator;
 
 import algorithms.Chromosome;
 import algorithms.Sort;
-
+/**
+ * @author Boxiong Tan (Maximus Tann) 
+ * @since GA framework 1.0
+ */
 public class FastNonDominatedSorting implements Sort{
 	private int optimization;
 	
@@ -47,8 +59,6 @@ public class FastNonDominatedSorting implements Sort{
 		// insert the chromosome according to its ranking until all chromosomes 
 		// have been inserted.
 		while(true){
-//			System.out.println("sortedList.size = " + sortedList.size() + 
-//								", popFit.size = " + popFit.size());
 			ArrayList<double[]> zeroRankList = new ArrayList<double[]>();
 			// all the fitness has been sorted, break
 			if(sortedList.size() == popVar.length) break;
@@ -107,12 +117,13 @@ public class FastNonDominatedSorting implements Sort{
 			}
 		});
 		
+		// adjust the position value
 		for(int i = 0; i < popVar.length; i++){
-//			popVar[(int) sortedList.get(i)[2]].print();
 			newPop[i] = popVar[(int) sortedList.get(i)[2]];
 			sortedList.get(i)[2] = i;
 		}
 		
+		// copy the sorted population back to original pop
 		for(int i = 0; i < popVar.length; i++){
 			popVar[i] = newPop[i];
 		}
@@ -134,6 +145,8 @@ public class FastNonDominatedSorting implements Sort{
 		// dominatedList is the list of the chromosomes' fitness which are dominated by
 		// the current chromosome
 		ArrayList<double[]> dominatedList = new ArrayList<double[]>();
+		
+		
 		Integer dominatedNo = 0;
 		for(int i = 0; i < popSize; i++){
 			if(i == index) continue;
@@ -156,7 +169,7 @@ public class FastNonDominatedSorting implements Sort{
 					dominatedList.add(targetFitness);
 				}
 			}
-		}
+		} // end for
 
 		// pack the dominationNumber and dominatedSet into a list
 		ArrayList temp = new ArrayList();
