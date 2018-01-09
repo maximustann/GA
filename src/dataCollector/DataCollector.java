@@ -37,8 +37,9 @@ public abstract class DataCollector {
 
 	/**
 	 * if the flag is 0, start timer
-	 * else stop the timer,
-	 * translate time into seconds and keep 2 decimal places
+	 * else stop the timer.
+	 *
+	 * Translate time into seconds and keep 2 decimal places
 	 * @param gen current generation
 	 */
 	public void collectTime(int flag){

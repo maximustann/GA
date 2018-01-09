@@ -29,10 +29,10 @@ public class Experiment {
 		double k = 0.7;
 		weights[0] = weights[1] = 0.5;
 
-		int testCase = 4;
-//		String base = "/Users/maximustann/Documents/workspace/WSRData/testCase" + testCase;
+		int testCase = 1;
 
 		String base = "/home/tanboxi/workspace/WSRData/testCase" + testCase;
+//		String base = "/Users/maximustann/Documents/workspace/WSRData/testCase" + testCase;
 		String ProblemConfig = base + "/ProblemConfig.csv";
 		String PMConfig = base + "/PMConfig.csv";
 		String VMConfig = base + "/VMConfig.csv";
@@ -144,6 +144,13 @@ public class Experiment {
 //		post.printEmpUtil();
 
 //		((ResultCollector) collector).printNonDonSet();
+
+//		((ResultCollector) collector).mean(30);
+//		((ResultCollector) collector).printMeanTime();
+//		writeFiles.writeResults(((ResultCollector) collector).getLastResult(30, maxGen),
+//				((ResultCollector) collector).getTime(), ((ResultCollector) collector).getNonDonSet());
+//		post.process(30, ((ResultCollector) collector).getLastResult(30, maxGen),
+//						((ResultCollector) collector).getNonDonSet());
 //		System.out.println("Done!");
 	}
 }

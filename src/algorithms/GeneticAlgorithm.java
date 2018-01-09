@@ -47,7 +47,7 @@ public abstract class GeneticAlgorithm {
 	/** an array of population variables, the size of array is the population size */
 	 protected Chromosome[] popVar;
 
-	 /** An list of [fitness values,their rankings] */
+	 /** A list of [fitness values,their rankings] */
 	 protected ArrayList<double[]> popFit;
 	 
 	 /** A sort method */
@@ -93,7 +93,6 @@ public abstract class GeneticAlgorithm {
     /**
      * Instead of using a constructor, we use a prepare() which does the
      * initialization of GA including assignment of values,
-     * initialization of arrays.
      * This should be extended and accomplished in the subclass.
      */
 	protected abstract void prepare();
