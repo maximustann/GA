@@ -25,7 +25,7 @@ public abstract class DataCollector {
 
     /**
      * collect result
-     * @param object result can be a 2D array or 1D array
+     * @param result can be a 2D array or 1D array
      */
 	public abstract void collect(Object result);
 
@@ -40,7 +40,6 @@ public abstract class DataCollector {
 	 * else stop the timer.
 	 *
 	 * Translate time into seconds and keep 2 decimal places
-	 * @param gen current generation
 	 */
 	public void collectTime(int flag){
 		if(flag == 0) start = System.nanoTime();
