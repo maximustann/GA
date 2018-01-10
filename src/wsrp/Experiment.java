@@ -134,14 +134,14 @@ public class Experiment {
 									mutationRate, crossoverRate, lbound, ubound, tournamentSize,
 									eliteSize, optimization, popSize, maxGen, taskNum * 2);
 		GeneticAlgorithm myAlg = new WSRPNSGAII(pars, proSet, new NSGAIIFactory(collector, proSet, pars));
-//		myAlg.run(1);
-		myAlg.runNtimes(2333, 30);
-		writeFiles.writeResults(((ResultCollector) collector).getResult(), ((ResultCollector) collector).getTime());
+		myAlg.run(1);
+//		myAlg.runNtimes(2333, 30);
+//		writeFiles.writeResults(((ResultCollector) collector).getResult(), ((ResultCollector) collector).getTime());
 //		writeFiles.writeGenerationsFitnessToFile(((ResultCollector) collector).getResult(), ((ResultCollector) collector).getNonDonSet());
 //		((ResultCollector) collector).postProcessing();
-//		((ResultCollector) collector).printResult();
-//		post.processing(((ResultCollector) collector).getNonDonSet());
-//		post.printEmpUtil();
+		((ResultCollector) collector).printResult();
+		post.processing(((ResultCollector) collector).getNonDonSet());
+		post.printEmpUtil();
 
 //		((ResultCollector) collector).printNonDonSet();
 

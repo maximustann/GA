@@ -38,11 +38,7 @@ public class AllocationParameterSettings extends ProblemParameterSettings{
 	private WSRP_Constraint constraint;
 	private Distance crowd;
 	/**
-	 *
 	 * @param evaluate user defined Evaluation method
-	 * @param costMatrix cost matrix, which is an input matrix read from file
-	 * @param freqMatrix frequency matrix, which is an input matrix read from file
-	 * @param latencyMatrix latency matrix
 	 */
 	public AllocationParameterSettings(
 										Evaluate evaluate,
@@ -71,7 +67,7 @@ public class AllocationParameterSettings extends ProblemParameterSettings{
 		this.vmCpu = vmCpu;
 		this.vmMem = vmMem;
 		this.vmCost = vmCost;
-		this.taskCpu = vmCpu;
+		this.taskCpu = taskCpu;
 		this.taskMem = taskMem;
 		this.taskFreq = taskFreq;
 		this.initMethod = initMethod;

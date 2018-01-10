@@ -11,8 +11,9 @@ public abstract class Coevolution {
     /**
      * Everything is array instead of one.
      */
+    protected int numOfSubPop;
     protected InitPop[] initPops;
-    protected Evaluate[] evaluates;
+    protected CoEvaluate[] evaluates;
     protected Selection[] selections;
     protected Crossover[] crossovers;
     protected Mutation[] mutations;
@@ -26,9 +27,16 @@ public abstract class Coevolution {
      * and the second entry is the population size */
     protected Chromosome[][] popVars;
 
+    /**
+     * Representative is the best individual in a sub-population.
+     * You can think of representatives as pBest in PSO.
+     */
+    protected Chromosome[] representatives;
+
     /** An array of List, each list includes
      * fitness values of that sub-population,
-     * e.g ArrayList<double[]> */
+     * e.g ArrayList<double[]>,
+     * A list of [fitness values, their rankings] */
     protected ArrayList[] popFits;
 
     protected  Sort[] sorts;
@@ -45,17 +53,17 @@ public abstract class Coevolution {
     protected int[] tournamentSizes;
     protected double[] crossoverRates;
 
-    /** normally all sub-population will start together,
-     * but we still use an array to store that. All the
-     * values are the same. */
-    protected int[] maxGen;
+    /** populations' sizes */
+    protected int[] popSizes;
+
+    protected int maxGens;
 
     /** chromosome size */
-    protected int[] maxVar;
+    protected int[] maxVars;
 
     /** the upper and lower boundaries of a variable*/
-    protected double[] lbound;
-    protected double[] ubound;
+    protected double[] lbounds;
+    protected double[] ubounds;
 
     /**
      * Instead of using a constructor, we use a prepare() which does the

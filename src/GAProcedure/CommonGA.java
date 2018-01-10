@@ -79,7 +79,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 				}
 				if(exitFlag == 1) break;
 			}				
-			popVar = newPop;
+			popVar = newPop.clone();
 		}
 		collector.collectTime(1);
 	}

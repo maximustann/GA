@@ -138,6 +138,42 @@ public class IntValueChromosome extends Chromosome{
 		}
 		return true;
 	}
+
+
+	public void synchronizeMatrixToVector(){
+		int chromoSize = size();
+		int col = 0,row = 0;
+		try {
+			col = matrixIndividual[0].length;
+			row = matrixIndividual.length;
+		} catch(Exception e){
+			System.out.println("Matrix does not exist!");
+			return;
+		}
+		for(int i = 0; i < row; i++){
+			for(int j = 0; j < col; j++){
+				individual[i * col + j] = matrixIndividual[i][j] ;
+			}
+		}
+	}
+
+	public void synchronizeVectorToMatrix() {
+        int chromoSize = size();
+        int col = 0,row = 0;
+        try {
+            col = matrixIndividual[0].length;
+            row = matrixIndividual.length;
+        } catch(Exception e){
+            System.out.println("Matrix does not exist!");
+            return;
+        }
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j++){
+                matrixIndividual[i][j] = individual[i * col + j];
+            }
+        }
+	}
+
 	@Override
 	public boolean equals(Chromosome target) {
 		return equals((IntValueChromosome) target);

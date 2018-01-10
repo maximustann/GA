@@ -24,6 +24,7 @@ import dataCollector.DataCollector;
  */
 
 public interface CoGAFactory {
+    int getNumOfSubPop(int numOfSubPop);
     InitPop[] getInitPopMethod(int numOfSubPop);
 	Mutation[] getMutation(int numOfSubPop);
 	Selection[] getSelection(int[] tournamentSize, int[] optimization,int numOfSubPop);

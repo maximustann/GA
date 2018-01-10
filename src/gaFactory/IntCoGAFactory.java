@@ -28,6 +28,11 @@ public class IntCoGAFactory implements CoGAFactory{
 	}
 
 	@Override
+    public int getNumOfSubPop(int numOfSubPop){
+	    return numOfSubPop;
+    }
+
+	@Override
 	public InitPop[] getInitPopMethod(int numOfSubPop) {
 	    InitPop[] pop = new InitPop[numOfSubPop];
 	    for(int i = 0; i < numOfSubPop; i++)
