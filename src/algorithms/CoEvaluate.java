@@ -18,6 +18,7 @@ public interface CoEvaluate {
      * @param representatives is the representatives (pBests)
      * @param popFit is the fitness values
      */
-    public void evaluate(int subPop, Chromosome[] popVar, Chromosome[] representatives, ArrayList<double[]> popFit);
+    public void evaluate(int subPop, Chromosome[] popVar,
+                         Chromosome[] representatives, ArrayList<double[]> popFit);
 
 }

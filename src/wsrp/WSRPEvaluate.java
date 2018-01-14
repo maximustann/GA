@@ -24,9 +24,7 @@ public class WSRPEvaluate implements Evaluate{
 	private ArrayList<FitnessFunc> funcList;
 	
 	/**
-	 * 
 	 * @param funcList Evaluation function list
-	 * @param weights weight is used to balance two objectives, cost and response time
 	 */
 	public WSRPEvaluate(
 						ArrayList<FitnessFunc> funcList){

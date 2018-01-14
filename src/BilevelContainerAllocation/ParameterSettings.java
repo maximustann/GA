@@ -22,7 +22,7 @@ public class ParameterSettings extends CoGAProblemParameterSettings {
     private ContainerConstraint[] constraints;
 
     public ParameterSettings(
-                    CoEvaluate[] evaluates,
+                    CoEvaluate evaluate,
                     InitPop[] initMethods,
                     Mutation[] mutations,
                     ContainerConstraint[] constraints,
@@ -36,7 +36,7 @@ public class ParameterSettings extends CoGAProblemParameterSettings {
                     double[] containerCpu,
                     double[] containerMem
                     ){
-        super(evaluates);
+        super(evaluate);
         this.vmTypes = vmTypes;
         this.containerNum = containerNum;
         this.pmCpu = pmCpu;

@@ -59,15 +59,15 @@ public abstract class CoGA extends Coevolution {
                 int childrenCount = elitisms[subPop].getSize();
                 try {
                     /**
-                     * Evaluate[subPop] indicates which evaluate method that is using.
+                     * Evaluate
                      * The evaluation needs four parameters
                      * @param subPop indicates the number of the sub-population
                      * @param popVars indicates the population
                      * @param representatives indicates the best individuals
                      * @param popFits[subPop] indicates the fitness
                      */
-                    evaluates[subPop].evaluate(subPop, popVars[subPop],
-                                                representatives, popFits[subPop]);
+                    evaluate.evaluate(subPop, popVars[subPop],
+                                      representatives, popFits[subPop]);
                 } catch (Exception e){
                     e.printStackTrace();
                 }

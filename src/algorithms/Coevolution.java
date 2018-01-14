@@ -12,8 +12,8 @@ public abstract class Coevolution {
      * Everything is array instead of one.
      */
     protected int numOfSubPop;
+    protected CoEvaluate evaluate;
     protected InitPop[] initPops;
-    protected CoEvaluate[] evaluates;
     protected Selection[] selections;
     protected Crossover[] crossovers;
     protected Mutation[] mutations;
@@ -41,11 +41,11 @@ public abstract class Coevolution {
 
     protected  Sort[] sorts;
 
-    /** each optimization corresponds
-     * the optimization direction of a sub-population.
-     * e.g, optimization == 1, the algorithm maximizes the fitness values.
-     * */
-    protected int[] optimizations;
+    /**
+     * optimization = 0: minimization
+     * 1: maximization
+     */
+    protected int optimization;
 
     protected double[] mutationRates;
     protected int[] elitSizes;
