@@ -1,9 +1,7 @@
 package BilevelContainerAllocation;
 
-import algorithms.CoFitnessFunc;
-import algorithms.FitnessFunc;
-import wsrp.ReadFileWSRP;
-import wsrp.WriteFileWSRP;
+import algorithms.*;
+import commonOperators.InitIntChromosomes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,8 +11,8 @@ public class Experiment {
         ArrayList<CoFitnessFunc> funcList = new ArrayList<CoFitnessFunc>();
 
         // bound for vm types
-        double lbound = 0;
-        double ubound = 5;
+        double vmLbound = 0;
+        double vmUbound = 5;
 
         // For all three sub-pops, we use the same crossover rate
         double[] crossoverRate = {0.7, 0.7, 0.7};
@@ -57,6 +55,17 @@ public class Experiment {
         double[] taskMem = readFiles.getTaskMem();
 
         WriteFileBilevel writeFiles = new WriteFileBilevel(resultBase);
+
+        // Initialization !!!
+
+        // Init Sub-pops
+        InitPop initContainerVM = new InitAllocationChromosome();
+        InitPop initVMPM = new InitAllocationChromosome();
+        InitPop initVmTypes = new InitIntChromosomes();
+        InitPop[] initPops = {initContainerVM, initVMPM, initVmTypes};
+
+        // Init Mutations
+//        Mutation mutateContainerVm = new
 
     }
 

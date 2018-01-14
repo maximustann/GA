@@ -2,13 +2,13 @@ package BilevelContainerAllocation;
 
 import algorithms.*;
 import commonRepresentation.IntValueChromosome;
+import java.lang.*;
 
 public class InitAllocationChromosome implements InitPop {
-    private int containerNum;
 
-    public InitAllocationChromosome(int containerNum){
-        this.containerNum = containerNum;
-    }
+//    public InitAllocationChromosome(int containerNum){
+//        this.containerNum = containerNum;
+//    }
 
     public IntValueChromosome[] init(
             int popSize,
@@ -24,16 +24,18 @@ public class InitAllocationChromosome implements InitPop {
          * for every row, there must be only one deployment
          *
          */
+        int containerNum = (int) Math.sqrt((double) maxVar);
         for(int i = 0; i < popSize; i++){
-            popVar[i] = generateChromosome();
+            popVar[i] = generateChromosome(containerNum);
         }
         return popVar;
 
     }
 
-    private IntValueChromosome generateChromosome(){
+    private IntValueChromosome generateChromosome(int containerNum){
         // the length of an individual equals the square of the number of containers
-        IntValueChromosome chromo = new IntValueChromosome(containerNum * containerNum);
+        IntValueChromosome chromo = new IntValueChromosome(containerNum);
+
 
         // change the individual to matrix form
         chromo.toMatrix(containerNum);
