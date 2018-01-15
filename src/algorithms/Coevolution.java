@@ -11,16 +11,44 @@ public abstract class Coevolution {
     /**
      * Everything is array instead of one.
      */
+    /**
+     * Number of sub-populations
+     */
     protected int numOfSubPop;
+
+    /** An Evaluation object for Evaluating fitness */
     protected CoEvaluate evaluate;
+
+    /**
+     * An InitPop object for initializing a population
+     */
     protected InitPop[] initPops;
+
+    /** selection operators */
     protected Selection[] selections;
+
+    /** Crossover operators */
     protected Crossover[] crossovers;
+
+    /** mutation operators */
     protected Mutation[] mutations;
+
+    /** Elitism operators */
     protected Elitism[] elitisms;
+
+    /** Constraint methods */
     protected Constraint[] constraints;
+
+    /** distance methods */
     protected Distance[] distances;
-    protected DataCollector[] collectors;
+
+    /** DataCollector object for collecting results */
+    protected DataCollector collector;
+
+
+
+
+
 
     /** a double array of population variables,
      * the first entry is the index of sub-population
@@ -33,11 +61,16 @@ public abstract class Coevolution {
      */
     protected Chromosome[] representatives;
 
+    /**
+     * An array of double, each entry stands for the fitness value of a sub-population
+     */
+    protected double[] repFits;
+
     /** An array of List, each list includes
      * fitness values of that sub-population,
      * e.g ArrayList<double[]>,
      * A list of [fitness values, their rankings] */
-    protected ArrayList[] popFits;
+    protected ArrayList<double[]>[] popFits;
 
     protected  Sort[] sorts;
 
@@ -56,7 +89,7 @@ public abstract class Coevolution {
     /** populations' sizes */
     protected int[] popSizes;
 
-    protected int maxGens;
+    protected int maxGen;
 
     /** chromosome size */
     protected int[] maxVars;

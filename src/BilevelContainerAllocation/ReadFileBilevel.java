@@ -20,13 +20,15 @@ public class ReadFileBilevel {
     private double[] VMMem;
     private double[][] taskCpu;
     private double[][] taskMem;
+    private double[][] taskOS;
 
     public ReadFileBilevel(
             String ProblemConfigPath,
             String PMConfigPath,
             String VMConfigPath,
             String taskCpuPath,
-            String taskMemPath
+            String taskMemPath,
+            String taskOSPath
     ){
 
         readByRow = new ReadByRow();
@@ -58,45 +60,41 @@ public class ReadFileBilevel {
         taskMem = new double[1][(int) taskNum];
         readByCol.read(taskMemPath, taskMem);
 
+        taskOS = new double[1][(int) taskNum];
+        readByCol.read(taskOSPath, taskOS);
+
         // End ReadFileWSRP
     }
 
     public double getTaskNum() {
         return taskNum;
     }
-
     public double getVMTypes() {
         return VMTypes;
     }
-
     public double getPMCpu() {
         return PMCpu;
     }
-
     public double getPMMem() {
         return PMMem;
     }
     public double getPMEnergy(){
         return PMEnergy;
     }
-
-
     public double[] getVMCpu() {
         return VMCpu;
     }
-
     public double[] getVMMem() {
         return VMMem;
     }
-
-
-
     public double[] getTaskCpu() {
         return taskCpu[0];
     }
-
     public double[] getTaskMem() {
         return taskMem[0];
+    }
+    public double[] getTaskOS() {
+        return taskOS[0];
     }
 
 

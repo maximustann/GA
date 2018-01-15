@@ -15,16 +15,14 @@ public class IntCoGAFactory implements CoGAFactory{
     /**
      * We might need multiple collectors
      * */
-    private DataCollector[] collectors;
+    private DataCollector collector;
 
     /**
 	 * Constructor
 	 * @param collector is the data collector
 	 */
-	public IntCoGAFactory(DataCollector[] collector){
-//		this.collector = collector;
-        for(int i = 0; i < collector.length; i++)
-            collectors[i] = collector[i];
+	public IntCoGAFactory(DataCollector collector){
+		this.collector = collector;
 	}
 
 	@Override
@@ -41,8 +39,8 @@ public class IntCoGAFactory implements CoGAFactory{
 	}
 
     @Override
-    public DataCollector[] getDataCollector() {
-        return collectors;
+    public DataCollector getDataCollector(){
+        return collector;
     }
 
     @Override
@@ -55,11 +53,11 @@ public class IntCoGAFactory implements CoGAFactory{
 
 
     @Override
-    public Selection[] getSelection(int[] tournamentSize, int[] optimization,
+    public Selection[] getSelection(int[] tournamentSize, int optimization,
                                     int numOfSubPop) {
 	    Selection[] selection = new Selection[numOfSubPop];
 	    for(int i = 0; i < numOfSubPop; i++)
-	        selection[i] = new TournamentSelection(tournamentSize[i], optimization[i]);
+	        selection[i] = new TournamentSelection(tournamentSize[i], optimization);
         return selection;
     }
 
@@ -81,10 +79,10 @@ public class IntCoGAFactory implements CoGAFactory{
     }
 
     @Override
-    public Elitism[] getElitism(int[] elitSize, int[] optimization, int numOfSubPop){
+    public Elitism[] getElitism(int[] elitSize, int optimization, int numOfSubPop){
 	    Elitism[] elitism = new Elitism[numOfSubPop];
 	    for(int i = 0; i < numOfSubPop; i++)
-	        elitism[i] = new CommonElitism(elitSize[i], optimization[i]);
+	        elitism[i] = new CommonElitism(elitSize[i], optimization);
         return elitism;
     }
 

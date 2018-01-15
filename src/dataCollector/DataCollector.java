@@ -20,8 +20,15 @@ import java.util.ArrayList;
  * @since PSO framework 1.0
  */
 public abstract class DataCollector {
-	protected ArrayList<Double> timeData = new ArrayList<Double>();
+	protected ArrayList<Double> timeData;
 	protected long start, end;
+
+
+	// initialize timer field
+	public DataCollector(){
+		timeData= new ArrayList<Double>();
+	}
+
 
     /**
      * collect result

@@ -4,11 +4,7 @@ import algorithms.*;
 import commonRepresentation.IntValueChromosome;
 import java.lang.*;
 
-public class InitAllocationChromosome implements InitPop {
-
-//    public InitAllocationChromosome(int containerNum){
-//        this.containerNum = containerNum;
-//    }
+public class InitAllocationChromosome implements InitPop{
 
     public IntValueChromosome[] init(
             int popSize,

@@ -18,10 +18,9 @@ import algorithms.Constraint;
 /**
 *
 * @author Boxiong Tan (Maximus Tann)
-* @since PSO framework 1.0
+* @since GA framework 1.0
 */
 public class WSRP_Constraint implements Constraint {
-	/** These are data, therefore, they are defined as static values. */
 	private int taskNum;
 	private double pmCpu;
 	private double pmMem;

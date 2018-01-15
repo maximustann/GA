@@ -35,7 +35,9 @@ public class WSRPNSGAII extends NSGAII_NoCrossover{
 	 * @param proSet Problem settings
 	 * @param factory factory is used to assemble parts
 	 */
-	public WSRPNSGAII(ParameterSettings pars, ProblemParameterSettings proSet, GAFactory factory){
+	public WSRPNSGAII(ParameterSettings pars,
+					  ProblemParameterSettings proSet,
+					  GAFactory factory){
 		this.factory = factory;
 		this.pars = pars;
 		this.proSet = proSet;
