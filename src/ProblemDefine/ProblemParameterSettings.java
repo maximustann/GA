@@ -13,13 +13,18 @@ import algorithms.*;
 // The existence of this abstract class can be discussed..
 public abstract class ProblemParameterSettings {
 	private Evaluate evaluate;
+	private Constraint[] constraints;
 
-	public ProblemParameterSettings(Evaluate evaluate){
+	public ProblemParameterSettings(Evaluate evaluate, Constraint[] constraints){
 		this.evaluate = evaluate;
+		this.constraints = constraints;
 	}
 
 	public Evaluate getEvaluate() {
 		return evaluate;
 	}
 
+    public Constraint[] getConstraint() {
+        return constraints;
+    }
 }

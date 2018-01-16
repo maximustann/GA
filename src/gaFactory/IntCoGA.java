@@ -3,7 +3,8 @@ package gaFactory;
 import ProblemDefine.*;
 import java.util.ArrayList;
 import GAProcedure.CoGA;
-
+import algorithms.*;
+import commonRepresentation.IntValueChromosome;
 
 /**
  * An Int Cooperative coevolution GA
@@ -66,16 +67,24 @@ public class IntCoGA extends CoGA{
 
         // This is a little bit tricky. We initial the PopFits outside the main flow
         popFits = new ArrayList[numOfSubPop];
+        for(int i = 0; i < numOfSubPop; i++)
+            popFits[i] = new ArrayList<double[]>();
         repFits = new double[numOfSubPop];
+        // The same with popVars and representatives
+        popVars = new ArrayList<Chromosome[]>();
+        representatives = new Chromosome[numOfSubPop];
+        for(int i = 0; i < numOfSubPop; i++)
+            representatives[i] = new IntValueChromosome(maxVars[i]);
 
-        initPops = factory.getInitPopMethod(numOfSubPop);
-        mutations = factory.getMutation(numOfSubPop);
-        crossovers = factory.getCrossover(numOfSubPop);
-        elitisms = factory.getElitism(elitSizes, optimization, numOfSubPop);
-        selections = factory.getSelection(tournamentSizes, optimization, numOfSubPop);
+        initPops = factory.getInitPopMethod();
+        mutations = factory.getMutation();
+        crossovers = factory.getCrossover();
+        elitisms = factory.getElitism(elitSizes, optimization);
+        selections = factory.getSelection(tournamentSizes, optimization);
         evaluate = proSet.getEvaluate();
+        constraints = proSet.getConstraints();
         collector = factory.getDataCollector();
-        sorts = factory.getSort(numOfSubPop);
+        sorts = factory.getSort();
     }
 
 

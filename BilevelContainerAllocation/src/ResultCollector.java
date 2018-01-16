@@ -1,5 +1,3 @@
-package BilevelContainerAllocation;
-
 import dataCollector.DataCollector;
 import java.util.ArrayList;
 import algorithms.*;

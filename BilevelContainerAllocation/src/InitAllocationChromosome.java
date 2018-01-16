@@ -1,5 +1,3 @@
-package BilevelContainerAllocation;
-
 import algorithms.*;
 import commonRepresentation.IntValueChromosome;
 import java.lang.*;
@@ -30,7 +28,7 @@ public class InitAllocationChromosome implements InitPop{
 
     private IntValueChromosome generateChromosome(int containerNum){
         // the length of an individual equals the square of the number of containers
-        IntValueChromosome chromo = new IntValueChromosome(containerNum);
+        IntValueChromosome chromo = new IntValueChromosome(containerNum * containerNum);
 
 
         // change the individual to matrix form

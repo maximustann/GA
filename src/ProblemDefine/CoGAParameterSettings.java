@@ -13,7 +13,9 @@ public class CoGAParameterSettings {
                  maxVars;
      /**
      * Prepare a package of parameter settings
-     *
+      *
+      * ParameterSettings is about algorithm not the problem related.
+      *
      * @param mutationRates mutation rates
      * @param crossoverRates crossover rates
      * @param lbounds the lower boundary of a variable of particles

@@ -10,12 +10,13 @@
 package spherical;
 
 import ProblemDefine.ProblemParameterSettings;
+import algorithms.Constraint;
 import algorithms.Evaluate;
 
 public class TestFunctionParameterSettings extends ProblemParameterSettings{
 
-	public TestFunctionParameterSettings(Evaluate evaluate) {
-		super(evaluate);
+	public TestFunctionParameterSettings(Evaluate evaluate, Constraint[] constraints) {
+		super(evaluate, constraints);
 	}
 
 }

@@ -39,12 +39,11 @@ public abstract class CoGA extends Coevolution {
          *
          */
         for (int i = 0; i < numOfSubPop; i++) {
-            popVars[numOfSubPop] = initPops[i].init(popSizes[i],
-                    maxVars[i], lbounds[i], ubounds[i]);
+            popVars.add(initPops[i].init(popSizes[i], maxVars[i], lbounds[i], ubounds[i]));
 
             // randomly choose one individual as the representative in the first generation
-            int u = StdRandom.uniform(popVars[i].length);
-            representatives[i] = popVars[i][u].clone();
+            int u = StdRandom.uniform(popSizes[i]);
+            representatives[i] = popVars.get(i)[u].clone();
         }
 
         /**
@@ -67,22 +66,22 @@ public abstract class CoGA extends Coevolution {
                      * @param representatives indicates the best individuals
                      * @param popFits[subPop] indicates the fitness
                      */
-                    evaluate.evaluate(subPop, popVars[subPop],
+                    evaluate.evaluate(subPop, popVars.get(subPop),
                                       representatives, popFits[subPop]);
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                sorts[subPop].sort(popVars[subPop], popFits[subPop]);
+                sorts[subPop].sort(popVars.get(subPop), popFits[subPop]);
                 /**
                  * update the representative, assign the best individual to representative
                  * It also needs to update the fitness of representatives
                  */
-                representatives[subPop] = popVars[subPop][0];
+                representatives[subPop] = popVars.get(subPop)[0];
                 // popFits is an array of ArrayList<double[]>
                 // Because we have sorted the popFits, therefore, the best fitness value should be
                 // at the top. double[fitness, ranking]. Therefore, we need the index 0.
                 repFits[subPop] = popFits[subPop].get(0)[0];
-                elitisms[subPop].carryover(popVars[subPop], newPop);
+                elitisms[subPop].carryover(popVars.get(subPop), newPop);
                 // If it is the last sub-pop, then the fitness value should be collected
                 // We collect the chromosome and its fitness value
                 if(subPop == numOfSubPop - 1) {
@@ -92,8 +91,9 @@ public abstract class CoGA extends Coevolution {
 
                 while(true) {
                     int exitFlag = 0;
-                    Chromosome father = popVars[subPop][selections[subPop].selected(popVars[subPop], popFits[subPop])];
-                    Chromosome mother = popVars[subPop][selections[subPop].selected(popVars[subPop], popFits[subPop])];
+                    System.out.print("Sub-pop: " + subPop + " ");
+                    Chromosome father = popVars.get(subPop)[selections[subPop].selected(popVars.get(subPop), popFits[subPop])];
+                    Chromosome mother = popVars.get(subPop)[selections[subPop].selected(popVars.get(subPop), popFits[subPop])];
                     // generate two children
                     Chromosome[] children =  ((TwoParentsCrossover) crossovers[subPop])
 										.update(father, mother, crossoverRates[subPop]);
@@ -111,7 +111,8 @@ public abstract class CoGA extends Coevolution {
                     } // mutation for each individual ends
                     if(exitFlag == 1) break;
                 } // generate new population ends
-                popVars[subPop] = newPop.clone();
+                //replace the old population with the new one
+                popVars.set(subPop, newPop.clone());
             } // sub-population loop ends
             collector.collectTime(1);
         } // generation loop ends

@@ -11,6 +11,7 @@
 package Rosenbrock;
 
 import ProblemDefine.ProblemParameterSettings;
+import algorithms.Constraint;
 import algorithms.Evaluate;
 /**
  * 
@@ -19,8 +20,8 @@ import algorithms.Evaluate;
  */
 public class RosenbrockParameterSettings extends ProblemParameterSettings{
 
-	public RosenbrockParameterSettings(Evaluate evaluate) {
-		super(evaluate);
+	public RosenbrockParameterSettings(Evaluate evaluate, Constraint[] constraint) {
+		super(evaluate, constraint);
 	}
 
 }

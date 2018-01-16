@@ -70,11 +70,11 @@ public class BinaryGAFactory implements GAFactory {
 	public Elitism getElitism(int elitSize, int optimization) {
 		return new CommonElitism(elitSize, optimization);
 	}
-	@Override
-	public Constraint getConstraint() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Constraint getConstraint() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	@Override
 	public Distance getDistance() {
 		// TODO Auto-generated method stub

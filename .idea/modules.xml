@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BilevelContainerAllocation/BilevelContainerAllocation.iml" filepath="$PROJECT_DIR$/BilevelContainerAllocation/BilevelContainerAllocation.iml" />
       <module fileurl="file://$PROJECT_DIR$/GA.iml" filepath="$PROJECT_DIR$/GA.iml" />
     </modules>
   </component>

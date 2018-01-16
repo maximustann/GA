@@ -70,7 +70,7 @@ public class Experiment {
 		Evaluate evaluate = new RosenbrockEvaluate(funcList);
 
 		/** register evaluation in problem parameter settings*/
-		ProblemParameterSettings proSet = new RosenbrockParameterSettings(evaluate);
+		ProblemParameterSettings proSet = new RosenbrockParameterSettings(evaluate, null);
 		
 		/** Initialize algorithm parameter settings */
 		ParameterSettings pars = new ParameterSettings(

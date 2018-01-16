@@ -70,7 +70,7 @@ public class Experiment {
 		Evaluate evaluate = new SphericalEvaluate(funcList);
 
 		/** register evaluation in problem parameter settings*/
-		ProblemParameterSettings proSet = new SphericalParameterSettings(evaluate);
+		ProblemParameterSettings proSet = new SphericalParameterSettings(evaluate, null);
 		
 		/** Initialize algorithm parameter settings */
 		ParameterSettings pars = new ParameterSettings(

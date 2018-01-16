@@ -1,5 +1,3 @@
-package BilevelContainerAllocation;
-
 import FileHandlers.ReadByCol;
 import FileHandlers.ReadByRow;
 import FileHandlers.ReadCsvFile;

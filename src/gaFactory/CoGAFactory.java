@@ -24,14 +24,12 @@ import dataCollector.DataCollector;
  */
 
 public interface CoGAFactory {
-    int getNumOfSubPop(int numOfSubPop);
-    InitPop[] getInitPopMethod(int numOfSubPop);
-	Mutation[] getMutation(int numOfSubPop);
-	Selection[] getSelection(int[] tournamentSize, int optimization,int numOfSubPop);
-	Crossover[] getCrossover(int numOfSubPop);
-	Sort[] getSort(int numOfSubPop);
+    int getNumOfSubPop();
+    InitPop[] getInitPopMethod();
+	Mutation[] getMutation();
+	Selection[] getSelection(int[] tournamentSize, int optimization);
+	Crossover[] getCrossover();
+	Sort[] getSort();
 	DataCollector getDataCollector();
-	Elitism[] getElitism(int[] elitSize, int optimization,int numOfSubPop);
-	Constraint[] getConstraint(int numOfSubPop);
-	Distance[] getDistance(int numOfSubPop);
+	Elitism[] getElitism(int[] elitSize, int optimization);
 }

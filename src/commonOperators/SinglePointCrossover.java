@@ -51,7 +51,8 @@ public class SinglePointCrossover implements TwoParentsCrossover {
 			children[1] = mother.clone();
 			return children;
 		}
-		
+		System.out.print("father: ");
+		father.print();
 		/* random choose cutPoint */
 		int cutPoint = StdRandom.uniform(father.size());
 		

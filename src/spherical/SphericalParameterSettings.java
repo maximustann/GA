@@ -11,6 +11,7 @@
 package spherical;
 
 import ProblemDefine.ProblemParameterSettings;
+import algorithms.Constraint;
 import algorithms.Evaluate;
 /**
  * 
@@ -18,8 +19,8 @@ import algorithms.Evaluate;
  * @since GA framework 1.0
  */
 public class SphericalParameterSettings extends ProblemParameterSettings{
-	public SphericalParameterSettings(Evaluate evaluate) {
-		super(evaluate);
+	public SphericalParameterSettings(Evaluate evaluate, Constraint[] constraints) {
+		super(evaluate, constraints);
 	}
 
 }

@@ -11,27 +11,29 @@ import algorithms.Sort;
 import commonOperators.*;
 import dataCollector.DataCollector;
 
-public class IntCoGAFactory implements CoGAFactory{
+public abstract class IntCoGAFactory implements CoGAFactory{
     /**
      * We might need multiple collectors
      * */
     private DataCollector collector;
+    private int numOfSubPop;
 
     /**
 	 * Constructor
 	 * @param collector is the data collector
 	 */
-	public IntCoGAFactory(DataCollector collector){
+	public IntCoGAFactory(DataCollector collector, int numOfSubPop){
 		this.collector = collector;
+		this.numOfSubPop = numOfSubPop;
 	}
 
 	@Override
-    public int getNumOfSubPop(int numOfSubPop){
+    public int getNumOfSubPop(){
 	    return numOfSubPop;
     }
 
 	@Override
-	public InitPop[] getInitPopMethod(int numOfSubPop) {
+	public InitPop[] getInitPopMethod() {
 	    InitPop[] pop = new InitPop[numOfSubPop];
 	    for(int i = 0; i < numOfSubPop; i++)
             pop[i] = new InitIntChromosomes();
@@ -44,7 +46,7 @@ public class IntCoGAFactory implements CoGAFactory{
     }
 
     @Override
-    public Mutation[] getMutation(int numOfSubPop) {
+    public Mutation[] getMutation() {
 	    Mutation[] mutate = new Mutation[numOfSubPop];
 	    for(int i = 0; i < numOfSubPop; i++)
 	        mutate[i] = new IntReverseSequenceMutation();
@@ -53,8 +55,7 @@ public class IntCoGAFactory implements CoGAFactory{
 
 
     @Override
-    public Selection[] getSelection(int[] tournamentSize, int optimization,
-                                    int numOfSubPop) {
+    public Selection[] getSelection(int[] tournamentSize, int optimization) {
 	    Selection[] selection = new Selection[numOfSubPop];
 	    for(int i = 0; i < numOfSubPop; i++)
 	        selection[i] = new TournamentSelection(tournamentSize[i], optimization);
@@ -62,7 +63,7 @@ public class IntCoGAFactory implements CoGAFactory{
     }
 
     @Override
-    public Crossover[] getCrossover(int numOfSubPop) {
+    public Crossover[] getCrossover() {
 	    Crossover[] crossover = new Crossover[numOfSubPop];
 	    for(int i = 0; i < numOfSubPop; i++)
 	        crossover[i] = new SinglePointCrossover();
@@ -71,7 +72,7 @@ public class IntCoGAFactory implements CoGAFactory{
     }
 
     @Override
-    public Sort[] getSort(int numOfSubPop){
+    public Sort[] getSort(){
 	    Sort[] sort = new Sort[numOfSubPop];
 	    for(int i = 0; i < numOfSubPop; i++)
 	        sort[i] = new sortPop();
@@ -79,22 +80,11 @@ public class IntCoGAFactory implements CoGAFactory{
     }
 
     @Override
-    public Elitism[] getElitism(int[] elitSize, int optimization, int numOfSubPop){
+    public Elitism[] getElitism(int[] elitSize, int optimization){
 	    Elitism[] elitism = new Elitism[numOfSubPop];
 	    for(int i = 0; i < numOfSubPop; i++)
 	        elitism[i] = new CommonElitism(elitSize[i], optimization);
         return elitism;
     }
 
-    @Override
-    public Constraint[] getConstraint(int numOfSubPop) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Distance[] getDistance(int numOfSubPop) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

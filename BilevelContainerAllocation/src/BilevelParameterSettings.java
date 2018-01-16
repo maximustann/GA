@@ -1,9 +1,5 @@
-package BilevelContainerAllocation;
-
 import ProblemDefine.CoGAProblemParameterSettings;
-import ProblemDefine.ProblemParameterSettings;
 import algorithms.*;
-import wsrp.WSRP_Constraint;
 
 public class BilevelParameterSettings extends CoGAProblemParameterSettings{
     private int vmTypes;
@@ -18,20 +14,10 @@ public class BilevelParameterSettings extends CoGAProblemParameterSettings{
     private double[] taskOS;
 
     private CoEvaluate evaluate;
-    private InitPop[] initMethods;
-    private Mutation[] mutations;
-    private Crossover[] crossovers;
-    private Selection[] selections;
-    private Elitism[] elitisms;
     private Constraint[] constraints;
 
     public BilevelParameterSettings(
             CoEvaluate evaluate,
-            InitPop[] initMethods,
-            Mutation[] mutations,
-            Crossover[] crossovers,
-            Selection[] selections,
-            Elitism[] elitisms,
             Constraint[] constraints,
             int vmTypes,
             int taskNum,
@@ -44,7 +30,7 @@ public class BilevelParameterSettings extends CoGAProblemParameterSettings{
             double[] taskMem,
             double[] taskOS
     ) {
-        super(evaluate);
+        super(evaluate, constraints);
         this.vmTypes = vmTypes;
         this.taskNum = taskNum;
         this.pmCpu = pmCpu;
@@ -55,26 +41,8 @@ public class BilevelParameterSettings extends CoGAProblemParameterSettings{
         this.taskCpu = taskCpu;
         this.taskMem = taskMem;
         this.taskOS = taskOS;
-        this.evaluate = evaluate;
-        this.initMethods = initMethods;
-        this.mutations = mutations;
-        this.crossovers = crossovers;
-        this.selections = selections;
-        this.elitisms = elitisms;
-        this.constraints = constraints;
     }
 
-    public Constraint[] getConstraints() {
-        return constraints;
-    }
-
-    public Mutation[] getMutatioin(){
-        return mutations;
-    }
-
-    public InitPop[] getInitPop(){
-        return initMethods;
-    }
     public int getVmTypes() {
         return vmTypes;
     }
@@ -103,32 +71,6 @@ public class BilevelParameterSettings extends CoGAProblemParameterSettings{
     public double[] getTaskOS() {
         return taskOS;
     }
-
-    @Override
-    public CoEvaluate getEvaluate() {
-        return evaluate;
-    }
-
-    public InitPop[] getInitMethods() {
-        return initMethods;
-    }
-
-    public Mutation[] getMutations() {
-        return mutations;
-    }
-
-    public Crossover[] getCrossovers() {
-        return crossovers;
-    }
-
-    public Selection[] getSelections() {
-        return selections;
-    }
-
-    public Elitism[] getElitisms() {
-        return elitisms;
-    }
-
     public double[] getTaskMem() {
         return taskMem;
     }

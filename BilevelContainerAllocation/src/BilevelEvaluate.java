@@ -1,8 +1,7 @@
-package BilevelContainerAllocation;
-
 import algorithms.Chromosome;
 import algorithms.CoEvaluate;
 import algorithms.CoFitnessFunc;
+import algorithms.FitnessFunc;
 
 import java.util.ArrayList;
 
@@ -25,20 +24,26 @@ public class BilevelEvaluate implements CoEvaluate{
 
     public void evaluate(int subPop, Chromosome[] popVar,
                          Chromosome[] representatives, ArrayList<double[]> fitness) {
+        // must clean the previous popFit first
         fitness.clear();
-        ArrayList<ArrayList<double[]>> fitList = new ArrayList<ArrayList<double[]>>();
 
-        // Although, in this problem, we only have one objective.
-        for(int i = 0; i < funcList.size(); i++){
-            ArrayList<double[]> tempFit = funcList.get(i).execute(subPop, popVar, representatives);
-            fitList.add(tempFit);
+        //get fitness function list , just in case you have multiple objectives
+        // we know we have only one.
+        CoFitnessFunc fitnessFunc = funcList.get(0);
+        ArrayList<double[]> tempFit = null;
+
+        try {
+            // execute the evaluation
+            tempFit = fitnessFunc.execute(subPop, popVar, representatives);
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
-        for(int i = 0; i < popVar.length; i++){
+        for(int i = 0; i < tempFit.size(); i++){
             // fit[0]: fitness value, fit[1]: index,
 
             double[] fit = new double[2];
-            fit[0] = fitList.get(0).get(i)[0];
+            fit[0] = tempFit.get(i)[0];
             fit[1] = i;
 
             fitness.add(fit);

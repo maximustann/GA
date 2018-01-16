@@ -36,7 +36,7 @@ public class CoFitnessFunc {
 	 * @param unNorFit the class type of your implementation of the unNormalizedFit abstract class.
 	 */
 	public CoFitnessFunc(Class unNorFit){
-		if(!UnNormalizedFit.class.isAssignableFrom(unNorFit)){
+		if(!CoUnNormalizedFit.class.isAssignableFrom(unNorFit)){
 			throw new IllegalArgumentException("Class: " + unNorFit.getName() + " must "
 					+ "implement CoUnNormalizedFit interface");
 		}
@@ -75,7 +75,8 @@ public class CoFitnessFunc {
 		// create instance of your implementation and add them into the task list
 		for(int i = 0; i < popSize; i++){
 			try {
-				tasks.add(childType.getConstructor(Chromosome.class)
+				// when you get the constructor, you will need to pass the class types of that constructor
+				tasks.add(childType.getConstructor(int.class, Chromosome.class, Chromosome[].class)
 						 .newInstance(subPop, popVar[i], representatives)
 						 );
 			} catch (InstantiationException e) {

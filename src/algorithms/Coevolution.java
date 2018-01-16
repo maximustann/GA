@@ -53,7 +53,8 @@ public abstract class Coevolution {
     /** a double array of population variables,
      * the first entry is the index of sub-population
      * and the second entry is the population size */
-    protected Chromosome[][] popVars;
+//    protected Chromosome[][] popVars;
+    protected ArrayList<Chromosome[]> popVars;
 
     /**
      * Representative is the best individual in a sub-population.

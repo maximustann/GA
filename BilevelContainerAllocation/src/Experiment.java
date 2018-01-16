@@ -1,11 +1,6 @@
-package BilevelContainerAllocation;
-
 import ProblemDefine.CoGAParameterSettings;
 import ProblemDefine.CoGAProblemParameterSettings;
-import ProblemDefine.ProblemParameterSettings;
 import algorithms.*;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-import commonOperators.*;
 import dataCollector.DataCollector;
 import gaFactory.IntCoGAFactory;
 import gaFactory.IntCoGA;
@@ -17,9 +12,12 @@ import java.util.ArrayList;
 public class Experiment {
     public static void main(String[] args) throws IOException {
 
+        // the number of sub-populations
+        int numOfSubPop = 3;
+
         // bound for vm types
         double[] vmLbound = {0, 0, 0};
-        double[] vmUbound = {1, 1, 4};
+        double[] vmUbound = {1, 1, 5};
 
         // For all three sub-pops, we use the same crossover rate
         double[] crossoverRate = {0.7, 0.7, 0.7};
@@ -44,6 +42,8 @@ public class Experiment {
         String taskOSAddr = base + "/taskOS.csv";
 
         String resultBase = "/home/tanboxi/workspace/BilevelResult/GA/testCase" + testCase;
+        String fitnessAddr = resultBase + "fitness.csv";
+        String timeAddr = resultBase + "/time.csv";
         ReadFileBilevel readFiles = new ReadFileBilevel(
                 ProblemConfig,
                 PMConfig,
@@ -65,44 +65,11 @@ public class Experiment {
         double[] taskOS = readFiles.getTaskOS();
 
         int[] maxVars = {taskNum * taskNum, taskNum * taskNum, taskNum * taskNum};
-        WriteFileBilevel writeFiles = new WriteFileBilevel(resultBase);
-//
-//        // Initialization !!!
-//
-//        // Init Sub-pops
-        InitPop initContainerVM = new InitAllocationChromosome();
-        InitPop initVMPM = new InitAllocationChromosome();
-        InitPop initVmTypes = new InitIntChromosomes();
-        InitPop[] initPops = {initContainerVM, initVMPM, initVmTypes};
-
-        // Init Mutations
-        Mutation mutateContainerVm = new BinaryFlipCoinMutation();
-        Mutation mutateVMPM = new BinaryFlipCoinMutation();
-        Mutation mutateTypes = new IntReverseSequenceMutation();
-        Mutation[] mutations = {mutateContainerVm, mutateVMPM, mutateTypes};
-
-        // Init Crossovers
-        Crossover crossoverContainerVM = new SinglePointCrossover();
-        Crossover crossoverVMPM = new SinglePointCrossover();
-        Crossover crossoverTypes = new SinglePointCrossover();
-        Crossover[] crossovers = {crossoverContainerVM, crossoverVMPM, crossoverTypes};
-
-        // Init Selections
-        Selection selectionContainerVM = new TournamentSelection(tournamentSize[0], optimization);
-        Selection selectionVMPM = new TournamentSelection(tournamentSize[1], optimization);
-        Selection selectionTypes = new TournamentSelection(tournamentSize[2], optimization);
-        Selection[] selections = {selectionContainerVM, selectionVMPM, selectionTypes};
-
-        // Init Elitisms
-        Elitism elitismContainerVM = new CommonElitism(eliteSize[0], optimization);
-        Elitism elitismVMPM = new CommonElitism(eliteSize[1], optimization);
-        Elitism elitismTypes = new CommonElitism(eliteSize[2], optimization);
-        Elitism[] elitisms = {elitismContainerVM, elitismVMPM, elitismTypes};
-
+        WriteFileBilevel writeFiles = new WriteFileBilevel(fitnessAddr, timeAddr);
         // Init fitness function
         // 1. create fitness function
-        CoUnNormalizedFit energy = new BilevelFitness(taskNum, k, pmCpu, pmMem, pmEnergy,
-                                                        vmCpu, vmMem, taskCpu, taskMem);
+        CoUnNormalizedFit energy = new BilevelFitness(taskNum, k, pmCpu,
+                                                    pmEnergy, vmCpu, taskCpu);
         // 2. add to fitness function list
         ArrayList<CoFitnessFunc> funcList = new ArrayList<CoFitnessFunc>();
         CoFitnessFunc energyFit = new CoFitnessFunc(energy.getClass());
@@ -120,24 +87,21 @@ public class Experiment {
         Constraint resourceVMPM = new ResourceConstraint();
         Constraint[] constraints = {resourceContainerVM, resourceVMPM, typeContainerVM};
 
-        // Init Parameter Settings
+        // Init Problem input data
         CoGAProblemParameterSettings proSet = new BilevelParameterSettings(
-                                        evaluate, initPops, mutations,
-                                        crossovers, selections, elitisms,
-                                        constraints, vmTypes, taskNum,
+                                        evaluate, constraints, vmTypes, taskNum,
                                         pmCpu, pmMem, pmEnergy, vmCpu,
                                         vmMem, taskCpu, taskMem, taskOS);
 
+        // Init Algorithm parameters
         CoGAParameterSettings pars = new CoGAParameterSettings(
                                         mutationRate, crossoverRate, vmLbound,
                                         vmUbound, tournamentSize, eliteSize,
-                                        popSize, maxVars, taskNum, optimization, maxGen);
+                                        popSize, maxVars, numOfSubPop, optimization, maxGen);
 
-        Coevolution myAlg = new IntCoGA(pars, proSet, new IntCoGAFactory(collector));
+        Coevolution myAlg = new IntCoGA(pars, proSet, new BilevelFactory(collector, numOfSubPop));
+        myAlg.run(2333);
         System.out.println("Done!");
-
-
-
     }
 
 

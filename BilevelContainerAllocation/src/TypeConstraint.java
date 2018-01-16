@@ -1,13 +1,10 @@
-package BilevelContainerAllocation;
-
 import algorithms.Chromosome;
 import algorithms.Constraint;
 
 import java.util.ArrayList;
 
-public class ResourceConstraint implements Constraint{
-
-    public ResourceConstraint(){
+public class TypeConstraint implements Constraint{
+    public TypeConstraint(){
 
     }
 

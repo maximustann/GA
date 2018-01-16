@@ -73,11 +73,10 @@ public class IntGAFactory implements GAFactory{
 		return new CommonElitism(elitSize, optimization);
 	}
 
-	@Override
-	public Constraint getConstraint() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Constraint getConstraint() {
+//		return null;
+//	}
 
 	@Override
 	public Distance getDistance() {
