@@ -14,8 +14,8 @@ public class BilevelFactory extends IntCoGAFactory{
 
     @Override
     public InitPop[] getInitPopMethod(){
-        InitPop initContainerVM = new InitAllocationChromosome();
-        InitPop initVMPM = new InitAllocationChromosome();
+        InitPop initContainerVM = new InitContainerAllocationChromosome();
+        InitPop initVMPM = new InitVMAllocationChromosome();
         InitPop initVmTypes = new InitIntChromosomes();
         InitPop[] initPops = {initContainerVM, initVMPM, initVmTypes};
         return initPops;

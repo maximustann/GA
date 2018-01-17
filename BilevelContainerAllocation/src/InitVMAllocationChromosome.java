@@ -1,8 +1,8 @@
-import algorithms.*;
+import algorithms.InitPop;
+import algorithms.StdRandom;
 import commonRepresentation.IntValueChromosome;
-import java.lang.*;
 
-public class InitAllocationChromosome implements InitPop{
+public class InitVMAllocationChromosome implements InitPop{
 
     public IntValueChromosome[] init(
             int popSize,
@@ -35,12 +35,17 @@ public class InitAllocationChromosome implements InitPop{
         chromo.toMatrix(containerNum);
 
         for(int rowNum = 0; rowNum < containerNum; rowNum++){
-            // For every row, randomly change an index to 1
+            // For every row, we first generate a random number u.
+            // If this number is less than 0.5, then randomly generate a position to deploy
+            // otherwise, continue to the next row
+            double u = StdRandom.uniform();
+            if(u > 0.5) continue;
             int allocation = StdRandom.uniform(containerNum);
             chromo.matrixIndividual[rowNum][allocation] = 1;
-            chromo.synchronizeMatrixToVector();
         }
 
+        // make sure vector and matrix are the same
+        chromo.synchronizeMatrixToVector();
         return chromo;
     }
 
