@@ -14,11 +14,9 @@ public class BilevelParameterSettings extends CoGAProblemParameterSettings{
     private double[] taskOS;
 
     private CoEvaluate evaluate;
-    private Constraint[] constraints;
 
     public BilevelParameterSettings(
             CoEvaluate evaluate,
-            Constraint[] constraints,
             int vmTypes,
             int taskNum,
             double pmCpu,
@@ -30,7 +28,7 @@ public class BilevelParameterSettings extends CoGAProblemParameterSettings{
             double[] taskMem,
             double[] taskOS
     ) {
-        super(evaluate, constraints);
+        super(evaluate);
         this.vmTypes = vmTypes;
         this.taskNum = taskNum;
         this.pmCpu = pmCpu;

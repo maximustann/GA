@@ -81,15 +81,15 @@ public class Experiment {
         // Init Collector
         DataCollector collector = new ResultCollector();
 
-        // Init Constraints
-        Constraint resourceContainerVM = new ResourceConstraint();
-        Constraint typeContainerVM = new TypeConstraint();
-        Constraint resourceVMPM = new ResourceConstraint();
-        Constraint[] constraints = {resourceContainerVM, resourceVMPM, typeContainerVM};
+//        // Init Constraints
+//        Constraint resourceContainerVM = new ResourceConstraint();
+//        Constraint typeContainerVM = new TypeConstraint();
+//        Constraint resourceVMPM = new ResourceConstraint();
+//        Constraint[] constraints = {resourceContainerVM, resourceVMPM, typeContainerVM};
 
         // Init Problem input data
         CoGAProblemParameterSettings proSet = new BilevelParameterSettings(
-                                        evaluate, constraints, vmTypes, taskNum,
+                                        evaluate, vmTypes, taskNum,
                                         pmCpu, pmMem, pmEnergy, vmCpu,
                                         vmMem, taskCpu, taskMem, taskOS);
 

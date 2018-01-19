@@ -4,7 +4,14 @@ import algorithms.*;
 import commonRepresentation.IntValueChromosome;
 
 public class BilevelFitness extends CoUnNormalizedFit{
+
+    /** status of which population is being evaluated    */
+    private static final int CONTAINERVM = 0;
+    private static final int VMPM = 1;
+    private static final int VMTYPE = 2;
+
     /** some data */
+
     private static double k;
     private static int containerNum;
     private static double pmCpu;
@@ -55,8 +62,14 @@ public class BilevelFitness extends CoUnNormalizedFit{
         ((IntValueChromosome)individual).toMatrix(containerNum);
         ((IntValueChromosome) representatives[1]).toMatrix(containerNum);
 
-        if(subPop == 0) fitness = containerIndividualFitness();
-        else fitness = vmIndividualFitness();
+        switch (subPop) {
+            case CONTAINERVM:   fitness = containerIndividualFitness();
+                                break;
+            case VMPM:          fitness = vmIndividualFitness();
+                                break;
+            case VMTYPE:        fitness = blabla();
+                                break;
+        }
         return fitness;
     }
 
