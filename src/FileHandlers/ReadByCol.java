@@ -39,7 +39,7 @@ public class ReadByCol implements ReadCsvFile{
 			content = new double[colNum][rowNum];
 			for(int i = 0; i < rowNum; i++) {
 				for(int j = 0; j < colNum; j++) {
-					content[j][i] = col.get(j * colNum + i);
+					content[j][i] = col.get(i * colNum + j);
 				}
 			}
 
