@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="R User Library">
+    <CLASSES />
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/doc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/BilevelContainerAllocation/src" />
+      <root url="file://$PROJECT_DIR$/src" />
+    </SOURCES>
+  </library>
+</component>

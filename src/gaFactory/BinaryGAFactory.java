@@ -32,9 +32,11 @@ import dataCollector.DataCollector;
  */
 public class BinaryGAFactory implements GAFactory {
 	private DataCollector collector;
+	private int seed;
 	
-	public BinaryGAFactory(DataCollector collector){
+	public BinaryGAFactory(DataCollector collector, int seed){
 		this.collector = collector;
+		this.seed = seed;
 	}
 	@Override
 	public InitPop getInitPopMethod() {
@@ -48,7 +50,7 @@ public class BinaryGAFactory implements GAFactory {
 
 	@Override
 	public Selection getSelection(int tournamentSize, int optimization) {
-		return new TournamentSelection(tournamentSize, optimization);
+		return new TournamentSelection(tournamentSize, optimization, seed);
 	}
 
 	@Override

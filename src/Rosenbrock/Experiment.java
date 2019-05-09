@@ -31,6 +31,11 @@ public class Experiment {
 	 * 
 	 */
 	public static void main(String[] arg) {
+		/**
+		 * The random seed must be setted at the first place
+		 */
+		int seed = 23333;
+
 		/** store your objective functions */
 		ArrayList<FitnessFunc> funcList = new ArrayList<FitnessFunc>();
 		/** perturbation is used in Polynomial Mutation which is a real-value mutation (suggest
@@ -76,7 +81,7 @@ public class Experiment {
 		ParameterSettings pars = new ParameterSettings(
 									mutationRate, crossoverRate, lbound,
 									ubound, tournamentSize, elitSize, optimization,
-									popSize, maxGen, d);
+									popSize, maxGen, d, seed);
 		
 		/** set up DataCollector */
 		DataCollector collector = new ResultCollector();
@@ -84,7 +89,7 @@ public class Experiment {
 		/** select a type of genetic algorithm, initialize it with a factory */
 		GeneticAlgorithm myAlg = new RealGA(pars, proSet, new RealGAFactory(
 																collector, lbound,
-																ubound, perturbation));
+																ubound, perturbation, seed));
 
 
 

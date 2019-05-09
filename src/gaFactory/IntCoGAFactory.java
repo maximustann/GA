@@ -17,14 +17,16 @@ public abstract class IntCoGAFactory implements CoGAFactory{
      * */
     private DataCollector collector;
     private int numOfSubPop;
+    private int seed;
 
     /**
 	 * Constructor
 	 * @param collector is the data collector
 	 */
-	public IntCoGAFactory(DataCollector collector, int numOfSubPop){
+	public IntCoGAFactory(DataCollector collector, int numOfSubPop, int seed){
 		this.collector = collector;
 		this.numOfSubPop = numOfSubPop;
+		this.seed = seed;
 	}
 
 	@Override
@@ -58,7 +60,7 @@ public abstract class IntCoGAFactory implements CoGAFactory{
     public Selection[] getSelection(int[] tournamentSize, int optimization) {
 	    Selection[] selection = new Selection[numOfSubPop];
 	    for(int i = 0; i < numOfSubPop; i++)
-	        selection[i] = new TournamentSelection(tournamentSize[i], optimization);
+	        selection[i] = new TournamentSelection(tournamentSize[i], optimization, seed);
         return selection;
     }
 

@@ -18,7 +18,7 @@ import GAProcedure.CommonGA;;
  * An Real GA
  *
  * @author Boxiong Tan (Maximus Tann)
- * @since PSO framework 1.0
+ * @since GA framework 1.0
  */
 public class RealGA extends CommonGA{
 	GAFactory factory;

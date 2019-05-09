@@ -28,6 +28,7 @@ import dataCollector.DataCollector;
 public class RealGAFactory implements GAFactory{
 	private DataCollector collector;
 	private double lbound, ubound, perturbation;
+	private int seed;
 
 	/**
 	 * Constructor
@@ -40,12 +41,14 @@ public class RealGAFactory implements GAFactory{
 				DataCollector collector, 
 				double lbound, 
 				double ubound, 
-				double perturbation
+				double perturbation,
+				int seed
 				){
 		this.collector = collector;
 		this.lbound = lbound;
 		this.ubound = ubound;
 		this.perturbation = perturbation;
+		this.seed = seed;
 	}
 
 	@Override
@@ -65,7 +68,7 @@ public class RealGAFactory implements GAFactory{
 
 	@Override
 	public Selection getSelection(int tournamentSize, int optimization) {
-		return new TournamentSelection(tournamentSize, optimization);
+		return new TournamentSelection(tournamentSize, optimization, seed);
 	}
 
 	@Override

@@ -10,6 +10,8 @@
 package commonOperators;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import algorithms.Chromosome;
 import algorithms.Selection;
@@ -28,9 +30,10 @@ public class TournamentSelection implements Selection{
 	 * @param tournamentSize size of tournament, larger number makes it harder to select a worse individual
 	 * @param optimization 0 denotes minimize, 1 denotes maximize
 	 */
-	public TournamentSelection(int tournamentSize, int optimization) {
+	public TournamentSelection(int tournamentSize, int optimization, int seed) {
 		this.tournamentSize = tournamentSize;
 		this.optimization = optimization;
+		StdRandom.setSeed(seed);
 	}
 	/**
 	 * Tournament Selection Steps:
@@ -52,19 +55,21 @@ public class TournamentSelection implements Selection{
 		}
 
 
+		Collections.sort(chosen, new Comparator<double[]>() {
+			@Override
+			public int compare(double[] fitness1, double[] fitness2) {
+				int condition = 0;
+				if(fitness1[0] - fitness2[0] > 0.0) condition = 1;
+				else if(fitness1[0] - fitness2[0] < 0.0) condition = -1;
+				else condition = 0;
+				return condition;
+			}
+		});
 		greatestFit[0] = chosen.get(0)[0];
 		greatestFit[1] = chosen.get(0)[1];
-		for(int i = 1; i < tournamentSize; i++){
-			if(
-				(greatestFit[0] > chosen.get(i)[0] && optimization == 0) ||
-				(greatestFit[0] < chosen.get(i)[0] && optimization == 1)
-				) {
-				greatestFit[0] = chosen.get(i)[0];
-				greatestFit[1] = chosen.get(i)[1];
-			}
-		}
 
 
+//		System.out.println("greatestFit[0] = " + greatestFit[0] + ", greatestFit[1] = " + greatestFit[1]);
 		return (int) greatestFit[1];
 	}
 

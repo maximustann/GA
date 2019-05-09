@@ -21,8 +21,8 @@ import commonOperators.TournamentSelection;
  */
 public class BinaryTournamentSelection extends TournamentSelection{
 
-	public BinaryTournamentSelection(int optimization) {
-		super(2, optimization);
+	public BinaryTournamentSelection(int optimization, int seed) {
+		super(2, optimization, seed);
 	}
 
 	@Override

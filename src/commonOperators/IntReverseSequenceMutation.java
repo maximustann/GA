@@ -57,7 +57,7 @@ public class IntReverseSequenceMutation implements Mutation {
 		for(int i = startPoint, j = 0; i < endPoint; i++, j++)
 			temp[j] = chromosome.individual[i];
 
-		for(int i = startPoint, j = endPoint; i < endPoint; i++, j--){
+		for(int i = startPoint, j = endPoint - startPoint - 1; i < endPoint; i++, j--){
 			chromosome.individual[i] = temp[j];
 		}
 	}

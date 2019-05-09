@@ -36,9 +36,7 @@ public class sortPop implements Sort{
 	@Override
 	public void sort(Chromosome[] popVar, ArrayList<double[]> popFit){
 		Chromosome[] newPop = new Chromosome[popVar.length];
-		//******* Debug ******
-		//*******
-		
+
 		try {
 		Collections.sort(popFit, new Comparator<double[]>() {
 			

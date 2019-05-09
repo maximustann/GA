@@ -68,6 +68,28 @@ public abstract class DataCollector {
 		System.out.println("time is : " + Math.floor(sum / size * 100) / 100.0);
 	}
 
+	// return the mean time of a run
+	public double meanTime(){
+		int size = timeData.size();
+		double sum = 0;
+		for(int i = 0; i < size; i++){
+			sum += timeData.get(i);
+		}
+		return Math.floor(sum / size * 100) / 100.0;
+	}
+
+	// return the sd time of a run
+	public double sdTime(){
+		int size = timeData.size();
+		double aveTime = meanTime();
+		double sdSum = 0.0;
+		for(int i = 0; i < size; i++){
+		    sdSum += timeData.get(i) * timeData.get(i);
+		}
+
+		return Math.sqrt(sdSum / timeData.size() - aveTime * aveTime);
+	}
+
 	/**
 	 *
 	 * @return timeData a list of Double

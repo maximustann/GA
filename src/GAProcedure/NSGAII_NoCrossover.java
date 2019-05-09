@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import algorithms.Chromosome;
 import algorithms.GeneticAlgorithm;
-import wsrp.ResultCollector;
 
 public abstract class NSGAII_NoCrossover extends GeneticAlgorithm {
 	public void run(int seed){

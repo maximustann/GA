@@ -57,17 +57,25 @@ public abstract class CommonGA extends GeneticAlgorithm{
 				e.printStackTrace();
 			}
 
+
 			sort.sort(popVar, popFit);
 			elitism.carryover(popVar, newPop);
-			collector.collect(popFit.get(0));
-			
+//			System.out.println("best fitness value = " + popFit.get(0)[0]);
+//			System.out.println("best individual: ");
+//			popVar[0].print();
+//			System.out.println();
+//			collector.collect(popFit.get(0));
+			collector.collect(popVar[0]);
 
 			while(true) {
 				int exitFlag = 0;
 				Chromosome father = popVar[selection.selected(popVar, popFit)];
 				Chromosome mother = popVar[selection.selected(popVar, popFit)];
+
 				Chromosome[] children = ((TwoParentsCrossover) crossover)
 										.update(father, mother, crossoverRate);
+
+
 				for(int j = 0; j < children.length; j++) {
 					mutation.update(children[j], mutationRate);
 					newPop[childrenCount] = children[j].clone();

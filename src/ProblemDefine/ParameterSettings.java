@@ -16,7 +16,7 @@ package ProblemDefine;
  */
 public class ParameterSettings {
 	private double mutationRate, crossoverRate, lbound, ubound;
-	private int optimization, tournamentSize, elitSize, popSize, maxGen, maxVar;
+	private int optimization, tournamentSize, elitSize, popSize, maxGen, maxVar, seed;
     /**
      * Prepare a package of parameter settings
      *
@@ -30,6 +30,8 @@ public class ParameterSettings {
      * @param popSize population size
      * @param maxGen maximum generation
      * @param maxVar the number of variable of a particle
+	 * @param seed the random seed
+	 *
      */
 	public ParameterSettings(
 						double mutationRate,
@@ -41,7 +43,8 @@ public class ParameterSettings {
 						int optimization,
 						int popSize,
 						int maxGen,
-						int maxVar
+						int maxVar,
+						int seed
 						){
 		this.mutationRate = mutationRate;
 		this.crossoverRate = crossoverRate;
@@ -53,6 +56,7 @@ public class ParameterSettings {
 		this.popSize = popSize;
 		this.maxGen = maxGen;
 		this.maxVar = maxVar;
+		this.seed = seed;
 	}
 
 	public int getMaxVar(){
@@ -84,6 +88,10 @@ public class ParameterSettings {
 
 	public int getTournamentSize() {
 		return tournamentSize;
+	}
+
+	public int getSeed() {
+		return seed;
 	}
 
 	public int getElitSize() {

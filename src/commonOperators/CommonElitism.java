@@ -55,6 +55,7 @@ public class CommonElitism extends Elitism{
 				newPop[i] = popVar[popSize - 1 - i].clone();
 			}
 		}
-
 	}
+
+
 }

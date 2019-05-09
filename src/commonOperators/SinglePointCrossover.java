@@ -67,8 +67,8 @@ public class SinglePointCrossover implements TwoParentsCrossover {
 			Chromosome child2 = childrenType
 									.getConstructor(Gene.class, Gene.class)
 									.newInstance(
-												father.cut(cutPoint, 0), 
-												mother.cut(cutPoint, 1)
+												mother.cut(cutPoint, 0),
+												father.cut(cutPoint, 1)
 												); 
 			children[0] = child1;
 			children[1] = child2;

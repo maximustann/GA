@@ -82,7 +82,7 @@ public class IntCoGA extends CoGA{
         elitisms = factory.getElitism(elitSizes, optimization);
         selections = factory.getSelection(tournamentSizes, optimization);
         evaluate = proSet.getEvaluate();
-        constraints = proSet.getConstraints();
+//        constraints = proSet.getConstraints();
         collector = factory.getDataCollector();
         sorts = factory.getSort();
     }

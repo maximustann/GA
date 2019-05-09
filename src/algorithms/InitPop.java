@@ -17,19 +17,19 @@ package algorithms;
  */
 public interface InitPop {
 	
-    /**
-     * Generate an array of population, 
-     * 
-     * @param popSize population size
-     * @param maxVar the number of variable of a particle
-     * @param lbound the lower boundary of a variable of a chromosome
-     * @param ubound the upper boundary of a variable of a chromosome
-     * @return array of chromosomes
-     */	
+//    /**
+//     * Generate an array of population,
+//     *
+//     * @param popSize population size
+//     * @param maxVar the number of variable of a particle
+//     * @param lbound the lower boundary of a variable of a chromosome
+//     * @param ubound the upper boundary of a variable of a chromosome
+//     * @return array of chromosomes
+//     */
 	public Chromosome[] init(
-							int popSize, 
-							int maxVar, 
-							double lbound, 
+							int popSize,
+							int maxVar,
+							double lbound,
 							double ubound
 							);
 }

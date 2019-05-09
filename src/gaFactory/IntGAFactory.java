@@ -27,13 +27,15 @@ import dataCollector.DataCollector;
  */
 public class IntGAFactory implements GAFactory{
 	private DataCollector collector;
+	private int seed;
 
 	/**
 	 * Constructor
 	 * @param collector is the data collector
 	 */
-	public IntGAFactory(DataCollector collector){
+	public IntGAFactory(DataCollector collector, int seed){
 		this.collector = collector;
+		this.seed = seed;
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class IntGAFactory implements GAFactory{
 
 	@Override
 	public Selection getSelection(int tournamentSize, int optimization) {
-		return new TournamentSelection(tournamentSize, optimization);
+		return new TournamentSelection(tournamentSize, optimization, seed);
 	}
 
 	@Override
