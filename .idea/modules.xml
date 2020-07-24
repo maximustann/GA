@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BilevelContainerAllocation/BilevelContainerAllocation.iml" filepath="$PROJECT_DIR$/BilevelContainerAllocation/BilevelContainerAllocation.iml" />
       <module fileurl="file://$PROJECT_DIR$/GA.iml" filepath="$PROJECT_DIR$/GA.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PermutationBasedGAForContainerAllocation/PermutationBasedGAForContainerAllocation.iml" filepath="$PROJECT_DIR$/PermutationBasedGAForContainerAllocation/PermutationBasedGAForContainerAllocation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cecGA/cecGA.iml" filepath="$PROJECT_DIR$/cecGA/cecGA.iml" />
-      <module fileurl="file://$PROJECT_DIR$/staticContainerAllocation/staticContainerAllocation.iml" filepath="$PROJECT_DIR$/staticContainerAllocation/staticContainerAllocation.iml" />
     </modules>
   </component>
 </project>

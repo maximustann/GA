@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="containerGA">
+    <output-path>$USER_HOME$/PH.D_project/algorithm_jar/obj3_static_mutiObj_ga</output-path>
+    <root id="archive" name="containerGA.jar">
+      <element id="module-output" name="GA" />
+    </root>
+  </artifact>
+</component>

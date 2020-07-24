@@ -5,7 +5,7 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * Experiment.java 	The main function.
+ * Experiment_spaceEstimation.java 	The main function.
  * 
  */
 package Rosenbrock;

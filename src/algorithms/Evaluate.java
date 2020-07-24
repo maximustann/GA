@@ -18,10 +18,11 @@ import java.util.ArrayList;
  * @since Genetic Algorithm framework 1.0
  */
 public interface Evaluate {
-	/**
-	 * @param popVar a population of variables with a subtype of Chromosome
-	 * @param popFit the fitness values of whole population
-	 * @throws Exception 
-	 */
-	public void evaluate(Chromosome [] popVar,ArrayList<double[]> popFit);
+
+    /**
+     * @param popVar a population of variables with a subtype of Chromosome
+     * @param popFit the fitness values of whole population
+     * @throws Exception
+     */
+    public void evaluate(Chromosome[] popVar, ArrayList<double[]> popFit);
 }

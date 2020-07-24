@@ -71,7 +71,7 @@ public class FitnessFunc{
 		// an array of tasks
 		ArrayList tasks = new ArrayList();
 		
-		// create instance of your implementation and add them into the task list
+		// create an instance of your implementation and add them into the task list
 		for(int i = 0; i < popSize; i++){
 			try {
 				tasks.add(childType.getConstructor(Chromosome.class)

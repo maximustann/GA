@@ -55,7 +55,8 @@ public class FastNonDominatedSorting implements Sort{
 			// 1 means the dominatedSet
 			dominatedSet.add((ArrayList<double[]>) temp.get(1));
 		}
-		
+
+
 		// insert the chromosome according to its ranking until all chromosomes 
 		// have been inserted.
 		while(true){
@@ -66,7 +67,7 @@ public class FastNonDominatedSorting implements Sort{
 				// If the dominationCount is 0, 
 				// then assign its ranking to the current ranking.
 				if(dominationCount.get(i) == 0){
-					// index 5 is the ranking
+					// index 4 is the ranking
 					popFit.get(i)[4] = ranking;
 					zeroRankList.add(popFit.get(i));
 					// For the sorted chromosomes, set their dominationCount to -1
@@ -160,8 +161,9 @@ public class FastNonDominatedSorting implements Sort{
 					dominatedNo++;
 				}
 			}
-			
-			// put the chromosome that domainted by current one into an ArrayList
+
+
+			// put the chromosome that dominated by current one into an ArrayList
 			if((optimization == 0 && targetFitness[0] >= currentFitness[0] && targetFitness[1] >= currentFitness[1]) ||
 				(optimization == 1 && targetFitness[0] <= currentFitness[0] && targetFitness[1] <= currentFitness[1])){
 				if(targetFitness[0] == currentFitness[0] && targetFitness[1] == currentFitness[1]){

@@ -61,11 +61,17 @@ public abstract class CommonGA extends GeneticAlgorithm{
 			sort.sort(popVar, popFit);
 			elitism.carryover(popVar, newPop);
 //			System.out.println("best fitness value = " + popFit.get(0)[0]);
+//            System.out.println("second fitness value = " + popFit.get(1)[0]);
 //			System.out.println("best individual: ");
 //			popVar[0].print();
 //			System.out.println();
 //			collector.collect(popFit.get(0));
-			collector.collect(popVar[0]);
+			collector.collect(popVar[0].clone());
+//			System.out.println("gen = " + i);
+//			popVar[0].print();
+
+
+
 
 			while(true) {
 				int exitFlag = 0;
@@ -78,7 +84,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 
 				for(int j = 0; j < children.length; j++) {
 					mutation.update(children[j], mutationRate);
-					newPop[childrenCount] = children[j].clone();
+					newPop[childrenCount] = children[j];
 					childrenCount++;
 					if(childrenCount == popSize) {
 						exitFlag = 1;
@@ -87,7 +93,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 				}
 				if(exitFlag == 1) break;
 			}				
-			popVar = newPop.clone();
+			popVar = newPop;
 		}
 		collector.collectTime(1);
 	}
@@ -96,7 +102,7 @@ public abstract class CommonGA extends GeneticAlgorithm{
 	protected abstract void prepare();
 	
 	/**
-	 * Repeat experiment N times
+	 * Repeat experiment for N times
 	 */
 	@Override
 	public void runNtimes(int seedStart, int nTimes) {

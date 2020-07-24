@@ -20,8 +20,11 @@ public class ReadByCol implements ReadCsvFile{
 	public void read(String fileName, double[][] data) {
 		File fd = new File(fileName);
 		double[][] myData = readCsv(fd, data.length);
-		for(int i = 0; i < data.length; i++){
-			for(int j = 0; j < data[0].length; j++) data[i][j] = myData[i][j];
+
+		for(int i = 0; i < myData.length; i++){
+			for(int j = 0; j < myData[0].length; j++) {
+				data[i][j] = myData[i][j];
+			}
 		}
 	}
 

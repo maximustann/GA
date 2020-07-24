@@ -4,26 +4,32 @@ import algorithms.InitPop;
 import algorithms.StdRandom;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
 public class GroupGAInitialization implements InitPop {
 
     private double vmCpuOverheadRate;
     private double vmMemOverhead;
     private int numOfContainer;
-    private int numOfVm;
-    private int vmTypes;
     private double[] vmMem;
     private double[] vmCpu;
     private double[] taskCpu;
     private double[] taskMem;
+    private double pmCpu;
+    private double pmMem;
+    private double k;
+    private double maxEnergy;
     private ArrayList<Container> listOfContainers;
 
 
     public GroupGAInitialization(int numOfContainer,
-                                 int numOfVm,
-                                 int vmTypes,
                                  int seed,
+                                 double pmCpu,
+                                 double pmMem,
+                                 double k,
+                                 double maxEnergy,
                                  double[] vmCpu,
                                  double[] vmMem,
                                  double[] taskCpu,
@@ -31,15 +37,18 @@ public class GroupGAInitialization implements InitPop {
                                  double vmCpuOverheadRate,
                                  double vmMemOverhead
     ) {
+        this.pmCpu = pmCpu;
+        this.pmMem = pmMem;
+        this.k = k;
+        this.maxEnergy = maxEnergy;
         this.numOfContainer = numOfContainer;
-        this.numOfVm = numOfVm;
-        this.vmTypes = vmTypes;
         this.vmCpu = vmCpu;
         this.vmMem = vmMem;
         this.taskCpu = taskCpu;
         this.taskMem = taskMem;
         this.vmCpuOverheadRate = vmCpuOverheadRate;
         this.vmMemOverhead = vmMemOverhead;
+        listOfContainers = new ArrayList<>();
 
         StdRandom.setSeed(seed);
 
@@ -51,7 +60,7 @@ public class GroupGAInitialization implements InitPop {
 
     private void generateContainers() {
         for (int i = 0; i < numOfContainer; i++) {
-            Container container = new Container(taskCpu[i], taskMem[i]);
+            Container container = new Container(i, taskCpu[i], taskMem[i]);
             listOfContainers.add(container);
         }
     }
@@ -73,23 +82,18 @@ public class GroupGAInitialization implements InitPop {
     }
 
 
+
+
     /**
      * Generate a random sequence of task
-     * Basic idea is, first initialize a sequence which has a length of task
-     * then, randomly draw one each time until the array list is empty.
      *
      * @return a random sequence
      */
     private int[] generateRandomSequence() {
         int taskCount = 0;
         int[] taskSequence = new int[numOfContainer];
-        ArrayList<Integer> dummySequence = new ArrayList<Integer>();
-        for (int i = 0; i < numOfContainer; i++) dummySequence.add(i);
-        while (!dummySequence.isEmpty()) {
-            int index = StdRandom.uniform(dummySequence.size());
-            taskSequence[taskCount++] = dummySequence.get(index);
-            dummySequence.remove(index);
-        }
+        for (int i = 0; i < numOfContainer; i++) taskSequence[i] = i;
+        StdRandom.shuffle(taskSequence);
         return taskSequence;
     }
 
@@ -97,7 +101,7 @@ public class GroupGAInitialization implements InitPop {
     // Allocate containers to VMs
     private ArrayList<VM> allocateToVms(int[] containerSequence) {
 
-        ArrayList<double[]> vmStatus = new ArrayList<>();
+//        ArrayList<double[]> vmStatus = new ArrayList<>();
         ArrayList<VM> vmList = new ArrayList<>();
 
         // allocate all the containers
@@ -105,34 +109,29 @@ public class GroupGAInitialization implements InitPop {
             int containerNo = containerSequence[i];
 
             // If the allocation fails, create a new VM and allocate the container
-            if (!allocateContainer(containerNo, vmStatus, vmList)) {
-                vmStatus.add(createVM(
-                        vmList,
+            if (!allocateContainer(containerNo, vmList)) {
+                createVM(vmList,
                         containerNo,
                         vmCpu, vmMem,
                         vmCpuOverheadRate,
-                        vmMemOverhead));
+                        vmMemOverhead);
             }
         }
         return vmList;
     }
 
     private Boolean allocateContainer(int containerNo,
-                                      ArrayList<double[]> vmStatus,
                                       ArrayList<VM> vmList) {
 
-        for (int i = 0; i < vmStatus.size(); i++) {
-            double[] vmS = vmStatus.get(i);
+        for (int i = 0; i < vmList.size(); i++) {
             VM vm = vmList.get(i);
             Container container = listOfContainers.get(containerNo);
             double containerCpu = container.getCpu();
             double containerMem = container.getMem();
 
             // Check if it possible to allocate
-            if (vmS[0] >= containerCpu && vmS[1] >= containerMem) {
-                vmS[0] -= containerCpu;
-                vmS[1] -= containerMem;
-                vm.allocate(container);
+            if (vm.getCpuRemain() >= containerCpu && vm.getMemRemain() >= containerMem) {
+                vm.allocate(container.clone());
                 return true;
             }
         }
@@ -144,30 +143,69 @@ public class GroupGAInitialization implements InitPop {
 
     // We apply the minimum resource or just-Fit heuristic to create VM
     // Choose a VM with minimum(CPU_v - CPU_c or Mem_v - Mem_c) in the VM list
-    private double[] createVM(
+    private void createVM(
             ArrayList<VM> vmList,
             int containerNo,
             double[] vmCpu,
             double[] vmMem,
             double vmCpuOverheadRate,
             double vmMemOverhead) {
-        double[] vmRemainResource;
 
-        vmRemainResource = bestFitCreation(
-                vmList,
-                containerNo,
-                vmCpu,
-                vmMem,
-                vmCpuOverheadRate,
-                vmMemOverhead
-        );
+        randomCreation(
+                    vmList,
+                    containerNo,
+                    vmCpu,
+                    vmMem,
+                    vmCpuOverheadRate,
+                    vmMemOverhead);
 
-        return vmRemainResource;
+//        bestFitCreation(
+//                vmList,
+//                containerNo,
+//                vmCpu,
+//                vmMem,
+//                vmCpuOverheadRate,
+//                vmMemOverhead
+//        );
+
+    }
+
+    // We randomly create a VM type
+    private void randomCreation(ArrayList<VM> vmList,
+                                    int containerNo,
+                                    double[] vmCpu,
+                                    double[] vmMem,
+                                    double vmCpuOverheadRate,
+                                    double vmMemOverhead){
+
+        // We first filter the VMs that is possible to allocate this container
+        ArrayList<Integer> validVmTypes = new ArrayList<>();
+        for(int i = 0; i < vmCpu.length; i++){
+            double containerCpu = taskCpu[containerNo];
+            double containerMem = taskMem[containerNo];
+            if(vmCpu[i] >= vmCpuOverheadRate * vmCpu[i] + containerCpu && vmMem[i] >= vmMemOverhead + containerMem)
+                validVmTypes.add(i);
+        }
+
+        // check
+        if(validVmTypes.size() == 0){
+            throw new IllegalStateException("No valid VM can be created");
+        }
+
+        // Randomly select one VM type to allocate the container
+        int index = StdRandom.uniform(validVmTypes.size());
+        int chosenVM = validVmTypes.get(index);
+
+        // create the VM and allocate the container
+        VM vm = new VM(chosenVM, vmCpu[chosenVM], vmMem[chosenVM], vmCpuOverheadRate, vmMemOverhead);
+        vm.allocate(new Container(containerNo, taskCpu[containerNo], taskMem[containerNo]));
+        vmList.add(vm);
+
     }
 
 
     // We are using a BestFit approach to estimate the VM types that a container need
-    private double[] bestFitCreation(
+    private void bestFitCreation(
             ArrayList<VM> vmList,
             int containerNo,
             double[] vmCpu,
@@ -179,13 +217,16 @@ public class GroupGAInitialization implements InitPop {
         double containerCpu = container.getCpu();
         double containerMem = container.getMem();
 
-        double[] vmRemainResource = new double[2];
         int numOfVm = vmCpu.length;
         double minimumRemainResource = 1;
-        int bestVm = 0;
+        Integer bestVm = null;
 
         // find the VM with minimum remaining resources to host this container
         for (int i = 0; i < numOfVm; i++) {
+            // If this VM cannot satisfy the requirement of the container
+            if(vmCpu[i] < containerCpu + vmCpu[i] * vmCpuOverheadRate ||
+                    vmMem[i] < containerMem + vmMemOverhead) continue;
+
             double normalizedCpuRemain = (vmCpu[i] - containerCpu - vmCpu[i] * vmCpuOverheadRate) / vmCpu[i];
             double normalizedMemRemain = (vmMem[i] - containerMem - vmMemOverhead) / vmMem[i];
 
@@ -204,25 +245,34 @@ public class GroupGAInitialization implements InitPop {
 //            }
         }
 
-        // calculate the remaining resources after allocating the container to the chosen VM
-        vmRemainResource[0] = vmCpu[bestVm] - containerCpu - vmCpu[bestVm] * vmCpuOverheadRate; // remaining cpu
-        vmRemainResource[1] = vmMem[bestVm] - containerMem - vmMemOverhead; // remaining mem
+        // check
+        if(bestVm == null){
+            throw new IllegalStateException("No valid VM to be created");
+        }
 
         // create a VM
-        VM vm = new VM(bestVm, vmCpu[bestVm], vmMem[bestVm]);
+        VM vm = new VM(bestVm, vmCpu[bestVm], vmMem[bestVm], vmCpuOverheadRate, vmMemOverhead);
 
         // allocate the container to this new VM
-        vm.allocate(container);
+        vm.allocate(container.clone());
 
         // update the vmList
         vmList.add(vm);
 
-        return vmRemainResource;
     }
 
 
-    private GroupGAChromosome generateChromosome() {
-        GroupGAChromosome chromo = new GroupGAChromosome();
+    /**
+     * 3 steps:
+     *  1. generate a permutation sequence of containers
+     *  2. use heuristic to create a type of VMs
+     *  3. allocate containers to VMs using FF
+     *  4. allocate VMs to PMs using FF
+     *
+     * @return chromosome
+     */
+    public GroupGAChromosome generateChromosome() {
+        GroupGAChromosome chromosome = new GroupGAChromosome(numOfContainer);
         // We first generate a random permutation of containers
         int[] containerSequence = generateRandomSequence();
 
@@ -230,27 +280,56 @@ public class GroupGAInitialization implements InitPop {
         ArrayList<VM> vmList = allocateToVms(containerSequence);
 
         // Now we allocate all the VMs to PMs using FF
+        ArrayList<PM> pmList = allocateToPms(vmList);
 
+        chromosome.setPmList(pmList);
 
-        return chromo;
+        return chromosome;
     }
 
     private ArrayList<PM> allocateToPms(ArrayList<VM> vmList){
 
         ArrayList<double[]> pmStatus = new ArrayList<>();
-        for(int i = 0; i < vmList.size(); i++){
-            VM vm = vmList.get(i);
-            if(!allocateVms(vm, pmStatus)){
-                createPM();
+        ArrayList<PM> pmList = new ArrayList<>();
+
+        for(VM vm:vmList){
+            if(!allocateVms(vm, pmStatus, pmList)){
+                pmStatus.add(createPM(pmList, vm));
             }
-
         }
-
-
+        return pmList;
     }
 
-    private Boolean allocateVms(VM vm, ArrayList<double[]> pmStatus){
+    private double[] createPM(ArrayList<PM> pmList, VM vm){
+        PM pm = new PM(pmCpu, pmMem, k, maxEnergy);
+        pm.allocate(vm);
+        pmList.add(pm);
+        double[] pmStatus = new double[2];
+        pmStatus[0] = pm.getCpuRemain();
+        pmStatus[1] = pm.getMemRemain();
+        return pmStatus;
+    }
 
+    private Boolean allocateVms(VM vm, ArrayList<double[]> pmStatus, ArrayList<PM> pmList){
+
+        double vmCpu = vm.getConfigureCpu();
+        double vmMem = vm.getConfigureMem();
+
+
+        for(int i = 0; i < pmStatus.size(); i++){
+            double[] pmS = pmStatus.get(i);
+            PM pm = pmList.get(i);
+
+            // Simply use FF to allocate the VM
+            if(pmS[0] >= vmCpu && pmS[1] >= vmMem){
+                pmS[0] -= vmCpu;
+                pmS[1] -= vmMem;
+                pm.allocate(vm);
+                return true;
+            }
+        }
+
+        return false;
 
     }
 

@@ -5,7 +5,8 @@
  * Licence:      GPL - http://www.gnu.org/copyleft/gpl.html
  *
  * Copyright (c) 2016-2019, The Victoria University of Wellington
- * TournamentSelection.java - an implementation of tournament selection.
+ * TournamentSelection.java - an implementation of deterministic tournament selection which only select
+ * the best individual
  */
 package commonOperators;
 
@@ -43,7 +44,7 @@ public class TournamentSelection implements Selection{
 	 * </ul>
 	 * @param popVar population
 	 * @param fitness fitness list
-	 *
+	 * @return the index of the best individual in the population
 	 */
 	@Override
 	public int selected(Chromosome[] popVar, ArrayList<double[]> fitness) {
