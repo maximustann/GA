@@ -366,20 +366,7 @@ public class PM implements Comparable, Cloneable{
 //        }
     }
 
-    // return the object[2], object[0] = appId, object[1] = list<Object[]>
-    private Object[] checkExist(ArrayList<Object[]> appList, int appId){
-        for(Object[] app:appList){
-            if((int) app[0] == appId) return app;
-        }
-        return null;
-    }
 
-    private Object[] checkMicroExist(ArrayList<Object[]> microList, int microId){
-        for(Object[] micro:microList){
-            if((int) micro[0] == microId) return micro;
-        }
-        return null;
-    }
 
 
     public double getCpuRemain() {
@@ -412,5 +399,28 @@ public class PM implements Comparable, Cloneable{
 
     public void setMemUsage(double memUsage) {
         this.memUsage = memUsage;
+    }
+
+    public double getConfigureCpu() {
+        return configureCpu;
+    }
+
+    public double getConfigureMem() {
+        return configureMem;
+    }
+
+    // return the object[2], object[0] = appId, object[1] = list<Object[]>
+    private Object[] checkExist(ArrayList<Object[]> appList, int appId){
+        for(Object[] app:appList){
+            if((int) app[0] == appId) return app;
+        }
+        return null;
+    }
+
+    private Object[] checkMicroExist(ArrayList<Object[]> microList, int microId){
+        for(Object[] micro:microList){
+            if((int) micro[0] == microId) return micro;
+        }
+        return null;
     }
 }

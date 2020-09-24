@@ -21,8 +21,6 @@ public class Experiment {
     public static void experimentRunner(Configure configure, int seed){
 
 
-        // set seed
-        StdRandom.setSeed(seed);
         // Permutation number decides the number of permutation of a solution we generate during
         // evaluation of energy consumption
         int permutationNum = configure.getPermutationNum();

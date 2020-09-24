@@ -59,13 +59,12 @@ public class Experiment {
 
         // These are the addresses of result
         String energyPath = configure.getEnergyPath();
-        String aveEnergyPath = configure.getAveEnergyPath();
         String wastedResourcePath = configure.getWastedResourcePath();
-        String aveCpuMemUtilPath = configure.getAveCpuMemUtilPath();
-        String aveNumOfPmPath = configure.getAveNumOfPmPath();
-        String aveNumOfVmPath = configure.getAveNumOfVmPath();
+        String cpuMemUtilPath = configure.getCpuMemUtilPath();
+        String numOfPmPath = configure.getNumOfPmPath();
+        String numOfVmPath = configure.getNumOfVmPath();
         String convergenceCurvePath = configure.getConvergenceCurvePath();
-        String aveTimePath = configure.getAveTimePath();
+        String timePath = configure.getTimePath();
 
         util.ReadFile readFile = new ReadFile(vmTypes, testCaseSize,
                 testCasePath, PMConfigPath,
@@ -99,7 +98,6 @@ public class Experiment {
                                                 vmCpuOverheadRate, vmMemOverhead,
                                                 consolidationFactor, seed);
 
-        // Crossover operator
 //        Crossover crossover = new (seed);
 
         // fitness function
@@ -138,41 +136,38 @@ public class Experiment {
 
         GeneticAlgorithm myAlg = new CecGA(pars, proSet, factory);
 
-//        for(int i = 0; i < run; i++) {
         myAlg.run(seed);
-//        }
 
         PostProcessingUnit postProcessing = new PostProcessingUnit(((ResultsCollector)collector).getResultData(),
-                ((ResultsCollector)collector).getGenTime(),
+                ((ResultsCollector)collector).getGenTime(), ((ResultsCollector) collector).getTime(),
                 maxGen, run, pmCpu, pmMem);
 
-        System.out.println("Average Energy = " + postProcessing.averageEnergy());
-        System.out.println("Average Num of PM = " + postProcessing.averageNoOfPm());
-        System.out.println("Average Num of VM = " + postProcessing.averageNoOfVm());
+        System.out.println("Average Energy = " + postProcessing.energy());
+        System.out.println("Average Num of PM = " + postProcessing.noOfPm());
+        System.out.println("Average Num of VM = " + postProcessing.noOfVm());
         System.out.println("Average Cpu = " + postProcessing.averageUtil()[0] +
                 "Average Mem = " + postProcessing.averageUtil()[1]);
 
         // Use builder pattern to create a WriteFile object
         WriteFile writeFile = new WriteFile
-                .Builder(postProcessing.energy(), energyPath,
-                        postProcessing.averageEnergy(), postProcessing.sdEnergy(), aveEnergyPath)
-                .setAveCpuMemUtil(postProcessing.averageUtil(), postProcessing.sdUtil(), aveCpuMemUtilPath)
+                .Builder()
+                .setEnergy(postProcessing.energy(), energyPath)
+                .setCpuMemUtil(postProcessing.averageUtil(), cpuMemUtilPath)
                 .setWastedResource(postProcessing.waste(), wastedResourcePath)
-                .setAveNumOfPm(postProcessing.averageNoOfPm(), postProcessing.sdNoOfPm(), aveNumOfPmPath)
-                .setAveNumOfVm(postProcessing.averageNoOfVm(), postProcessing.sdNoOfVm(), aveNumOfVmPath)
+                .setNumOfPm(postProcessing.noOfPm(), numOfPmPath)
+                .setNumOfVm(postProcessing.noOfVm(), numOfVmPath)
                 .setConvergenceCurve(postProcessing.convergenceCurve(), convergenceCurvePath)
-                .setAveTime(collector.meanTime(), collector.sdTime(), aveTimePath)
+                .setTime(postProcessing.getTime(),timePath)
                 .build();
 
         try {
             writeFile.writeEnergy()
                     .writeWastedResource()
-                    .writeAveSdEnergy()
-                    .writeAveSdCpuMemUtil()
-                    .writeAveSdNumOfPm()
-                    .writeAveSdNumOfVm()
+                    .writeCpuMemUtil()
+                    .writeNumOfPm()
+                    .writeNumOfVm()
                     .writeConvergenceCurve()
-                    .writeAveSdTime();
+                    .writeTime();
         } catch (Exception e){
             e.printStackTrace();
         }

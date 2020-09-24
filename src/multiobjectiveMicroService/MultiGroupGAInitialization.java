@@ -180,25 +180,28 @@ public class MultiGroupGAInitialization implements InitPop {
             double vmCpuOverheadRate,
             double vmMemOverhead) {
 
-        randomCreation(
-                    vmList,
-                    containerNo,
-                    applicationId,
-                    microServiceId,
-                    replicaId,
-                    vmCpu,
-                    vmMem,
-                    vmCpuOverheadRate,
-                    vmMemOverhead);
+//        randomCreation(
+//                    vmList,
+//                    containerNo,
+//                    applicationId,
+//                    microServiceId,
+//                    replicaId,
+//                    vmCpu,
+//                    vmMem,
+//                    vmCpuOverheadRate,
+//                    vmMemOverhead);
 
-//        bestFitCreation(
-//                vmList,
-//                containerNo,
-//                vmCpu,
-//                vmMem,
-//                vmCpuOverheadRate,
-//                vmMemOverhead
-//        );
+        bestFitCreation(
+                vmList,
+                containerNo,
+                applicationId,
+                microServiceId,
+                replicaId,
+                vmCpu,
+                vmMem,
+                vmCpuOverheadRate,
+                vmMemOverhead
+        );
 
     }
 
@@ -249,41 +252,44 @@ public class MultiGroupGAInitialization implements InitPop {
     private void bestFitCreation(
             ArrayList<VM> vmList,
             int containerNo,
+            int applicationId,
+            int microServiceId,
+            int replicaId,
             double[] vmCpu,
             double[] vmMem,
             double vmCpuOverheadRate,
             double vmMemOverhead) {
 
-        Container container = listOfContainers.get(containerNo);
-        double containerCpu = container.getCpu();
-        double containerMem = container.getMem();
+        double myContainerCpu = containerCpu[containerNo];
+        double myContainerMem = containerMem[containerNo];
 
         int numOfVm = vmCpu.length;
         double minimumRemainResource = 1;
+        double maximumVolume = 2.0;
         Integer bestVm = null;
 
         // find the VM with minimum remaining resources to host this container
         for (int i = 0; i < numOfVm; i++) {
             // If this VM cannot satisfy the requirement of the container
-            if(vmCpu[i] < containerCpu + vmCpu[i] * vmCpuOverheadRate ||
-                    vmMem[i] < containerMem + vmMemOverhead) continue;
+            if(vmCpu[i] < myContainerCpu + vmCpu[i] * vmCpuOverheadRate ||
+                    vmMem[i] < myContainerMem + vmMemOverhead) continue;
 
-            double normalizedCpuRemain = (vmCpu[i] - containerCpu - vmCpu[i] * vmCpuOverheadRate) / vmCpu[i];
-            double normalizedMemRemain = (vmMem[i] - containerMem - vmMemOverhead) / vmMem[i];
+            double normalizedCpuRemain = (vmCpu[i] - myContainerCpu - vmCpu[i] * vmCpuOverheadRate) / vmCpu[i];
+            double normalizedMemRemain = (vmMem[i] - myContainerMem - vmMemOverhead) / vmMem[i];
 
             // find which resource is smaller
-            double remain = normalizedCpuRemain > normalizedMemRemain ? normalizedCpuRemain : normalizedMemRemain;
-//            double volume =  1 / (1 - normalizedCpuRemain) * 1 / (1 - normalizedMemRemain);
+//            double remain = normalizedCpuRemain > normalizedMemRemain ? normalizedCpuRemain : normalizedMemRemain;
+            double volume =  1 / (1 - normalizedCpuRemain) * 1 / (1 - normalizedMemRemain);
 
             // update the choice of VM
-            if (minimumRemainResource > remain) {
-                bestVm = i;
-                minimumRemainResource = remain;
-            }
-//            if(maximumVolume < volume){
-//                maximumVolume = volume;
+//            if (minimumRemainResource > remain) {
 //                bestVm = i;
+//                minimumRemainResource = remain;
 //            }
+            if(maximumVolume < volume){
+                maximumVolume = volume;
+                bestVm = i;
+            }
         }
 
         // check
@@ -295,7 +301,14 @@ public class MultiGroupGAInitialization implements InitPop {
         VM vm = new VM(bestVm, vmCpu[bestVm], vmMem[bestVm], vmCpuOverheadRate, vmMemOverhead);
 
         // allocate the container to this new VM
-        vm.allocate(container.clone());
+        vm.allocate(new Container(
+                containerNo,
+                myContainerCpu,
+                myContainerMem,
+                applicationId,
+                microServiceId,
+                replicaId
+                ));
 
         // update the vmList
         vmList.add(vm);

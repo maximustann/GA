@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_ga" default="compile.module.ga">
+  <dirname property="module.ga.basedir" file="${ant.file.module_ga}"/>
+  
+  <property name="module.jdk.home.ga" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.ga" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.ga" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.ga" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="ga.output.dir" value="${module.ga.basedir}/../../../../../../home/tanboxi/workspace/GA/out/production/GA"/>
+  <property name="ga.testoutput.dir" value="${module.ga.basedir}/../../../../../../home/tanboxi/workspace/GA/out/test/GA"/>
+  
+  <path id="ga.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="ga.module.production.classpath">
+    <path refid="${module.jdk.classpath.ga}"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+  </path>
+  
+  <path id="ga.runtime.production.module.classpath">
+    <pathelement location="${ga.output.dir}"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+  </path>
+  
+  <path id="ga.module.classpath">
+    <path refid="${module.jdk.classpath.ga}"/>
+    <pathelement location="${ga.output.dir}"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+  </path>
+  
+  <path id="ga.runtime.module.classpath">
+    <pathelement location="${ga.testoutput.dir}"/>
+    <pathelement location="${ga.output.dir}"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.ga">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.ga">
+    <patternset refid="excluded.from.module.ga"/>
+  </patternset>
+  
+  <path id="ga.module.sourcepath">
+    <dirset dir="${module.ga.basedir}/../../../../../../home/tanboxi/workspace/GA">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.ga" depends="compile.module.ga.production,compile.module.ga.tests" description="Compile module GA"/>
+  
+  <target name="compile.module.ga.production" depends="register.custom.compilers" description="Compile module GA; production classes">
+    <mkdir dir="${ga.output.dir}"/>
+    <javac2 destdir="${ga.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.ga}/javac">
+      <compilerarg line="${compiler.args.ga}"/>
+      <bootclasspath refid="ga.module.bootclasspath"/>
+      <classpath refid="ga.module.production.classpath"/>
+      <src refid="ga.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.ga"/>
+    </javac2>
+    
+    <copy todir="${ga.output.dir}">
+      <fileset dir="${module.ga.basedir}/../../../../../../home/tanboxi/workspace/GA/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.ga.tests" depends="register.custom.compilers,compile.module.ga.production" description="compile module GA; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.ga" description="cleanup module">
+    <delete dir="${ga.output.dir}"/>
+    <delete dir="${ga.testoutput.dir}"/>
+  </target>
+</project>

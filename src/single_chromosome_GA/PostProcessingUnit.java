@@ -1,47 +1,53 @@
 package single_chromosome_GA;
 
+import PermutationBasedGAForContainerAllocation.DualPermutationChromosome;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
+
 import java.util.ArrayList;
 
 public class PostProcessingUnit {
-
     private ArrayList<SingleChromosome> bestIndividualList;
     private ArrayList<double[]> genTime;
+    private ArrayList<Double> time;
     private int run;
     private int generation;
 
-
     public PostProcessingUnit(ArrayList<SingleChromosome> bestIndividualList,
-                              ArrayList<double[]> genTime,
-                              int generation, int run){
+                              ArrayList<double[]> genTime, ArrayList<Double> time,
+                              int generation, int run
+                              ){
         this.bestIndividualList = bestIndividualList;
         this.genTime = genTime;
+        this.time = time;
         this.generation = generation;
         this.run = run;
     }
 
-    public double[] energy(){
-        double[] energyConsumption = new double[1];
-        energyConsumption[0] = bestIndividualList.get(generation - 1).getFitness();
-        return energyConsumption;
+    public double energy(){
+        return bestIndividualList.get(generation - 1).getFitness();
     }
 
-    public double sdEnergy(){
-        return 0;
+
+
+    public double waste(){
+        return bestIndividualList.get(generation - 1).getAveWasted();
     }
 
-    public double[] sdUtil(){
-        double[] sdutil = new double[2];
-        sdutil[0] = 0;
-        sdutil[1] = 0;
-        return sdutil;
-    }
-    public double sdNoOfPm(){
-        return 0;
-    }
-    public double sdNoOfVm(){
-        return 0;
+
+
+    // The average PM CPU and memory utilization among N runs
+    public double[] averageUtil(){
+        double[] util = new double[2];
+        util[0] = bestIndividualList.get(generation - 1).getAveCpuUtil();
+        util[1] = bestIndividualList.get(generation - 1).getAveMemUtil();
+
+        return util;
     }
 
+
+
+    // convergence curve
+    // calculate the average fitness value of each generation among all N runs
     public double[][] convergenceCurve(){
         double[][] aveFitness = new double[generation][2];
         for(int i = 0; i < generation; i++){
@@ -50,26 +56,36 @@ public class PostProcessingUnit {
         return aveFitness;
     }
 
-    public double averageEnergy(){
-        return bestIndividualList.get(generation - 1).getFitness();
-    }
-
-    public double averageNoOfPm(){
-        return bestIndividualList.get(generation - 1).getNumOfPM();
-    }
-    public double averageNoOfVm(){
+    // VM number
+    public double noOfVm(){
         return bestIndividualList.get(generation - 1).getNumOfVM();
     }
 
-    public double[] averageUtil(){
-        double[] util = new double[2];
-        util[0] = bestIndividualList.get(generation - 1).getAveCpuUtil();
-        util[1] = bestIndividualList.get(generation - 1).getAveMemUtil();
-        return util;
+
+    public double getTime(){
+        double total = 0;
+        for(Double time1:time){
+            total += time1;
+        }
+        return total / time.size();
     }
 
-    public double waste(){
-        return bestIndividualList.get(generation - 1).getAveWasted();
+    // PM number
+    public double noOfPm(){
+
+        return bestIndividualList.get(generation - 1).getNumOfPM();
     }
+
+
+    private double sumArray(double[] fitness){
+        double sum = 0;
+        for(int i = 0; i < fitness.length; i++){
+            sum += fitness[i];
+        }
+        return sum;
+    }
+
+
+
 
 }

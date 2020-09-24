@@ -3,8 +3,6 @@ package variableReplicasFirstStepGA;
 import algorithms.StdRandom;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 
 import cloudResourceUnit.*;
 public class FitnessEstimation {

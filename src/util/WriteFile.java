@@ -1,93 +1,86 @@
 package util;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class WriteFile {
-    // average total energy among all runs
-    private double[] energy;
-    private double aveEnergy;
-    private double sdEnergy;
-    private String aveEnergyPath;
+    // energy
+    private double energy;
     private String energyPath;
 
-    // average PM cpu and memory utilization
-    private double[] aveCpuMemUtil;
-    private double[] sdCpuMemUtil;
-    private String aveCpuMemUtilPath;
+    private double[][] allParetoFront;
+    private String paretoFrontPath;
+
+    // PM cpu and memory utilization
+    private double[] cpuMemUtil;
+    private String cpuMemUtilPath;
 
 
     // wasted resources
     private double wastedResource;
     private String wastedResourcePath;
 
-    // average number of used PMs
-    private double aveNumOfPm;
-    private double sdNumOfPm;
-    private String aveNumOfPmPath;
+    // number of used PMs
+    private double numOfPm;
+    private String numOfPmPath;
 
-    // average number of used VMs
-    private double aveNumOfVm;
-    private double sdNumOfVm;
-    private String aveNumOfVmPath;
+    // number of used VMs
+    private double numOfVm;
+    private String numOfVmPath;
 
     // convergence curve is the average fitness of each generation among all runs
     private double[][] convergenceCurve;
     private String convergenceCurvePath;
 
     // average and Sd of the execution time (each run)
-    private double aveTime;
-    private double sdTime;
-    private String aveTimePath;
+    private double time;
+    private String timePath;
 
 
 
     private WriteFile(Builder builder){
         energy = builder.energy;
-        aveEnergy = builder.aveEnergy;
-        sdEnergy = builder.sdEnergy;
-        aveEnergyPath = builder.aveEnergyPath;
         energyPath = builder.energyPath;
 
-        aveCpuMemUtil = builder.aveCpuMemUtil;
-        sdCpuMemUtil = builder.sdCpuMemUtil;
-        aveCpuMemUtilPath = builder.aveCpuMemUtilPath;
+        allParetoFront = builder.allParetoFront;
+        paretoFrontPath = builder.paretoFrontPath;
+
+        cpuMemUtil = builder.cpuMemUtil;
+        cpuMemUtilPath = builder.cpuMemUtilPath;
 
         wastedResource = builder.wastedResource;
         wastedResourcePath = builder.wastedResourcePath;
 
-        aveNumOfPm = builder.aveNumOfPm;
-        sdNumOfPm = builder.sdNumOfPm;
-        aveNumOfPmPath = builder.aveNumOfPmPath;
+        numOfPm = builder.numOfPm;
+        numOfPmPath = builder.numOfPmPath;
 
-        aveNumOfVm = builder.aveNumOfVm;
-        sdNumOfVm = builder.sdNumOfVm;
-        aveNumOfVmPath = builder.aveNumOfVmPath;
+        numOfVm = builder.numOfVm;
+        numOfVmPath = builder.numOfVmPath;
 
         convergenceCurve = builder.convergenceCurve;
         convergenceCurvePath = builder.convergenceCurvePath;
 
-        aveTime = builder.aveTime;
-        sdTime = builder.sdTime;
-        aveTimePath = builder.aveTimePath;
+        time = builder.time;
+        timePath = builder.timePath;
     }
 
 
-    // I'd like to give a try.
-    // By returning the object itself, my client code can actually support chain rule
-    public WriteFile writeAveSdEnergy() throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(aveEnergyPath));
-        writer.write(String.valueOf(aveEnergy) + "," + String.valueOf(sdEnergy) + "\n");
+
+    public WriteFile writeEnergy() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(energyPath));
+        writer.write(String.valueOf(energy) + "\n");
         writer.close();
         return this;
     }
 
-    public WriteFile writeEnergy() throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(energyPath));
-        for(int i = 0; i < energy.length; i++){
-            writer.write(String.valueOf(energy[i]) + "\n");
+    public WriteFile writeParetoFront() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(paretoFrontPath));
+        for(int i = 0; i < allParetoFront.length; i++){
+                writer.write(String.valueOf(
+                          allParetoFront[i][0] + ","
+                        + allParetoFront[i][1] + ","
+                        + allParetoFront[i][2] + "\n"));
         }
         writer.close();
         return this;
@@ -100,24 +93,23 @@ public class WriteFile {
         return this;
     }
 
-    public WriteFile writeAveSdCpuMemUtil() throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(aveCpuMemUtilPath));
-        writer.write(String.valueOf(aveCpuMemUtil[0]) + "," + String.valueOf(sdCpuMemUtil[0]) + "\n");
-        writer.write(String.valueOf(aveCpuMemUtil[1]) + "," + String.valueOf(sdCpuMemUtil[1]) + "\n");
+    public WriteFile writeCpuMemUtil() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(cpuMemUtilPath));
+        writer.write(String.valueOf(cpuMemUtil[0]) + "," + String.valueOf(cpuMemUtil[1]) + "\n");
         writer.close();
         return this;
     }
 
-    public WriteFile writeAveSdNumOfPm() throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(aveNumOfPmPath));
-        writer.write(String.valueOf(aveNumOfPm) + "," + String.valueOf(sdNumOfPm) + "\n");
+    public WriteFile writeNumOfPm() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(numOfPmPath));
+        writer.write(String.valueOf(numOfPm) + "\n");
         writer.close();
         return this;
     }
 
-    public WriteFile writeAveSdNumOfVm() throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(aveNumOfVmPath));
-        writer.write(String.valueOf(aveNumOfVm) + "," + String.valueOf(sdNumOfVm) + "\n");
+    public WriteFile writeNumOfVm() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(numOfVmPath));
+        writer.write(String.valueOf(numOfVm) + "\n");
         writer.close();
         return this;
     }
@@ -132,88 +124,77 @@ public class WriteFile {
         return this;
     }
 
-    public WriteFile writeAveSdTime() throws  IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(aveTimePath));
-        writer.write(String.valueOf(aveTime) + "," + String.valueOf(sdTime) + "\n");
+    public WriteFile writeTime() throws  IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(timePath));
+        writer.write(String.valueOf(time) + "\n");
         writer.close();
         return this;
     }
 
 
     public static class Builder {
-        private double[] energy;
-        private double aveEnergy; // required
-        private double sdEnergy;
-        private String aveEnergyPath; // required
+        private double energy;
         private String energyPath;
 
-        // average PM cpu and memory utilization
-        private double[] aveCpuMemUtil;
-        private double[] sdCpuMemUtil;
-        private String aveCpuMemUtilPath;
+        // required
+        private double[][] allParetoFront;
+        private String paretoFrontPath;
 
-        // average PM wasted resource;
+        // PM cpu and memory utilization
+        private double[] cpuMemUtil;
+        private String cpuMemUtilPath;
+
+        // PM wasted resource;
         private double wastedResource;
         private String wastedResourcePath;
 
-        // average number of used PMs
-        private double aveNumOfPm;
-        private double sdNumOfPm;
-        private String aveNumOfPmPath;
+        // number of used PMs
+        private double numOfPm;
+        private String numOfPmPath;
 
-        // average number of used VMs
-        private double aveNumOfVm;
-        private double sdNumOfVm;
-        private String aveNumOfVmPath;
+        // number of used VMs
+        private double numOfVm;
+        private String numOfVmPath;
 
         // convergence curve is the average fitness of each generation among all runs
         private double[][] convergenceCurve;
         private String convergenceCurvePath;
 
-        // average and sd of time (each run)
-        private double aveTime;
-        private double sdTime;
-        private String aveTimePath;
+        // time (each run)
+        private double time;
+        private String timePath;
 
-        // the only required fields are included in the constructor
-        public Builder(
-                        double[] energy,
-                        String energyPath,
-                        double aveEnergy,
-                        double sdEnergy,
-                        String aveEnergyPath
-                        ){
+
+        public Builder setEnergy(double energy, String energyPath){
             this.energy = energy;
             this.energyPath = energyPath;
-            this.aveEnergy = aveEnergy;
-            this.sdEnergy = sdEnergy;
-            this.aveEnergyPath = aveEnergyPath;
-        }
-
-        public Builder setAveCpuMemUtil(double[] aveCpuMemUtil,
-                                        double[] sdCpuMemUtil,
-                                        String aveCpuMemUtilPath){
-            this.aveCpuMemUtil = aveCpuMemUtil;
-            this.sdCpuMemUtil = sdCpuMemUtil;
-            this.aveCpuMemUtilPath = aveCpuMemUtilPath;
             return this;
         }
 
-        public Builder setAveNumOfPm(double aveNumOfPm,
-                                     double sdNumOfPm,
-                                     String aveNumOfPmPath){
-            this.aveNumOfPm = aveNumOfPm;
-            this.sdNumOfPm = sdNumOfPm;
-            this.aveNumOfPmPath = aveNumOfPmPath;
+        public Builder setParetoFront(double[][] allParetoFront, String paretoFrontPath){
+            this.allParetoFront = allParetoFront;
+            this.paretoFrontPath = paretoFrontPath;
             return this;
         }
 
-        public Builder setAveNumOfVm(double aveNumOfVm,
-                                     double sdNumOfVm,
-                                     String aveNumOfVmPath){
-            this.aveNumOfVm = aveNumOfVm;
-            this.sdNumOfVm = sdNumOfVm;
-            this.aveNumOfVmPath = aveNumOfVmPath;
+        public Builder setCpuMemUtil(double[] cpuMemUtil,
+                                        String cpuMemUtilPath){
+            this.cpuMemUtil = cpuMemUtil;
+            this.cpuMemUtilPath = cpuMemUtilPath;
+            return this;
+        }
+
+        public Builder setNumOfPm(double numOfPm,
+                                     String numOfPmPath){
+            this.numOfPm = numOfPm;
+            this.numOfPmPath = numOfPmPath;
+            return this;
+        }
+
+        public Builder setNumOfVm(double numOfVm,
+                                     String numOfVmPath){
+            this.numOfVm = numOfVm;
+            this.numOfVmPath = numOfVmPath;
             return this;
         }
 
@@ -231,12 +212,10 @@ public class WriteFile {
             return this;
         }
 
-        public Builder setAveTime(double aveTime,
-                                  double sdTime,
-                                  String aveTimePath){
-            this.aveTime = aveTime;
-            this.sdTime = sdTime;
-            this.aveTimePath = aveTimePath;
+        public Builder setTime(double time,
+                               String timePath){
+            this.time = time;
+            this.timePath = timePath;
             return this;
         }
 

@@ -44,6 +44,7 @@ public class FirstStepGAChromosome extends Chromosome {
 
 
     private int[] individual;
+    private ArrayList<int[]> listOfSequence;
 
 
     // Constructor
@@ -118,7 +119,7 @@ public class FirstStepGAChromosome extends Chromosome {
     }
 
     @Override
-    // size() acutally returns the total number of micro-services
+    // size() returns the total number of micro-services
     public int size() {
         return individual.length;
     }
@@ -165,6 +166,7 @@ public class FirstStepGAChromosome extends Chromosome {
     public void setIndividual(int[] individual, int numOfServices){
         this.individual = individual;
         this.numOfServices = numOfServices;
+        listOfSequence = new ArrayList<>();
 
         this.numOfContainers = 0;
         for(int i = 0; i < individual.length; i++){
@@ -194,6 +196,10 @@ public class FirstStepGAChromosome extends Chromosome {
                 counter++;
             }
         }
+
+        for(int i = 0; i < permutationNum; i++){
+            listOfSequence.add(generateRandomSequence());
+        }
     }
 
 
@@ -205,7 +211,7 @@ public class FirstStepGAChromosome extends Chromosome {
     public double calEnergyFitness(){
         double totalEnergy = 0;
         for(int i = 0; i < permutationNum; ++i) {
-            int[] randomSequence = generateRandomSequence();
+            int[] randomSequence = listOfSequence.get(i);
             ArrayList<PM> pmList = allocate(randomSequence);
             totalEnergy += energy(pmList);
         }
@@ -217,7 +223,7 @@ public class FirstStepGAChromosome extends Chromosome {
     public double calAvailFitness(){
         double totalAvailability = 0;
         for(int i = 0; i < permutationNum; ++i){
-            int[] randomSequence = generateRandomSequence();
+            int[] randomSequence = listOfSequence.get(i);
             ArrayList<PM> pmList = allocate(randomSequence);
             totalAvailability += avail(pmList);
         }

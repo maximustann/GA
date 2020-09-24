@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_cecga" default="compile.module.cecga">
+  <dirname property="module.cecga.basedir" file="/cecGA/module_cecga_Tue_Sep_10_13-07-39_NZST_2019.xml"/>
+  
+  <property name="module.jdk.home.cecga" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.cecga" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.cecga" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.cecga" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="cecga.output.dir" value="/cecGA/../../../../../../../home/tanboxi/workspace/GA/out/production/cecGA"/>
+  <property name="cecga.testoutput.dir" value="/cecGA/../../../../../../../home/tanboxi/workspace/GA/out/test/cecGA"/>
+  
+  <path id="cecga.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="cecga.module.production.classpath">
+    <path refid="${module.jdk.classpath.cecga}"/>
+    <pathelement location="${ga.output.dir}"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+  </path>
+  
+  <path id="cecga.runtime.production.module.classpath">
+    <pathelement location="${cecga.output.dir}"/>
+    <path refid="ga.runtime.production.module.classpath"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+  </path>
+  
+  <path id="cecga.module.classpath">
+    <path refid="${module.jdk.classpath.cecga}"/>
+    <pathelement location="${cecga.output.dir}"/>
+    <pathelement location="${ga.testoutput.dir}"/>
+    <pathelement location="${ga.output.dir}"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+  </path>
+  
+  <path id="cecga.runtime.module.classpath">
+    <pathelement location="${cecga.testoutput.dir}"/>
+    <pathelement location="${cecga.output.dir}"/>
+    <path refid="ga.runtime.module.classpath"/>
+    <path refid="library.r_user_library.classpath"/>
+    <path refid="library.r_skeletons.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.cecga">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.cecga">
+    <patternset refid="excluded.from.module.cecga"/>
+  </patternset>
+  
+  <path id="cecga.module.sourcepath">
+    <dirset dir="/cecGA/../../../../../../../home/tanboxi/workspace/GA/cecGA">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.cecga" depends="compile.module.cecga.production,compile.module.cecga.tests" description="Compile module cecGA"/>
+  
+  <target name="compile.module.cecga.production" depends="register.custom.compilers,compile.module.ga" description="Compile module cecGA; production classes">
+    <mkdir dir="${cecga.output.dir}"/>
+    <javac2 destdir="${cecga.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.cecga}/javac">
+      <compilerarg line="${compiler.args.cecga}"/>
+      <bootclasspath refid="cecga.module.bootclasspath"/>
+      <classpath refid="cecga.module.production.classpath"/>
+      <src refid="cecga.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.cecga"/>
+    </javac2>
+    
+    <copy todir="${cecga.output.dir}">
+      <fileset dir="/cecGA/../../../../../../../home/tanboxi/workspace/GA/cecGA/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.cecga.tests" depends="register.custom.compilers,compile.module.cecga.production" description="compile module cecGA; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.cecga" description="cleanup module">
+    <delete dir="${cecga.output.dir}"/>
+    <delete dir="${cecga.testoutput.dir}"/>
+  </target>
+</project>
