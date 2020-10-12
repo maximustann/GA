@@ -1,7 +1,5 @@
 package GroupGA;
 
-import GroupGA.src.GroupGA;
-
 import java.util.ArrayList;
 
 public class VM implements Cloneable{

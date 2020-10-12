@@ -65,9 +65,11 @@ public class FitnessFunc{
 		int popSize = popVar.length;
 		
 		// create a threading pool
+//		ExecutorService exec = Executors.newFixedThreadPool(
+//								Runtime.getRuntime().availableProcessors());
+
 		ExecutorService exec = Executors.newFixedThreadPool(
-								Runtime.getRuntime().availableProcessors());
-		
+								6);
 		// an array of tasks
 		ArrayList tasks = new ArrayList();
 		

@@ -33,6 +33,7 @@ public class Configure {
     private String balancedOrNot;
     private int testCaseSize;
     private String testCaseName;
+    private String experimentClass;
 
     // test case addresses
     // These are the addresses of test cases
@@ -67,7 +68,7 @@ public class Configure {
         read(configFileName, algorithmName);
 
         configPath = base + "/baseConfig/";
-        testCasePath = base + "/containerData/static/" + testCaseName + ".csv";
+        testCasePath = base + "/containerData/static/" + experimentClass + "/" + testCaseName + ".csv";
         VMConfigPath = configPath + "VMConfig/" + balancedOrNot + "/VMConfig_" + numOfVmTypesNames + ".csv";
         PMConfigPath = configPath + "PMConfig/" + pmSize;
 
@@ -111,6 +112,7 @@ public class Configure {
             numOfVmTypesNames = pro.getProperty("numOfVmTypesNames");
             numOfVmName = pro.getProperty("numOfVmName");
             balancedOrNot = pro.getProperty("balancedOrNot");
+            experimentClass = pro.getProperty("experimentClass");
             testCaseSize = Integer.parseInt(pro.getProperty("testCaseSize"));
             testCaseName = pro.getProperty("testCaseName");
             base = pro.getProperty("base");

@@ -44,7 +44,7 @@ public class NSGAIIFirstStepGA extends GeneticAlgorithm {
 			while(count < popFit.size()){
 				if(popFit.get(count)[4] == 0){
 					nonDominatedSetFit.add(popFit.get(count).clone());
-					nonDominatedSet.add(popVar[(int) popFit.get(count)[2]].clone());
+					nonDominatedSet.add(popVar[count].clone());
 					count++;
 				} else{
 					break;
@@ -53,7 +53,7 @@ public class NSGAIIFirstStepGA extends GeneticAlgorithm {
 //			genNonDomFit.add(nonDominatedSetFit);
 //			collector.collectSet(nonDominatedSet);
 //			collector.collect(nonDominatedSetFit);
-            collector.collect(nonDominatedSet);
+            collector.collect(nonDominatedSet.clone());
 //			System.out.println(nonDominatedSet.size());
 //			System.out.println(nonDominatedSet.size());
 //
@@ -108,8 +108,8 @@ public class NSGAIIFirstStepGA extends GeneticAlgorithm {
 				combinedPopFit.add(popFit.get(k));
 			}
 
-			sort.sort(combinedPop, combinedPopFit);
 			distance.calculate(combinedPop, combinedPopFit);
+			sort.sort(combinedPop, combinedPopFit);
 			popFit.clear();
 			// elitism
 			for(int j = 0; j < popSize; j++){

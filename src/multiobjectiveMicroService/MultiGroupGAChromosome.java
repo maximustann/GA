@@ -40,6 +40,7 @@ public class MultiGroupGAChromosome extends Chromosome {
             availScore.add(replicas);
             indexToId.put(pmList.get(i).getID(), i);
         }
+        if(appList == null) appList = constructAppList();
 
         // For each micro-service, we adds up the replicas for each PM
         for(Application application:appList){

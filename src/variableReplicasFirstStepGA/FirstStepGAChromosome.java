@@ -147,7 +147,12 @@ public class FirstStepGAChromosome extends Chromosome {
                 vmCpu, vmMem);
         int[] newIndividual = new int[numOfServices];
         System.arraycopy(individual,0,newIndividual,0,numOfServices);
-        newChromosome.setIndividual(newIndividual, numOfServices);
+
+        newChromosome.setIndividualWithoutNewSequence(newIndividual, numOfServices);
+        newChromosome.listOfSequence = (ArrayList<int[]>) listOfSequence.clone();
+        newChromosome.setEnergyFitness(energyFitness);
+        newChromosome.setAvailabilityFitness(availabilityFitness);
+
         return newChromosome;
     }
 
@@ -156,9 +161,51 @@ public class FirstStepGAChromosome extends Chromosome {
         int[] targetIndividual = ((FirstStepGAChromosome) target).getIndividual();
         return Arrays.equals(individual, targetIndividual);
     }
+    public double getEnergyFitness(){
+        calEnergyFitness();
+        return energyFitness;
+    }
+
+    public double getAvailabilityFitness(){
+        calAvailFitness();
+        return availabilityFitness;
+    }
 
     public int[] getIndividual() {
         return individual;
+    }
+
+    public void setIndividualWithoutNewSequence(int[] individual, int numOfServices){
+        this.individual = individual;
+        this.numOfServices = numOfServices;
+
+        this.numOfContainers = 0;
+        for(int i = 0; i < individual.length; i++){
+            numOfContainers += individual[i];
+        }
+
+
+        // Initialize, we need to new all of them because the number of containers might
+        // be different with the previous one. Hence, all other parts need to be new
+        containerAppId = new double[numOfContainers];
+        containerMicroServiceId = new double[numOfContainers];
+        containerCpu = new double[numOfContainers];
+        containerMem = new double[numOfContainers];
+        containerReplicaId = new double[numOfContainers];
+
+        int counter = 0;
+        for(int microIndex = 0; microIndex < numOfServices; ++microIndex){
+            for(int replicaId = 1; replicaId <= individual[microIndex]; ++replicaId){
+                containerAppId[counter] = applicationId[microIndex];
+                containerCpu[counter] = serviceCpu[microIndex];
+                containerMem[counter] = serviceMem[microIndex];
+                containerMicroServiceId[counter] = serviceId[microIndex];
+                containerReplicaId[counter] = replicaId;
+
+                counter++;
+            }
+        }
+
     }
 
     // Set the individual, this will be called by initialization, crossover, and mutation
@@ -231,6 +278,10 @@ public class FirstStepGAChromosome extends Chromosome {
         return availabilityFitness;
     }
 
+    public void setAvailabilityFitness(double availabilityFitness){
+        this.availabilityFitness = availabilityFitness;
+    }
+
     private double avail(ArrayList<PM> pmList){
         ArrayList<Application> appList = constructAppList(pmList);
 //        for(Application application:appList){
@@ -250,6 +301,7 @@ public class FirstStepGAChromosome extends Chromosome {
         System.arraycopy(mother.individual, cutPoint + 1, individual, cutPoint + 1,
                 numOfServices - cutPoint - 1);
         setIndividual(this.individual, numOfServices); // to create an int[] containerReplicaId.
+
     }
 
     /**
@@ -305,12 +357,15 @@ public class FirstStepGAChromosome extends Chromosome {
         for(PM pm:pmList){
             ArrayList<VM> vmList = pm.getVmList();
             for(VM vm:vmList){
-                if(
-                        vm.getCpuRemain() >= container.getCpu() &&
+                if(vm.getCpuRemain() >= container.getCpu() &&
                                 vm.getMemRemain() >= container.getMem()){
                     vm.allocate(container);
                     return true;
                 }
+            }
+            VM vm = bestFitCreation(container, pm);
+            if(vm != null){
+                pm.allocate(vm);
             }
         }
         return false;
@@ -327,12 +382,13 @@ public class FirstStepGAChromosome extends Chromosome {
         int numOfVm = vmCpu.length;
         double minimumRemainResource = 1;
         double maximumVolume = 0;
-        int bestVm = 0;
+        Integer bestVm = null;
 
         // find the VM with minimum remaining resources to host this container
         for(int i = 0; i < numOfVm; i++){
             if(vmCpu[i] < container.getCpu() + vmCpu[i] * vmCpuOverheadRate ||
                     vmMem[i] < container.getMem() + vmMemOverhead) continue;
+            if(pm.getCpuRemain() < vmCpu[i] || pm.getMemRemain() < vmMem[i]) continue;
 
 
             double normalizedCpuRemain = (vmCpu[i] - container.getCpu() - vmCpu[i] * vmCpuOverheadRate) / vmCpu[i];
@@ -351,6 +407,7 @@ public class FirstStepGAChromosome extends Chromosome {
                 bestVm = i;
             }
         }
+        if(bestVm == null) return null;
         VM vm = new VM(bestVm, vmCpu[bestVm], vmMem[bestVm], vmCpuOverheadRate, vmMemOverhead);
         vm.allocate(container);
 

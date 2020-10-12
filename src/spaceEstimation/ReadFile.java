@@ -64,6 +64,8 @@ public class ReadFile {
 //        readByCol.read(testCaseOSPath, testCaseOs);
     }
 
+
+
     public double getVMTypes() {
         return VMTypes;
     }

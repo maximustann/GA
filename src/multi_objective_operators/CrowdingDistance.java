@@ -55,10 +55,13 @@ public class CrowdingDistance implements Distance {
 		}
 		// adjust the order of population as well as the index of the chromosomes 
 		for(int i = 0; i < popSize; i++){
-			newPop[i] = popVar[(int) popFit.get(i)[2]];
+			newPop[i] = popVar[(int) popFit.get(i)[2]].clone();
 			popFit.get(i)[2] = i;
 		}
-		popVar = newPop;
+		for(int i = 0; i < popSize; i++){
+			popVar[i] = newPop[i];
+		}
+//		popVar = newPop;
 	}
 
 	private void _calculate(ArrayList<double[]> popFit, int index, int lastIndex) {
@@ -154,11 +157,11 @@ public class CrowdingDistance implements Distance {
 				else condition = 0;
 				return condition;
 			}
-		});	
+		});
 		Collections.reverse(innerPopFit);
 		
-		// replace the old popFit with new ones
-		for(int i = lastIndex, j = 0; i < index; i++, j++) 
+//		 replace the old popFit with new ones
+		for(int i = lastIndex, j = 0; i < index; i++, j++)
 			popFit.set(i, innerPopFit.get(j));
 	}
 	

@@ -1,6 +1,5 @@
 package GroupGA;
 
-import GroupGA.src.GroupGA;
 import ProblemDefine.ProblemParameterSettings;
 import algorithms.Crossover;
 import algorithms.Evaluate;

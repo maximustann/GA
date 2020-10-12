@@ -1,6 +1,5 @@
 package GroupGA;
 
-import GroupGA.src.GroupGA;
 
 import java.util.ArrayList;
 import java.util.Collections;

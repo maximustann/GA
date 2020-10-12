@@ -25,113 +25,77 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d595c04-a4ab-4a5d-b3e5-539cb03cee54" name="Default Changelist" comment="a new update for the current development">
-      <change afterPath="$PROJECT_DIR$/src/LNS_FF/AllocationDestroy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_FF/FFCollector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_FF/LNSEvaluation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_FF/ReplicaNumWriteFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_FF/ReplicaPatternDestroy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_NSGGA/AllocationDestroy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_NSGGA/Experiment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_NSGGA/Initialization.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_NSGGA/LNS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_NSGGA/LNSEvaluation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_NSGGA/LNSPostProcessingUnit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_NSGGA/LNSSettings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_NSGGA/LNS_NSGGAProcedure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_NSGGA/ReplicaNumWriteFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LNS_NSGGA/ReplicaPatternDestroy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/DataPack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/ReplicaNumWriteFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NSGAII_Spread/Configure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NSGAII_Spread/Experiment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NSGAII_Spread/NSGAIISpreadProcedure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NSGAII_Spread/ReadFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NSGAII_Spread/ReplicaNumDecisionPack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NSGAII_Spread/ReplicaNumWriteFile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NSGAII_Spread/SpreadPostProcessingUnit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NSGAII_Spread/SpreadStrategy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PermutationBasedGAForContainerAllocation/Configure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cecGA/src/Configure.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/single_chromosome_GA/Configure.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/Configure.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/DataPack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/Exp_NSGAII.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/Exp_NSGGA.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/GASettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/NSGAIICollector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/NSGAIIPostProcessingUnit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/NSGGACollector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/NSGGAPostProcessingUnit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/ReadDecisionFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/ReadFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/ReplicaNumDecisionPack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/ReplicaNumWriteFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/TwoStepGAProcedure.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/test/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/test/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hs_err_pid6726.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/ALNS.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/ALNSChromosome.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/ALNSSettings.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/Application.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/AvailabilityFitness.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/Container.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/EnergyFitness.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/Initialization.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/MicroService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/PM.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FirstStepALNS/VM.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GroupGA/src/Experiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/src/Experiment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GroupGA/src/PostProcessingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/src/PostProcessingUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PermutationBasedGAForContainerAllocation/PostProcessingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PermutationBasedGAForContainerAllocation/PostProcessingUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/ALNS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/LNS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/ALNSChromosome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/LNSChromosome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/ALNSCollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/LNSCollector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/ALNSEvaluation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/ALNSPostProcessingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/LNSPostProcessingUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/ALNSSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/LNSSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/AllocationDestroy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/Configure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/Configure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/DataPack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/DataPack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/Experiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/Experiment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/FFCollector.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/FFPostProcessingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/FFPostProcessingUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/FirstFit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/FirstFit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/Initialization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/Initialization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/ReadFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/ReadFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/ReplicaAllocationDecisionPack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_FF/ReplicaAllocationDecisionPack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/ReplicaPatternDestroy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/alnsFF/WriteFile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cecGA/src/Experiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cecGA/src/Experiment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cecGA/src/PostProcessingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cecGA/src/PostProcessingUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cloudResourceUnit/PM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cloudResourceUnit/PM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cloudResourceUnit/VM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cloudResourceUnit/VM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mixedGAs/Adaptor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mixedGAs/Configure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multiDGA/Configure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mixedGAs/Experiment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mixedGAs/PostProcessingUnit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/multiobjectiveMicroService/MultiGroupGAInitialization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multiobjectiveMicroService/MultiGroupGAInitialization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/single_chromosome_GA/Experiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/single_chromosome_GA/Experiment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/single_chromosome_GA/PostProcessingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/single_chromosome_GA/PostProcessingUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/Configure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_NSGGA/Configure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/DataPack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_NSGGA/DataPack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/Experiment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/GASettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_Spread/GASettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/NSGAIICollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_Spread/NSGAIICollector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/NSGAIIPostProcessingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_Spread/NSGAIIPostProcessingUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/NSGGACollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_Spread/SpreadCollector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/NSGGAPostProcessingUnit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/ReadFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_NSGGA/ReadFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/ReadMicroServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_Spread/ReadMicroServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/ReplicaNumDecisionPack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LNS_NSGGA/ReplicaNumDecisionPack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/TwoStepGAProcedure.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepALNS_NSGGA/WriteFile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/Configure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/Configure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/DataPack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_Spread/DataPack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/Experiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/Experiment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/GASettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/GASettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/NSGAIICollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/NSGAIICollector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/NSGAIIPostProcessingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/NSGAIIPostProcessingUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/NSGGACollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/NSGGACollector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/NSGGAPostProcessingUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/NSGGAPostProcessingUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/ReadFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/ReadFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/ReadMicroServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/ReadMicroServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/ReplicaNumDecisionPack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/ReplicaNumDecisionPack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/TwoStepGAProcedure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/NSGAII_NSGGA/TwoStepGAProcedure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/twoStepGA/WriteFile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/Configure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/src/Configure.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/WriteFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/WriteFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/variableReplicasFirstStepGA/Experiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/variableReplicasFirstStepGA/Experiment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/Configure.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/Container.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/EnergyEvaluation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/EnergyFitness.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/Experiment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGA.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGAChromosome$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGAChromosome$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGAChromosome$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGAChromosome.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGACrossover.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGACrossoverDiversity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGAFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGAInitialization.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGAMutation$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGAMutation$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGAMutation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGAParameterSettings.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGARearrangement$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/GroupGARearrangement.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/PM.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/PostProcessingUnit.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/ResultsCollector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/GroupGA/src/VM.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/algorithms/FitnessFunc.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/algorithms/FitnessFunc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multi_objective_operators/CrowdingDistance$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multi_objective_operators/CrowdingDistance$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multi_objective_operators/CrowdingDistance$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multi_objective_operators/CrowdingDistance$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multi_objective_operators/CrowdingDistance$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multi_objective_operators/CrowdingDistance$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multi_objective_operators/CrowdingDistance.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multi_objective_operators/CrowdingDistance.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multi_objective_operators/FastNonDominatedSorting$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multi_objective_operators/FastNonDominatedSorting$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multi_objective_operators/FastNonDominatedSorting$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multi_objective_operators/FastNonDominatedSorting$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multi_objective_operators/FastNonDominatedSorting.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multi_objective_operators/FastNonDominatedSorting.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multiobjectiveMicroService/MultiGroupGAChromosome$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multiobjectiveMicroService/MultiGroupGAChromosome$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multiobjectiveMicroService/MultiGroupGAChromosome$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multiobjectiveMicroService/MultiGroupGAChromosome$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multiobjectiveMicroService/MultiGroupGAChromosome$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multiobjectiveMicroService/MultiGroupGAChromosome$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multiobjectiveMicroService/MultiGroupGAChromosome$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multiobjectiveMicroService/MultiGroupGAChromosome$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/multiobjectiveMicroService/MultiGroupGAChromosome.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/multiobjectiveMicroService/MultiGroupGAChromosome.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/spaceEstimation/ReadFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/spaceEstimation/ReadFile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/variableReplicasFirstStepGA/FirstStepGAChromosome.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/variableReplicasFirstStepGA/FirstStepGAChromosome.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/variableReplicasFirstStepGA/NSGAIIFirstStepGA.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/variableReplicasFirstStepGA/NSGAIIFirstStepGA.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupGA/Configure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/Configure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupGA/EnergyEvaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/EnergyEvaluation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupGA/GroupGACrossover.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/GroupGACrossover.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupGA/GroupGACrossoverDiversity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/GroupGACrossoverDiversity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupGA/GroupGAParameterSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/GroupGAParameterSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupGA/GroupGARearrangement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/GroupGARearrangement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupGA/PM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/PM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupGA/ResultsCollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/ResultsCollector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupGA/VM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupGA/VM.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/algorithms/FitnessFunc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/algorithms/FitnessFunc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/multi_objective_operators/CrowdingDistance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multi_objective_operators/CrowdingDistance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/multi_objective_operators/FastNonDominatedSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multi_objective_operators/FastNonDominatedSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/multiobjectiveMicroService/MultiGroupGAChromosome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multiobjectiveMicroService/MultiGroupGAChromosome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spaceEstimation/ReadFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/spaceEstimation/ReadFile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/variableReplicasFirstStepGA/FirstStepGAChromosome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/variableReplicasFirstStepGA/FirstStepGAChromosome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/variableReplicasFirstStepGA/FitnessEstimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/variableReplicasFirstStepGA/FitnessEstimation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticContainerAllocation/FFBasedGAForContainerAllocation.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/variableReplicasFirstStepGA/NSGAIIFirstStepGA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/variableReplicasFirstStepGA/NSGAIIFirstStepGA.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,6 +124,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
@@ -167,7 +132,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/LNSBPSO" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -177,25 +142,53 @@
     <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="LNS_NSGGA" />
-      <recent name="nsgaiiSpread" />
-      <recent name="single_chromosome_GA" />
-      <recent name="PermutationBasedGAForContainerAllocation" />
-      <recent name="cecGA.src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/NSGAII_NSGGA_Manual" />
       <recent name="$PROJECT_DIR$/src/nsgaiiSpread" />
       <recent name="$PROJECT_DIR$/src/ALNSFF" />
       <recent name="$PROJECT_DIR$/src/ALNS" />
       <recent name="$PROJECT_DIR$/src/twoStepALNS_NSGGA" />
-      <recent name="$PROJECT_DIR$/src/twoStepGA" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="NSGAII_NSGGA_Manual" />
+      <recent name="LNS_NSGGA" />
+      <recent name="nsgaiiSpread" />
+      <recent name="single_chromosome_GA" />
+      <recent name="PermutationBasedGAForContainerAllocation" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NSGAIISpreadExp">
+  <component name="RunManager" selected="Application.Experiment">
+    <configuration name="Exp_NSGAII" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="NSGAII_NSGGA_Manual.Exp_NSGAII" />
+      <module name="GA" />
+      <option name="PROGRAM_PARAMETERS" value="$USER_HOME$/PH.D_project/containerAllocationConfigurationFiles/static/variableMicroServiceParams/NSGAII_NSGGA/app150_twenty.properties 1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="NSGAII_NSGGA_Manual.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Experiment" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GroupGA.Experiment" />
+      <module name="GA" />
+      <option name="PROGRAM_PARAMETERS" value="$USER_HOME$/PH.D_project/containerAllocationConfigurationFiles/static/gaRepresentationParams/staticContainer1500Ten.properties 1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GroupGA.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="LNS-FFExperiment" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="LNS_FF.Experiment" />
       <module name="GA" />
@@ -251,15 +244,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="test.Test" />
+    <configuration name="nsgga_manual" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="NSGAII_NSGGA_Manual.Exp_NSGGA" />
       <module name="GA" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PROGRAM_PARAMETERS" value="$USER_HOME$/PH.D_project/containerAllocationConfigurationFiles/static/variableMicroServiceParams/NSGAII_NSGGA/app150_twenty.properties 1" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -274,18 +262,20 @@
     </configuration>
     <list>
       <item itemvalue="Application.twoStepGAExp" />
-      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.nsgga_manual" />
       <item itemvalue="Application.NSGAIISpreadExp" />
       <item itemvalue="Application.LNS-FFExperiment" />
       <item itemvalue="Application.LNS_NSGGAExp" />
+      <item itemvalue="Application.Exp_NSGAII" />
+      <item itemvalue="Application.Experiment" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Experiment" />
+        <item itemvalue="Application.Exp_NSGAII" />
         <item itemvalue="Application.NSGAIISpreadExp" />
         <item itemvalue="Application.LNS-FFExperiment" />
         <item itemvalue="Application.LNS_NSGGAExp" />
-        <item itemvalue="Application.LNS_NSGGAExp" />
-        <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -318,6 +308,8 @@
       <workItem from="1599172743409" duration="4173000" />
       <workItem from="1599634004445" duration="898000" />
       <workItem from="1599716405195" duration="599000" />
+      <workItem from="1600208217665" duration="72717000" />
+      <workItem from="1602452523931" duration="3838000" />
     </task>
     <task id="LOCAL-00001" summary="a new update for the current development">
       <created>1595555374459</created>
@@ -417,15 +409,23 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2368" y="101" key="#Project_Structure/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1595474881269" />
-    <state x="2507" y="297" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599114693484">
+    <state x="2618" y="281" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1601864962947">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2618" y="281" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1601864962947" />
+    <state x="2345" y="296" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602465974140">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="587" y="288" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/0.0.1920.1046@0.0.1920.1046" timestamp="1598571851607" />
-    <state x="2507" y="297" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1599114693484" />
+    <state x="2345" y="296" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602465974140" />
     <state x="2688" y="227" width="374" height="591" key="#com.intellij.ide.util.MemberChooser" timestamp="1599013045375">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2688" y="227" width="374" height="591" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1599013045375" />
+    <state x="2747" y="431" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1601937942682">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2747" y="431" key="#com.intellij.ide.util.TreeClassChooserDialog/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1601937942682" />
     <state x="1977" y="0" width="1686" height="1046" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1599113496700">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -434,6 +434,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2618" y="272" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1596083691136" />
+    <state x="2557" y="138" key="#nsgga_manual" timestamp="1602136237051">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2557" y="138" key="#nsgga_manual/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602136237051" />
     <state x="2557" y="138" key="#twoStepGAExp" timestamp="1595472844628">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -446,62 +450,62 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2194" y="68" key="CommitChangelistDialog2/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1595555402747" />
-    <state x="2668" y="281" key="FileChooserDialogImpl" timestamp="1599172029040">
+    <state x="2872" y="406" key="FileChooserDialogImpl" timestamp="1602466856289">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2668" y="281" key="FileChooserDialogImpl/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1599172029040" />
-    <state width="1695" height="191" key="GridCell.Tab.0.bottom" timestamp="1599172721915">
+    <state x="2872" y="406" key="FileChooserDialogImpl/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602466856289" />
+    <state width="1920" height="242" key="GridCell.Tab.0.bottom" timestamp="1602452500361">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1698" height="199" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1046@0.0.1920.1046" timestamp="1598573455931" />
-    <state width="1695" height="191" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1599172721915" />
-    <state width="1695" height="191" key="GridCell.Tab.0.center" timestamp="1599172721915">
+    <state width="1920" height="242" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602452500361" />
+    <state width="1920" height="242" key="GridCell.Tab.0.center" timestamp="1602452500361">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1698" height="199" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1046@0.0.1920.1046" timestamp="1598573455930" />
-    <state width="1695" height="191" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1599172721915" />
-    <state width="1695" height="191" key="GridCell.Tab.0.left" timestamp="1599172721915">
+    <state width="1920" height="242" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602452500361" />
+    <state width="1920" height="242" key="GridCell.Tab.0.left" timestamp="1602452500361">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1698" height="199" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1046@0.0.1920.1046" timestamp="1598573455930" />
-    <state width="1695" height="191" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1599172721915" />
-    <state width="1695" height="191" key="GridCell.Tab.0.right" timestamp="1599172721915">
+    <state width="1920" height="242" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602452500361" />
+    <state width="1920" height="242" key="GridCell.Tab.0.right" timestamp="1602452500361">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1698" height="199" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1046@0.0.1920.1046" timestamp="1598573455930" />
-    <state width="1695" height="191" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1599172721915" />
-    <state width="1228" height="308" key="GridCell.Tab.1.bottom" timestamp="1596095655562">
+    <state width="1920" height="242" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602452500361" />
+    <state width="1920" height="242" key="GridCell.Tab.1.bottom" timestamp="1602452500361">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1230" height="321" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.0.1920.1046@0.0.1920.1046" timestamp="1596086509476" />
-    <state width="1228" height="308" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1596095655562" />
-    <state width="1228" height="308" key="GridCell.Tab.1.center" timestamp="1596095655561">
+    <state width="1920" height="242" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602452500361" />
+    <state width="1920" height="242" key="GridCell.Tab.1.center" timestamp="1602452500361">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1230" height="321" key="GridCell.Tab.1.center/1920.0.1920.1080/0.0.1920.1046@0.0.1920.1046" timestamp="1596086509476" />
-    <state width="1228" height="308" key="GridCell.Tab.1.center/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1596095655561" />
-    <state width="1228" height="308" key="GridCell.Tab.1.left" timestamp="1596095655561">
+    <state width="1920" height="242" key="GridCell.Tab.1.center/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602452500361" />
+    <state width="1920" height="242" key="GridCell.Tab.1.left" timestamp="1602452500361">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1230" height="321" key="GridCell.Tab.1.left/1920.0.1920.1080/0.0.1920.1046@0.0.1920.1046" timestamp="1596086509476" />
-    <state width="1228" height="308" key="GridCell.Tab.1.left/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1596095655561" />
-    <state width="1228" height="308" key="GridCell.Tab.1.right" timestamp="1596095655561">
+    <state width="1920" height="242" key="GridCell.Tab.1.left/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602452500361" />
+    <state width="1920" height="242" key="GridCell.Tab.1.right" timestamp="1602452500361">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state width="1230" height="321" key="GridCell.Tab.1.right/1920.0.1920.1080/0.0.1920.1046@0.0.1920.1046" timestamp="1596086509476" />
-    <state width="1228" height="308" key="GridCell.Tab.1.right/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1596095655561" />
-    <state x="2381" y="158" key="SettingsEditor" timestamp="1595474848318">
+    <state width="1920" height="242" key="GridCell.Tab.1.right/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602452500361" />
+    <state x="2324" y="127" key="SettingsEditor" timestamp="1602467052207">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2381" y="158" key="SettingsEditor/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1595474848318" />
-    <state x="2241" y="127" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1595483125252">
+    <state x="2324" y="127" key="SettingsEditor/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1602467052207" />
+    <state x="2241" y="127" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1601938586443">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2241" y="127" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1595483125252" />
-    <state x="487" y="43" width="1433" height="715" key="dock-window-1" timestamp="1599015385189">
+    <state x="2241" y="127" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1601938586443" />
+    <state x="-15" y="154" width="1602" height="866" key="dock-window-1" timestamp="1601935900796">
       <screen x="0" y="0" width="1920" height="1046" />
     </state>
-    <state x="487" y="43" width="1433" height="715" key="dock-window-1/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1599015385189" />
+    <state x="-15" y="154" width="1602" height="866" key="dock-window-1/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1601935900796" />
     <state x="596" y="294" width="1308" height="630" key="dock-window-2" timestamp="1595471035858">
       <screen x="0" y="0" width="1920" height="1046" />
     </state>
@@ -514,6 +518,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2208" y="0" width="1512" height="686" maximized="true" key="dock-window-4/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1596084199350" />
+    <state x="2468" y="181" key="editAsTableFormatDialogDimension" timestamp="1601937196522">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2468" y="181" key="editAsTableFormatDialogDimension/1920.0.1920.1080/0.0.1920.1046@1920.0.1920.1080" timestamp="1601937196522" />
     <state x="2199" y="258" width="1488" height="788" key="find.popup" timestamp="1595821318858">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -527,14 +535,49 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/spaceEstimation/ReadFile.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/NSGAII_Spread/NSGAIISpreadProcedure.java</url>
           <line>232</line>
           <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/multi_objective_operators/CrowdingDistance.java</url>
+          <line>167</line>
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/variableReplicasFirstStepGA/NSGAIIFirstStepGA.java</url>
+          <line>134</line>
+          <option name="timeStamp" value="123" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/ReplicaNumWriteFile.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/ReplicaNumWriteFile.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="126" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/NSGAII_NSGGA_Manual/ReplicaNumWriteFile.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="127" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/variableReplicasFirstStepGA/FirstStepGAChromosome.java</url>
+          <line>350</line>
+          <option name="timeStamp" value="134" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/variableReplicasFirstStepGA/FirstStepGAChromosome.java</url>
+          <line>410</line>
+          <option name="timeStamp" value="136" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/variableReplicasFirstStepGA/FirstStepGAChromosome.java</url>
+          <line>411</line>
+          <option name="timeStamp" value="137" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

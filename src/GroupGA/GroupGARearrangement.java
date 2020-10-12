@@ -1,6 +1,5 @@
 package GroupGA;
 
-import GroupGA.src.GroupGA;
 import algorithms.StdRandom;
 
 import java.util.ArrayList;

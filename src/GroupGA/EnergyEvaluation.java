@@ -1,6 +1,5 @@
 package GroupGA;
 
-import GroupGA.src.GroupGA;
 import algorithms.Chromosome;
 import algorithms.Evaluate;
 import algorithms.FitnessFunc;
